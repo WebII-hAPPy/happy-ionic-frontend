@@ -1,0 +1,7 @@
+{
+  "name": "hAPPy",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
