@@ -14,5 +14,4 @@ export class PicturePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PicturePage');
   }
-
 }
