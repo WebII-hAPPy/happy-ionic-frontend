@@ -12,24 +12,18 @@ import { MainPage } from '../';
 })
 export class LoginPage {
   
-  
+
   account: { email: string, password: string } = {
     email: '',
     password: ''
   };
 
-  // Our translated text strings
-  private loginErrorString: string;
+  private loginErrorString: string = "Unable to sign in. Please check your account information and try again.";
 
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
-
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
-  }
+    public translateService: TranslateService) { }
 
   // Attempt to login in through our User service
   doLogin() {
