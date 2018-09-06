@@ -1,35 +1,42 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Snap a pic!</ion-title>
+    <ion-title>Analysis</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-title>Get your picture analysed here:</ion-title>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <p>This is where we take a picture of you or one of your friends and will analyse it.</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <button class="control-buttons" ion-button outline color="primary" (click)="picture()" icon-only>
-          <ion-icon name="camera"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button class="control-buttons" ion-button outline color="primary" icon-only>
-          <ion-icon name="photos"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <ion-card>
+    <img [src]="cardImage" width="100%" height="auto"/>
+    <ion-card-content>
+      <ion-card-title>
+        Your picture
+      </ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <p>
+            Just add a picture and find out what the robot thinks you feel!
+          </p>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3>
+            <button class="control-buttons" clear ion-button outline color="primary" (click)="presentActionSheet()"
+              icon-only>
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-6></ion-col>
+          <ion-col col-3>
+            <button class="control-buttons" clear ion-button outline color="danger" (click)="presentActionSheet()"
+              icon-only>
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
