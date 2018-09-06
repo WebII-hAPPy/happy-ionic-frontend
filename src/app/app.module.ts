@@ -1,7 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
@@ -12,6 +11,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
+
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -60,6 +64,9 @@ export function provideSettings(storage: Storage) {
     Items,
     User,
     Camera,
+    File,
+    Transfer,
+    FilePath,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },

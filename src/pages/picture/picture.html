@@ -8,6 +8,28 @@
 
 
 <ion-content padding>
-  <button ion-button color="primary" block (click)="picture()">!</button>
-  <p>{{image}}</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-title>Get your picture analysed here:</ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p>This is where we take a picture of you or one of your friends and will analyse it.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button class="control-buttons" ion-button outline color="primary" (click)="picture()" icon-only>
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="control-buttons" ion-button outline color="primary" icon-only>
+          <ion-icon name="photos"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
