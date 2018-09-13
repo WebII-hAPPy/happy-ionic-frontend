@@ -68,7 +68,8 @@ export class PicturePage {
       quality: 100,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.FILE_URI
     };
 
 
@@ -82,17 +83,16 @@ export class PicturePage {
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
+        console.log(normalizeURL(imagePath));
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
 
-        console.log(correctPath);
-
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        // this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        this.cardImage = normalizeURL(imagePath);
       }
     }, (err) => {
       this.presentToast('Error while selecting image.');
     });
-
   }
 
   private createFileName() {
@@ -104,9 +104,15 @@ export class PicturePage {
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
+    console.log(namePath + " " + currentName + " " + newFileName);
+
+    console.log(cordova.file.dataDirectory);
+
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, "").then(success => {
-      this.lastImage = newFileName;
-      this.uploadImage();
+      this.cardImage = normalizeURL(cordova.file.dataDirectory + newFileName);
+
+      // this.lastImage = newFileName;
+      // this.uploadImage();
     }, error => {
       this.presentToast('Error while storing file.');
     });
@@ -117,6 +123,7 @@ export class PicturePage {
       message: text,
       duration: 3000,
       position: 'top'
+
     });
     toast.present();
   }
@@ -169,7 +176,6 @@ export class PicturePage {
   }
 
   private changeCardImage(targetPath) {
-
     this.cardImage = targetPath;
   }
 }
