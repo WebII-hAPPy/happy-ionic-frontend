@@ -28,13 +28,13 @@ export class PicturePage {
     public toastCtrl: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    private domSanitizer: DomSanitizer) { }
+    private domSanitizer: DomSanitizer) {
+  }
 
-
+  cardImage: string = "../../assets/img/women_being_analyse_compressed.png";
   base64Image: String;
   lastImage: string = null;
   loading: Loading;
-  cardImage: string = "../../assets/img/women_being_analyse_compressed.png";
 
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -59,11 +59,9 @@ export class PicturePage {
       ]
     });
     actionSheet.present();
-
   }
 
   public takePicture(sourceType) {
-
     let options = {
       quality: 100,
       sourceType: sourceType,
@@ -72,7 +70,6 @@ export class PicturePage {
       destinationType: this.camera.DestinationType.FILE_URI
     };
 
-
     this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
       if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
@@ -80,15 +77,16 @@ export class PicturePage {
           .then(filePath => {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+
+            this.cardImage = imagePath;
+            // this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
-        console.log(normalizeURL(imagePath));
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
 
         // this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        this.cardImage = normalizeURL(imagePath);
+        this.cardImage = imagePath;
       }
     }, (err) => {
       this.presentToast('Error while selecting image.');
@@ -104,13 +102,7 @@ export class PicturePage {
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    console.log(namePath + " " + currentName + " " + newFileName);
-
-    console.log(cordova.file.dataDirectory);
-
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, "").then(success => {
-      this.cardImage = normalizeURL(cordova.file.dataDirectory + newFileName);
-
       // this.lastImage = newFileName;
       // this.uploadImage();
     }, error => {
@@ -123,7 +115,6 @@ export class PicturePage {
       message: text,
       duration: 3000,
       position: 'top'
-
     });
     toast.present();
   }
@@ -138,7 +129,6 @@ export class PicturePage {
   }
 
   public uploadImage() {
-
     let url = "http://yoururl/upload.php";
 
     console.log(this.pathForImage(this.lastImage))
