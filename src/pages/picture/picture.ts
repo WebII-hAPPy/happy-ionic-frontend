@@ -31,7 +31,7 @@ export class PicturePage {
     private domSanitizer: DomSanitizer) {
   }
 
-  cardImage: string = "../../assets/img/women_being_analyse_compressed.png";
+  cardImage: string = "./assets/img/women_being_analyse_compressed.png";
   base64Image: String;
   lastImage: string = null;
   loading: Loading;
@@ -78,63 +78,32 @@ export class PicturePage {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
 
-            this.cardImage = imagePath;
-            // this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
 
-        // this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        this.cardImage = imagePath;
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
       this.presentToast('Error while selecting image.');
     });
   }
 
-  private createFileName() {
-    let d = new Date(),
-      n = d.getTime(),
-      newFileName = n + ".jpg";
-    return newFileName;
-  }
-
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, "").then(success => {
-      // this.lastImage = newFileName;
-      // this.uploadImage();
-    }, error => {
-      this.presentToast('Error while storing file.');
-    });
-  }
-
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
-
-  // Always get the accurate path to your apps folder
-  public pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      return (cordova.file.dataDirectory + img).replace(/^file:\/\//, '');
-    }
+    this.file.moveFile(namePath, currentName, cordova.file.externalDataDirectory, newFileName)
+      .then(success => {
+        this.changeCardImage(this.pathForImage(newFileName));
+        this.uploadImage();
+      }, err => {
+        this.presentToast('Error while storing file.');
+      });
   }
 
   public uploadImage() {
     let url = "http://yoururl/upload.php";
-
-    console.log(this.pathForImage(this.lastImage))
-
-    this.changeCardImage(this.pathForImage(this.lastImage));
-    let targetPath = this.pathForImage(this.lastImage);
 
     let filename = this.lastImage;
 
@@ -165,7 +134,32 @@ export class PicturePage {
     */
   }
 
+  // Always get the accurate path to your apps folder
+  private pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return (cordova.file.externalDataDirectory + img).replace(/^file:\/\//, '');
+    }
+  }
+
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
   private changeCardImage(targetPath) {
     this.cardImage = targetPath;
+  }
+
+  private createFileName() {
+    let d = new Date(),
+      n = d.getTime(),
+      newFileName = n + ".jpg";
+    return newFileName;
   }
 }
