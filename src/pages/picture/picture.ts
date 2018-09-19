@@ -92,7 +92,6 @@ export class PicturePage {
     }, (err) => {
       this.presentToast('Error while selecting image.');
     });
-
   }
 
   private createFileName() {
@@ -104,7 +103,7 @@ export class PicturePage {
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, "").then(success => {
+    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
       this.uploadImage();
     }, error => {
