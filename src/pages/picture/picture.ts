@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController, normalizeURL } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
-
-import { DomSanitizer } from '@angular/platform-browser';
 
 declare let cordova: any;
 
