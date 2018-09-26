@@ -17,6 +17,9 @@ import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 
+import { ChartsModule } from 'ng2-charts';
+
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -45,6 +48,7 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    ChartsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

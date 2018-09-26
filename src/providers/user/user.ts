@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
+import { IUser } from '../../models/user';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -25,7 +26,7 @@ import { Api } from '../api/api';
  */
 @Injectable()
 export class User {
-  _user: any;
+  _user: IUser;
 
   constructor(public api: Api) { }
 

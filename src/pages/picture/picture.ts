@@ -27,8 +27,7 @@ export class PicturePage {
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public platform: Platform,
-    public loadingCtrl: LoadingController,
-    private domSanitizer: DomSanitizer) {
+    public loadingCtrl: LoadingController) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -96,14 +95,16 @@ export class PicturePage {
     this.file.moveFile(namePath, currentName, cordova.file.externalDataDirectory, newFileName)
       .then(success => {
         this.changeCardImage(this.pathForImage(newFileName));
-        this.uploadImage();
+        // TODO: Check if the path is right
+        this.uploadImage(this.pathForImage(newFileName));
       }, err => {
         this.presentToast('Error while storing file.');
       });
   }
 
-  public uploadImage() {
-    let url = "http://yoururl/upload.php";
+  public uploadImage(targetPath: string) {
+    // TODO: Change the url
+    let url = "http://yoururl/upload.php/image";
 
     let filename = this.lastImage;
 
@@ -115,7 +116,6 @@ export class PicturePage {
       params: { 'fileName': filename }
     };
 
-    /*
     const fileTransfer: TransferObject = this.transfer.create();
 
     this.loading = this.loadingCtrl.create({
@@ -131,7 +131,6 @@ export class PicturePage {
       this.loading.dismissAll()
       this.presentToast('Error while uploading file.');
     });
-    */
   }
 
   // Always get the accurate path to your apps folder

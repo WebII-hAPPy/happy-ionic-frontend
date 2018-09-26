@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Api {
+
+  // TODO: change url
   url: string = 'https://example.com/api/v1';
 
   constructor(public http: HttpClient) {
