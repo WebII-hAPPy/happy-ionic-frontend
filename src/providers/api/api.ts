@@ -16,8 +16,7 @@ export class Api {
         params: new HttpParams()
       };
     }
-
-    // Support easy query params for GET requests
+    
     if (params) {
       reqOpts.params = new HttpParams();
       for (let k in params) {
