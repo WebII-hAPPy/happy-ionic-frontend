@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IDataPoint } from '../../models/dataPoint';
+import { IColor } from '../../models/color';
+import { IChartData } from '../../models/chartData';
 
 
 @IonicPage()
@@ -13,7 +15,7 @@ export class StatsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  public lineChartData: Array<any> = [
+  public lineChartData: Array<IChartData> = [
     { data: [], label: 'sadness' },
     { data: [], label: 'anger' },
     { data: [], label: 'disgust' },
@@ -39,7 +41,7 @@ export class StatsPage {
       }]
     }
   };
-  public lineChartColors: Array<any> = [
+  public lineChartColors: Array<IColor> = [
     { // blue - sadness
       backgroundColor: 'rgba(33,150,243,0.2)',
       borderColor: 'rgba(33,150,243,1)',
@@ -116,6 +118,10 @@ export class StatsPage {
     console.log(e);
   }
 
+  /**
+   * Adds a datapoint to the chart by mapping the values of the datapoint to each graph.
+   * @param dataPoint An object containing all emotions as key value pairs.
+   */
   public addDataPointToChart(dataPoint: IDataPoint): void {
     this.lineChartData.forEach(emotion => {
       for (let key in dataPoint.emotion) {

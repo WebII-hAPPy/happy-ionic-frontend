@@ -39,7 +39,10 @@ export class SettingsPage {
     public navParams: NavParams) {
   }
 
-  _buildForm() {
+  /**
+   * Builds the form by grouping the options.
+   */
+  _buildForm(): void {
     let group: any = {
       option1: [this.options.option1],
       option2: [this.options.option2],
@@ -63,13 +66,17 @@ export class SettingsPage {
     });
   }
 
-  ionViewDidLoad() {
-    // Build an empty form for the template to render
+  /**
+   * Build an empty form for the template to render
+   */
+  ionViewDidLoad(): void {
     this.form = this.formBuilder.group({});
   }
 
-  ionViewWillEnter() {
-    // Build an empty form for the template to render
+  /**
+   * Build an empty form for the template to render
+   */
+  ionViewWillEnter(): void {
     this.form = this.formBuilder.group({});
 
     this.page = this.navParams.get('page') || this.page;
@@ -81,9 +88,5 @@ export class SettingsPage {
 
       this._buildForm();
     });
-  }
-
-  ngOnChanges() {
-    console.log('Ng All Changes');
   }
 }

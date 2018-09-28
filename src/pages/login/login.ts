@@ -3,6 +3,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
+import { IAccountInfo } from '../../models/accountinfo';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { MainPage } from '../';
 export class LoginPage {
   
 
-  account: { email: string, password: string } = {
+  account: IAccountInfo = {
     email: '',
     password: ''
   };
@@ -23,8 +24,10 @@ export class LoginPage {
     public user: User,
     public toastCtrl: ToastController) { }
 
-  // Attempt to login in through our User service
-  doLogin() {
+  /**
+   * Login trough the user service. Else show error.
+   */
+  doLogin(): void {
     this.user.login(this.account).subscribe((resp) => {
       this.navCtrl.push(MainPage);
     }, (err) => {

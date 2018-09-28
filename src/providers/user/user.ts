@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { IUser } from '../../models/user';
 import { IAccountInfo } from '../../models/accountinfo';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -32,10 +33,11 @@ export class User {
   constructor(public api: Api) { }
 
   /**
-   * Send a POST request to our login endpoint with the data
+   * Send a POST request to the login endpoint with the data
    * the user entered on the form.
+   * @param accountInfo Object with IAccountInfo to be loged in.
    */
-  login(accountInfo: IAccountInfo) {
+  login(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
     let seq = this.api.post('login', accountInfo).share();
 
     seq.subscribe((res: any) => {
@@ -50,7 +52,12 @@ export class User {
     return seq;
   }
 
-  register(accountInfo: IAccountInfo) {
+  /**
+   * Send a POST request to the registration endpoint with the data
+   * the user entered on the form.
+   * @param accountInfo Object with IAccountInfo to be registered.
+   */
+  register(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
     let seq = this.api.post('registration', accountInfo).share();
 
     seq.subscribe((res: any) => {
@@ -64,11 +71,17 @@ export class User {
     return seq;
   }
 
-  logout() {
+  /**
+   * Destroys the user object.
+   */
+  logout(): void {
     this._user = null;
   }
   
-  _loggedIn(resp) {
+  /**
+   * Stores the values of the response to the local user object.
+   */
+  _loggedIn(resp): void {
     this._user = resp.data.user;
     this._user.token = resp.data.token;
   }

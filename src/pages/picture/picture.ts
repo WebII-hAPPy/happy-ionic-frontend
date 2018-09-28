@@ -33,7 +33,7 @@ export class PicturePage {
   lastImage: string = null;
   loading: Loading;
 
-  public presentActionSheet() {
+  public presentActionSheet(): void {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
@@ -58,7 +58,7 @@ export class PicturePage {
     actionSheet.present();
   }
 
-  public takePicture(sourceType) {
+  public takePicture(sourceType): void {
     let options = {
       quality: 100,
       sourceType: sourceType,
@@ -89,7 +89,7 @@ export class PicturePage {
   }
 
   // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
+  private copyFileToLocalDir(namePath, currentName, newFileName): void {
     this.file.moveFile(namePath, currentName, cordova.file.externalDataDirectory, newFileName)
       .then(success => {
         this.changeCardImage(this.pathForImage(newFileName));
@@ -100,7 +100,7 @@ export class PicturePage {
       });
   }
 
-  public uploadImage(targetPath: string) {
+  public uploadImage(targetPath: string): void {
     // TODO: Change the url
     let url = "http://yoururl/upload.php/image";
 
@@ -131,8 +131,12 @@ export class PicturePage {
     });
   }
 
-  // Always get the accurate path to your apps folder
-  private pathForImage(img) {
+
+  /**
+   * Get a path to the external data directory.
+   * @param img Name of the image
+   */
+  private pathForImage(img: string): string {
     if (img === null) {
       return '';
     } else {
@@ -140,7 +144,11 @@ export class PicturePage {
     }
   }
 
-  private presentToast(text) {
+  /**
+   * Show a message with a toast.
+   * @param text Message
+   */
+  private presentToast(text: string): void {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
@@ -149,11 +157,18 @@ export class PicturePage {
     toast.present();
   }
 
-  private changeCardImage(targetPath) {
+  /**
+   * Change the card image
+   * @param targetPath image path
+   */
+  private changeCardImage(targetPath: string): void {
     this.cardImage = targetPath;
   }
 
-  private createFileName() {
+  /**
+   * Create a new file name with the time in millisecons + .jpg
+   */
+  private createFileName(): string {
     let d = new Date(),
       n = d.getTime(),
       newFileName = n + ".jpg";
