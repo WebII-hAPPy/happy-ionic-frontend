@@ -2,20 +2,17 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Settings } from '../../providers';
+import { Settings, User } from '../../providers';
+import { WelcomePage } from '../welcome/welcome';
 
-/**
- * The Settings page is a simple form that syncs with a Settings provider
- * to enable the user to customize settings for the app.
- *
- */
+
 @IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
-  // Our local settings object
+  // TODO: Think about subsettings
   options: any;
 
   settingsReady = false;
@@ -36,7 +33,8 @@ export class SettingsPage {
   constructor(public navCtrl: NavController,
     public settings: Settings,
     public formBuilder: FormBuilder,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public user: User) {
   }
 
   /**
@@ -44,9 +42,7 @@ export class SettingsPage {
    */
   _buildForm(): void {
     let group: any = {
-      option1: [this.options.option1],
-      option2: [this.options.option2],
-      option3: [this.options.option3]
+      name: [this.options.name]
     };
 
     switch (this.page) {
@@ -88,5 +84,13 @@ export class SettingsPage {
 
       this._buildForm();
     });
+  }
+
+  /**
+   * Logs the user out and displays the welcome page.
+   */
+  logout(): void {
+    this.user.logout();
+    this.navCtrl.push(WelcomePage);
   }
 }
