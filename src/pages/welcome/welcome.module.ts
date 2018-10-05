@@ -9,8 +9,7 @@ import { WelcomePage } from './welcome';
     WelcomePage,
   ],
   imports: [
-    IonicPageModule.forChild(WelcomePage),
-    TranslateModule.forChild()
+    IonicPageModule.forChild(WelcomePage)
   ],
   exports: [
     WelcomePage

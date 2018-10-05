@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { Items } from '../mocks/providers/items';
@@ -20,18 +18,10 @@ import { FilePath } from '@ionic-native/file-path';
 import { ChartsModule } from 'ng2-charts';
 
 
-// The translate loader needs to know where to load i18n files
-// in Ionic's static asset pipeline.
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 export function provideSettings(storage: Storage) {
   /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
+   * The Settings provider takes a set of default settings for the app.
    */
   return new Settings(storage, {
     option1: true,
@@ -49,13 +39,6 @@ export function provideSettings(storage: Storage) {
     BrowserModule,
     HttpClientModule,
     ChartsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

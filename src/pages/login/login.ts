@@ -11,7 +11,7 @@ import { IAccountInfo } from '../../models/accountinfo';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  
+
 
   account: IAccountInfo = {
     email: '',
@@ -31,7 +31,6 @@ export class LoginPage {
     this.user.login(this.account).subscribe((resp) => {
       this.navCtrl.push(MainPage);
     }, (err) => {
-      this.navCtrl.push(MainPage);
       // Unable to log in
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,

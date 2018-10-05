@@ -5,8 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class Api {
 
-  // TODO: change url
-  url: string = 'https://example.com/api/v1';
+  url: string = 'https://backend.happy-service.ml/';
 
   constructor(public http: HttpClient) { }
 
@@ -22,7 +21,7 @@ export class Api {
         params: new HttpParams()
       };
     }
-    
+
     if (params) {
       reqOpts.params = new HttpParams();
       for (let k in params) {
@@ -30,7 +29,7 @@ export class Api {
       }
     }
 
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    return this.http.get(this.url + endpoint, reqOpts);
   }
 
   /**
@@ -40,7 +39,7 @@ export class Api {
    * @param reqOpts Request options
    */
   post(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.post(this.url + endpoint, body, reqOpts);
   }
 
   /**
@@ -50,7 +49,7 @@ export class Api {
    * @param reqOpts Request options
    */
   put(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.put(this.url + endpoint, body, reqOpts);
   }
 
   /**
@@ -59,7 +58,7 @@ export class Api {
    * @param reqOpts Request options
    */
   delete(endpoint: string, reqOpts?: any): Observable<ArrayBuffer> {
-    return this.http.delete(this.url + '/' + endpoint, reqOpts);
+    return this.http.delete(this.url + endpoint, reqOpts);
   }
 
   /**
@@ -69,6 +68,6 @@ export class Api {
    * @param reqOpts Request options
    */
   patch(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
-    return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.patch(this.url + endpoint, body, reqOpts);
   }
 }
