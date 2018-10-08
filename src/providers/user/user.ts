@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { IUser } from '../../models/user';
 import { IAccountInfo } from '../../models/accountinfo';
+import { share } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 import { Storage } from "@ionic/storage";
 /**
@@ -34,13 +36,14 @@ export class User {
    * @param accountInfo Object with IAccountInfo to be loged in.
    */
   login(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
-    let seq = this.api.post('login', accountInfo);
+    let seq: Observable<ArrayBuffer> = this.api.post('login', accountInfo).pipe(share());
 
     seq.subscribe((res: any) => {
+      console.log(res.headers + " " + res.header);
       if (res.status === '200') {
         this._loggedIn(res);
       } else {
-        // TODO: UNABLE TO LOGIN
+        return new ErrorObservable(res);
       }
     }, err => {
       console.error('ERROR', err);
@@ -55,7 +58,7 @@ export class User {
    * @param accountInfo Object with IAccountInfo to be registered.
    */
   register(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
-    let seq = this.api.post('register', accountInfo).share();
+    let seq: Observable<ArrayBuffer> = this.api.post('register', accountInfo).pipe(share());
 
     seq.subscribe((res: any) => {
       if (res.status === '201') {
@@ -69,10 +72,11 @@ export class User {
   }
 
   /**
-   * Destroys the user object.
+   * Destroys the user object and clears the database.
    */
   logout(): void {
     this._user = null;
+    this.storage.clear();
   }
 
   /**

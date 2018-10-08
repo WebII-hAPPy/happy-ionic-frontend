@@ -31,7 +31,10 @@ export class LoginPage {
     this.user.login(this.account).subscribe((resp) => {
       this.navCtrl.push(MainPage);
     }, (err) => {
-      // Unable to log in
+
+      console.error("ERR:  ", err);
+
+      // TODO: Differentiate between error messages.
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
         duration: 3000,

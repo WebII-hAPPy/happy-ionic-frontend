@@ -9,9 +9,9 @@ import { Tab1Root, Tab2Root, Tab3Root } from '../';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  tab1Root: any = Tab1Root;
-  tab2Root: any = Tab2Root;
-  tab3Root: any = Tab3Root;
+  tab1Root: "PicturePage" = Tab1Root;
+  tab2Root: "StatsPage" = Tab2Root;
+  tab3Root: "SettingsPage" = Tab3Root;
 
   tab1Title = "Picture";
   tab2Title = "Stats";

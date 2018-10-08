@@ -5,6 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
+import { Storage } from "@ionic/storage";
 
 declare let cordova: any;
 
@@ -25,7 +26,8 @@ export class PicturePage {
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public platform: Platform,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private storage: Storage) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -33,6 +35,19 @@ export class PicturePage {
   lastImage: string = null;
   loading: Loading;
 
+
+  /**
+   * Removes the current cardImage and changes it to the default one.
+   * TODO: Delete local file? Endpoint file?
+   */
+  public deleteCurrentImage(): void {
+    const defaultCardImage = "./assets/img/women_being_analyse_compressed.png";
+    this.changeCardImage(defaultCardImage);
+  }
+
+  /**
+   * Presents an action sheet to choose between the picture source type.
+   */
   public presentActionSheet(): void {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -58,6 +73,10 @@ export class PicturePage {
     actionSheet.present();
   }
 
+  /**
+   * Gets a picture from the desired source and stores it to persistend memory.
+   * @param sourceType Source type of the image: This is for instance camera.PictureSourceType.CAMERA or .PHOTOLIBRARY
+   */
   public takePicture(sourceType): void {
     let options = {
       quality: 100,
@@ -88,7 +107,12 @@ export class PicturePage {
     });
   }
 
-  // Copy the image to a local folder
+  /**
+   * Takes a file path as input and stores it on the persistent device storage by moving it from the /cache to /data.
+   * @param namePath Path to the image
+   * @param currentName Current name of the image
+   * @param newFileName New name of the image
+   */
   private copyFileToLocalDir(namePath, currentName, newFileName): void {
     this.file.moveFile(namePath, currentName, cordova.file.externalDataDirectory, newFileName)
       .then(success => {
@@ -100,37 +124,44 @@ export class PicturePage {
       });
   }
 
-  public uploadImage(targetPath: string): void {
-    // TODO: Change the url
-    let url = "http://yoururl/upload.php/image";
+  /**
+   * Uploads the specified image to the backend and displays an upload loading controller.
+   * @param targetPath Path to the image file.
+   */
+  private uploadImage(targetPath: string): void {
 
-    let filename = this.lastImage;
+    const url = 'https://backend.happy-service.ml/api/image';
+    const filename = this.lastImage;
 
-    let options = {
-      fileKey: "file",
-      fileName: filename,
-      chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params: { 'fileName': filename }
-    };
+    this.storage.get('jwt_token').then((val) => {
 
-    const fileTransfer: TransferObject = this.transfer.create();
+      const jwt_token = val;
+      const options = {
+        token: jwt_token,
+        fileKey: "file",
+        fileName: filename,
+        chunkedMode: false,
+        mimeType: "multipart/form-data",
+        params: { 'fileName': filename }
+      };
 
-    this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
-    });
-    this.loading.present();
+      const fileTransfer: TransferObject = this.transfer.create();
 
-    // Use the FileTransfer to upload the image
-    fileTransfer.upload(targetPath, url, options).then(data => {
-      this.loading.dismissAll();
-      this.presentToast('Image succesful uploaded.');
-    }, err => {
-      this.loading.dismissAll()
-      this.presentToast('Error while uploading file.');
+      this.loading = this.loadingCtrl.create({
+        content: 'Uploading...',
+      });
+      this.loading.present();
+
+      // Use the FileTransfer to upload the image
+      fileTransfer.upload(targetPath, url, options).then(data => {
+        this.loading.dismissAll();
+        this.presentToast('Image succesful uploaded.');
+      }, err => {
+        this.loading.dismissAll()
+        this.presentToast('Error while uploading file.');
+      });
     });
   }
-
 
   /**
    * Get a path to the external data directory.

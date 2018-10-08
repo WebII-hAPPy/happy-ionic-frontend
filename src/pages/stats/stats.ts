@@ -41,6 +41,30 @@ export class StatsPage {
       }]
     }
   };
+
+  // TODO: Usefull?
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
+
+  /**
+   * Adds a datapoint to the chart by mapping the values of the datapoint to each graph.
+   * @param dataPoint An object containing all emotions as key value pairs.
+   */
+  public addDataPointToChart(dataPoint: IDataPoint): void {
+    this.lineChartData.forEach(emotion => {
+      for (let key in dataPoint.emotion) {
+        if (key === emotion.label && dataPoint.hasOwnProperty(key)) {
+          emotion.data.append(dataPoint[key])
+        }
+      }
+    });
+  }
+
   public lineChartColors: Array<IColor> = [
     { // blue - sadness
       backgroundColor: 'rgba(33,150,243,0.2)',
@@ -110,26 +134,6 @@ export class StatsPage {
   public lineChartLegend: boolean = false;
   public lineChartType: string = 'line';
 
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
-
-  /**
-   * Adds a datapoint to the chart by mapping the values of the datapoint to each graph.
-   * @param dataPoint An object containing all emotions as key value pairs.
-   */
-  public addDataPointToChart(dataPoint: IDataPoint): void {
-    this.lineChartData.forEach(emotion => {
-      for (let key in dataPoint.emotion) {
-        if ( key === emotion.label && dataPoint.hasOwnProperty(key) ) {
-          emotion.data.append(dataPoint[key])
-        }
-      }
-    });
-  }
 
 }

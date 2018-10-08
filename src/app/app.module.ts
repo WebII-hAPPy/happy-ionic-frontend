@@ -21,13 +21,11 @@ import { ChartsModule } from 'ng2-charts';
 
 export function provideSettings(storage: Storage) {
   /**
+   * // TODO: Needs improvement and use.
    * The Settings provider takes a set of default settings for the app.
    */
   return new Settings(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
+    name: ''
   });
 }
 

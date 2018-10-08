@@ -3,7 +3,6 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
-import { WelcomePage } from '../welcome/welcome';
 
 @IonicPage()
 @Component({
@@ -11,7 +10,7 @@ import { WelcomePage } from '../welcome/welcome';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-  
+
   account: { name: string, email: string, password: string } = {
     name: '',
     email: '',
@@ -19,6 +18,7 @@ export class SignupPage {
   };
 
   private signupErrorString: string = "Unable to create account. Please check your account information and try again.";
+  private verificationMailString: string = "Hi! The hAPPy team send you a verification mail. Please also check your spam folder. Keep smiling!"
 
   constructor(
     public navCtrl: NavController,
@@ -31,14 +31,22 @@ export class SignupPage {
   doSignup(): void {
     this.user.register(this.account).subscribe((resp) => {
       this.navCtrl.push(MainPage);
+
+      let verficationMailToast = this.toastCtrl.create({
+        message: this.verificationMailString,
+        duration: 3000,
+        position: 'top'
+      });
+      verficationMailToast.present();
+
     }, (err) => {
 
-      let toast = this.toastCtrl.create({
+      let errorToast = this.toastCtrl.create({
         message: this.signupErrorString,
         duration: 3000,
         position: 'top'
       });
-      toast.present();
+      errorToast.present();
     });
   }
 }
