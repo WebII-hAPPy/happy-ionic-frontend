@@ -19,16 +19,16 @@ export class SettingsPage {
 
   form: FormGroup;
 
-  profileSettings = {
-    page: 'profile',
-    pageTitleKey: 'Profile'
+  aboutSettings = {
+    page: 'about',
+    pageTitleKey: 'about'
   };
 
   page: string = 'main';
   pageTitleKey: string = 'Settings';
   pageTitle: string;
 
-  subSettings: any = SettingsPage;
+  about: any = SettingsPage;
 
   constructor(public navCtrl: NavController,
     public settings: Settings,
@@ -44,16 +44,6 @@ export class SettingsPage {
     let group: any = {
       name: [this.options.name]
     };
-
-    switch (this.page) {
-      case 'main':
-        break;
-      case 'profile':
-        group = {
-          option4: [this.options.option4]
-        };
-        break;
-    }
     this.form = this.formBuilder.group(group);
 
     // Watch the form for changes, and

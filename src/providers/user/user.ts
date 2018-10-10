@@ -39,12 +39,8 @@ export class User {
     let seq: Observable<ArrayBuffer> = this.api.post('login', accountInfo).pipe(share());
 
     seq.subscribe((res: any) => {
-      console.log(res.headers + " " + res.header);
-      if (res.status === '200') {
-        this._loggedIn(res);
-      } else {
-        return new ErrorObservable(res);
-      }
+      console.log(res);
+      this._loggedIn(res);
     }, err => {
       console.error('ERROR', err);
     });

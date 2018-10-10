@@ -77,9 +77,9 @@ export class PicturePage {
    * Gets a picture from the desired source and stores it to persistend memory.
    * @param sourceType Source type of the image: This is for instance camera.PictureSourceType.CAMERA or .PHOTOLIBRARY
    */
-  public takePicture(sourceType): void {
+  public takePicture(sourceType: number): void {
     let options = {
-      quality: 100,
+      quality: 60,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
       correctOrientation: true,
@@ -113,11 +113,10 @@ export class PicturePage {
    * @param currentName Current name of the image
    * @param newFileName New name of the image
    */
-  private copyFileToLocalDir(namePath, currentName, newFileName): void {
+  private copyFileToLocalDir(namePath: string, currentName: string, newFileName: string): void {
     this.file.moveFile(namePath, currentName, cordova.file.externalDataDirectory, newFileName)
       .then(success => {
         this.changeCardImage(this.pathForImage(newFileName));
-        // TODO: Check if the path is right
         this.uploadImage(this.pathForImage(newFileName));
       }, err => {
         this.presentToast('Error while storing file.');
@@ -134,31 +133,39 @@ export class PicturePage {
     const filename = this.lastImage;
 
     this.storage.get('jwt_token').then((val) => {
-
+      console.log(val);
       const jwt_token = val;
+      const fileTransfer: TransferObject = this.transfer.create();
       const options = {
-        token: jwt_token,
-        fileKey: "file",
+        authorization: jwt_token,
+        fileKey: "image",
         fileName: filename,
         chunkedMode: false,
         mimeType: "multipart/form-data",
         params: { 'fileName': filename }
       };
 
-      const fileTransfer: TransferObject = this.transfer.create();
-
       this.loading = this.loadingCtrl.create({
         content: 'Uploading...',
       });
       this.loading.present();
-
-      // Use the FileTransfer to upload the image
       fileTransfer.upload(targetPath, url, options).then(data => {
+        console.log(data);
         this.loading.dismissAll();
         this.presentToast('Image succesful uploaded.');
       }, err => {
-        this.loading.dismissAll()
-        this.presentToast('Error while uploading file.');
+        console.log(err);
+        this.loading.dismissAll();
+        if (err.http_status === 401) {
+          this.presentToast('You are not logged in...');
+          this.navCtrl.push('WelcomePage');
+        } else if (err.http_status === 413) {
+          this.presentToast('Error: Your file is too big.')
+        } else if (err.http_status === 500) {
+          this.presentToast('We have an error on our site. Please contact the developer via the about page.');
+        } else {
+          this.presentToast('Error while uploading file.');
+        }
       });
     });
   }
