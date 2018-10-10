@@ -6,7 +6,6 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { IFace } from '../../models/face';
 import { Face } from '../../providers';
 
 declare let cordova: any;
@@ -167,6 +166,8 @@ export class PicturePage {
           this.navCtrl.push('WelcomePage');
         } else if (err.http_status === 413) {
           this.presentToast('Error: Your file is too big.')
+        } else if (err.http_status === 416) {
+          this.presentToast('Sorry we couldn\'t find a face on your picture...');
         } else if (err.http_status === 500) {
           this.presentToast('We have an error on our site. Please contact the developer via the about page.');
         } else {

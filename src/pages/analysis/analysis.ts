@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Face } from '../../providers';
+import { Face, User } from '../../providers';
 import { IFace } from '../../models/face';
 
 import { Chart } from 'chart.js';
+import { IUser } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -15,37 +16,48 @@ export class AnalysisPage {
   @ViewChild('doughnutCanvas') doughnutCanvas;
 
   doughnutChart: any;
+  user: IUser;
+  face: IFace;
+  welcome: string = "Hello";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private faceService: Face) { }
+    private faceService: Face,
+    private userService: User) { }
 
 
   /**
-   * Get fresh data from the person service and build the charts.
+   * Get fresh data from the face service and build the charts.
    */
   ionViewWillEnter(): void {
-    const person = this.faceService.getPerson();
-    this.buildDoughnutChart(person);
+    this.user = this.userService.getUser();
+    this.face = this.faceService.getPerson();
+  }
+
+  /**
+   * After the view is there we can fill in the data.
+   */
+  ionViewDidEnter(): void {
+    this.buildDoughnutChart(this.face);
   }
 
   /**
    * Builds the Emotions-Doughnut Chart by filling the Chart Object with relevant data.
-   * @param person The personal data to be analyzed.
+   * @param face The personal data to be analyzed.
    */
-  private buildDoughnutChart(person: IFace): void {
+  private buildDoughnutChart(face: IFace): void {
     let emotionData: number[] = [];
 
     // Be carefull the sorting matters!
-    emotionData.push(person.emotion.sadness);
-    emotionData.push(person.emotion.anger);
-    emotionData.push(person.emotion.disgust);
-    emotionData.push(person.emotion.fear);
-    emotionData.push(person.emotion.contempt);
-    emotionData.push(person.emotion.neutral);
-    emotionData.push(person.emotion.surprise);
-    emotionData.push(person.emotion.happiness);
+    emotionData.push(face.emotion.sadness);
+    emotionData.push(face.emotion.anger);
+    emotionData.push(face.emotion.disgust);
+    emotionData.push(face.emotion.fear);
+    emotionData.push(face.emotion.contempt);
+    emotionData.push(face.emotion.neutral);
+    emotionData.push(face.emotion.surprise);
+    emotionData.push(face.emotion.happiness);
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 

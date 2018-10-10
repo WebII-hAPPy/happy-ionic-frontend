@@ -7,7 +7,7 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { Items } from '../mocks/providers/items';
-import { Settings, User, Api, Person } from '../providers';
+import { Settings, User, Api, Face } from '../providers';
 import { MyApp } from './app.component';
 
 import { Camera } from '@ionic-native/camera';
@@ -49,7 +49,7 @@ export function provideSettings(storage: Storage) {
     Items,
     User,
     Camera,
-    Person,
+    Face,
     File,
     Transfer,
     FilePath,

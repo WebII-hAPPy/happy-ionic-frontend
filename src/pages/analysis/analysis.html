@@ -8,14 +8,27 @@
 
 
 <ion-content padding>
-    <ion-card>
-        <ion-card-header>
-            Emotions
-        </ion-card-header>
-        <ion-card-content>
-            <div class="fullwidth">
-                <canvas #doughnutCanvas></canvas>
-            </div>
-        </ion-card-content>
-    </ion-card>
+    <div *ngIf="user != null && face != null">
+        <ion-card>
+            <ion-card-header>
+                Hi {{user.name}}!
+            </ion-card-header>
+            <ion-card-content>
+                <p padding>
+                    The robot thought hard and determined that you are a <b>{{face.age}}</b> year old <b>{{face.gender}}</b>.
+                    Suprised yet?!
+                </p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                Emotions
+            </ion-card-header>
+            <ion-card-content>
+                <div class="fullwidth">
+                    <canvas #doughnutCanvas></canvas>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>

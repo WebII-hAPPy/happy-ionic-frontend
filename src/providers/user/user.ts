@@ -69,4 +69,12 @@ export class User {
     this._user.token = resp.data.token;
     this.storage.set('jwt_token', resp.data.token);
   }
+
+  /**
+   * Returns the cached user object.
+   * TODO: What if the user is null?
+   */
+  getUser(): IUser {
+    return this._user;
+  }
 }
