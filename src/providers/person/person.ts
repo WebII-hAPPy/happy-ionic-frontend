@@ -7,7 +7,7 @@ import { EGlasses } from '../../models/glasses';
 
 @Injectable()
 export class Person {
-    person: IPerson;
+    private _person: IPerson;
 
     /**
    * Parses the response of the Picture Analysis.
@@ -16,28 +16,30 @@ export class Person {
     public parseAnalysis(res: string): void {
 
         const analysis: any = JSON.parse(res);
+
         console.log(analysis);
+
         let emotion: IEmotion = analysis.data.emotion;
+        console.log(emotion);
         const facialhair: IFacialhair = analysis.data.facialHair;
-        const glassType: EGlasses = analysis.data.glasses;
+        const glasses: EGlasses = analysis.data.glasses;
         let gender: string = analysis.data.gender;
         let age: number = analysis.data.age;
 
-        let person: IPerson;
-        person.age = age;
-        person.gender = gender;
-        person.facialhair = facialhair;
-        person.glasses = glassType;
-        person.emotion = emotion;
-
-        this.person = person;
+        this._person = {
+            emotion,
+            facialhair,
+            glasses,
+            gender,
+            age
+        }
     }
 
     public getPerson(): IPerson {
-        return this.person;
+        return this._person;
     }
 
     public setPerson(person: IPerson): void {
-        this.person = person;
+        this._person = person;
     }
 }

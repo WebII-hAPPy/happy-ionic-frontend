@@ -1,257 +1,309 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Settings</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Settings</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 <ion-content>
 
-  <div padding>
-    <form [formGroup]="form" *ngIf="settingsReady">
-      <ion-list *ngIf="page == 'main'">
+    <div padding>
+        <form [formGroup]="form" *ngIf="settingsReady">
+            <ion-list *ngIf="page == 'main'">
 
-        <ion-item>
-          <ion-label>Name</ion-label>
-          <ion-input formControlName="name"></ion-input>
-        </ion-item>
+                <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input formControlName="name"></ion-input>
+                </ion-item>
 
-        <div class="row">
-          <div col-2></div>
-          <div col-8>
-            <button ion-button block (click)="logout()">Logout</button>
-          </div>
-          <div col-2></div>
-        </div>
+                <div class="row">
+                    <div col-2></div>
+                    <div col-8>
+                        <button ion-button block (click)="logout()">Logout</button>
+                    </div>
+                    <div col-2></div>
+                </div>
 
-        <div class="row">
-          <div col-2></div>
-          <div col-8>
-            <button ion-button block [navPush]="about" [navParams]="aboutSettings">
-              About
-            </button>
-          </div>
-          <div col-2></div>
-        </div>
+                <div class="row">
+                    <div col-2></div>
+                    <div col-8>
+                        <button ion-button block [navPush]="about" [navParams]="aboutSettings">
+                            About
+                        </button>
+                    </div>
+                    <div col-2></div>
+                </div>
 
-      </ion-list>
+            </ion-list>
 
-      <ion-list *ngIf="page == 'about'">
-        <h1>Imprint (German)</h1>
-        <p>Information according to § 5 TMG<br>
-          Constantin Ruhdorfer<br>
-          Sample street 1<br>
-          12345 Berlin<br>
-          Contact us<br>
-          E-Mail: inf17032@lehre.dhbw-stuttgart.de
-        </p>
-        <h2>Liability for contents</h2>
-        <p>As a service provider, we are responsible for our own content on these pages according to § 7 Abs.1 TMG
-          (German Telemedia Act).<br>
-          general laws responsible. According to §§ 8 to 10 TMG we are not responsible as a service provider for the
-          contents of these pages.<br>
-          to monitor transmitted or stored third-party information or to monitor it according to circumstances.
-          research that indicates illegal activity.<br>
-          Obligations to remove or block the use of information in accordance with the general terms and conditions of
-          use.<br>
-          Laws remain unaffected by this. A liability in this regard is however only valid from the date of the
-          Knowledge of a concrete law breaking possible. Upon becoming aware of corresponding
-          We will remove these contents immediately if they violate the law.</p>
-        <h2>Liability for links</h2>
-        <p>Our offer contains links to external websites of third parties on whose contents we have no influence.
-          Therefore, we cannot assume any liability for these external contents. For the contents of the
-          The respective provider or operator of the pages is always responsible for the contents of the linked pages.
-          The linked
-          pages were checked for possible violations of the law at the time of linking. Illegal contents
-          were not recognisable at the time of linking.<br>
-          However, a permanent control of the contents of the linked pages is not possible without concrete clues of a
-          violation of law is not reasonable. If we become aware of any violations of the law, we will remove such
-          links from our website.</p>
-        <h2>Copyright</h2>
-        <p>The contents and works on these pages created by the site operators are subject to the German Copyright Act.
-          Copyright. Duplication, processing, distribution and any form of commercialization of such material beyond
-          the scope of the copyright law shall
-          Limits of copyright require the written consent of the respective author or creator.
-          Downloads and copies of this site are only permitted for private, non-commercial use.
-          Insofar as the content on this site was not created by the operator, the copyrights of third parties are
-          protected.<br>
-          In particular contents of third parties are marked as such. In particular contents of third parties are
-          marked as such. Should you nevertheless refer to a
-          If you become aware of any infringement of copyright, please inform us accordingly. With
-          We will immediately remove such content if we become aware of any violations of the law.
-        </p>
+            <ion-list *ngIf="page == 'about'">
+                <h1>Imprint (German)</h1>
+                <p>Information according to § 5 TMG<br>
+                    Constantin Ruhdorfer<br>
+                    Sample street 1<br>
+                    12345 Berlin<br>
+                    Contact us<br>
+                    E-Mail: inf17032@lehre.dhbw-stuttgart.de
+                </p>
+                <h2>Liability for contents</h2>
+                <p>As a service provider, we are responsible for our own content on these pages according to § 7 Abs.1
+                    TMG
+                    (German Telemedia Act).<br>
+                    general laws responsible. According to §§ 8 to 10 TMG we are not responsible as a service provider
+                    for the
+                    contents of these pages.<br>
+                    to monitor transmitted or stored third-party information or to monitor it according to
+                    circumstances.
+                    research that indicates illegal activity.<br>
+                    Obligations to remove or block the use of information in accordance with the general terms and
+                    conditions of
+                    use.<br>
+                    Laws remain unaffected by this. A liability in this regard is however only valid from the date of
+                    the
+                    Knowledge of a concrete law breaking possible. Upon becoming aware of corresponding
+                    We will remove these contents immediately if they violate the law.</p>
+                <h2>Liability for links</h2>
+                <p>Our offer contains links to external websites of third parties on whose contents we have no
+                    influence.
+                    Therefore, we cannot assume any liability for these external contents. For the contents of the
+                    The respective provider or operator of the pages is always responsible for the contents of the
+                    linked pages.
+                    The linked
+                    pages were checked for possible violations of the law at the time of linking. Illegal contents
+                    were not recognisable at the time of linking.<br>
+                    However, a permanent control of the contents of the linked pages is not possible without concrete
+                    clues of a
+                    violation of law is not reasonable. If we become aware of any violations of the law, we will remove
+                    such
+                    links from our website.</p>
+                <h2>Copyright</h2>
+                <p>The contents and works on these pages created by the site operators are subject to the German
+                    Copyright Act.
+                    Copyright. Duplication, processing, distribution and any form of commercialization of such material
+                    beyond
+                    the scope of the copyright law shall
+                    Limits of copyright require the written consent of the respective author or creator.
+                    Downloads and copies of this site are only permitted for private, non-commercial use.
+                    Insofar as the content on this site was not created by the operator, the copyrights of third
+                    parties are
+                    protected.<br>
+                    In particular contents of third parties are marked as such. In particular contents of third parties
+                    are
+                    marked as such. Should you nevertheless refer to a
+                    If you become aware of any infringement of copyright, please inform us accordingly. With
+                    We will immediately remove such content if we become aware of any violations of the law.
+                </p>
 
 
-        <h1>Privacy statement</h1>
-        <h2>1. Data protection at a glance</h2>
-        <h3>General information</h3>
-        <p>The following notes provide a simple overview of what to do with your personal data
-          happens when you visit our website. Personal data is all data with which you have access to our website.
-          can be personally identified. Detailed information on the subject of data protection can be found at
-          you of our data protection declaration listed under this text.</p>
-        <h2>Data collection on our website</h2>
-        <h3>Who is responsible for data collection on this website?</h3>
-        <p>The data processing on this website is carried out by the website operator. His contact details
-          can be found in the imprint of this website.</p>
-        <h3>How do we collect your data?</h3>
-        <p>On the one hand, your data is collected by you communicating it to us. This may involve e.g.
-          data that you enter in a contact form.
-          Other data is automatically collected by our IT systems when you visit the website. These are
-          all technical data (e.g. Internet browser, operating system or time of the page call). The
-          This data is collected automatically as soon as you enter our website.</p>
-        <h3>What do we use your data for?</h3>
-        <p>Some of the data is collected to ensure that the website is error-free. Other
-          Data can be used to analyse your user behaviour.</p>
-        <h3>What rights do you have with regard to your data?</h3>
-        <p>You have the right at any time and free of charge to obtain information about the origin, recipient and
-          purpose of your data.<br>
-          to receive the personal data stored by us. You also have the right to request correction,
-          to request the blocking or deletion of this data. For this as well as to further questions to the topic
-          You can contact us at any time at the address given in the imprint. The
-          You also have the right to appeal to the competent supervisory authority.
-          You also have the right, under certain circumstances, to restrict the processing of your personal data.
-          to request personal data. Details can be found in the data protection declaration under
-          "Right to Restrict Processing".<br></p>
-        <h3>Third-party analysis tools and tools</h3>
-        <p>When you visit our website, your surfing behaviour can be statistically evaluated. This happens before
-          cookies and so-called analysis programs. The analysis of your surfing behavior takes place in
-          usually anonymous; the surfing behaviour cannot be traced back to you. You can use this
-          analysis or prevent it by not using certain tools. Detailed
-          You will find information on this in the following data protection declaration.
-          You can object to this analysis. We will inform you about the possibilities of objection in this
-          Privacy policy inform.</p>
-        <h2>2. general information and mandatory information</h2>
-        <h3>Data protection</h3>
-        <p>The operators of these pages take the protection of your personal data very seriously. We treat your
-          personal data confidentially and in accordance with the statutory data protection regulations and
-          of this privacy policy.
-          If you use this website, various personal data will be collected.
-          Personal information is information that personally identifies you. This
-          Privacy Policy explains what data we collect and how we use it. It also explains how
-          and for what purpose this happens.<br>
-          We would like to point out that data transmission on the Internet (e.g. when communicating by e-mail) is not
-          permitted without the express written consent of the respective party.
-          can show security gaps. A complete protection of the data against access by third parties is not permitted.
-          possible.</p>
-        <h3>Note on the responsible body</h3>
-        <p>The responsible party for the data processing on this website is found above.
-          Responsible body is the natural or legal person who alone or together with others is responsible for the
-          content of this website.<br>
-          the purposes and means of the processing of personal data (e.g. names, e-mail addresses, etc.)
-          decides.</p>
-        <h3>Revocation of your consent to data processing</h3>
-        <p>Many data processing operations are only possible with your express consent. You can use a
-          to revoke your consent at any time. For this purpose, an informal e-mail notification to us is sufficient.
-          The legality of the data processing carried out until the revocation remains unaffected by the revocation.
-          Right of objection against data collection in special cases as well as against
-          Direct advertising (Art. 21 DSGVO).<br>
-          If data processing is carried out on the basis of Art. 6 Para. 1 lit. e or f DSGVO, you have
-          at any time the right, for reasons arising from your particular situation, to object to the processing of
-          your personal data.<br>
-          of your personal data; this also applies to any objection to these provisions.
-          based profiling. The respective legal basis on which processing is based can be found in
-          of this privacy policy. If you file an objection, we will delete your affected personal data.
-          personal data, unless we are able to identify compelling data worthy of protection.
-          prove the existence of grounds for processing which override your interests, rights and freedoms, or which
-          Processing serves the assertion, exercise or defence of legal claims
-          (Opposition pursuant to Art. 21 (1) DSGVO).<br>
-          If your personal data is processed for the purpose of direct marketing, you have the right to
-          right to object at any time to the processing of personal data concerning you for the purpose of processing
-          your personal data
-          This also applies to profiling to the extent that it is compatible with such advertising.
-          direct advertising is connected. If you object, your personal data will be used to
-          subsequently no longer used for the purpose of direct marketing (objection pursuant to Art. 21 para. 2
-          DSGVO).</p>
-        <h3>Right of appeal to the competent supervisory authority</h3>
-        <p>In the event of violations of the DSGVO, the parties concerned have a right of appeal in the event of a
-          the supervisory authority, in particular in the Member State of their habitual residence, of their place of
-          work
-          or the location of the suspected infringement. The right of appeal shall be without prejudice to any other
-          right of appeal
-          administrative or judicial remedies.</p><br>
-        <h3>Right to data transferability</h3>
-        <p>You have the right to use data that we have collected on the basis of your consent or in the performance of
-          a
-          contract
-          automatically, to itself or to a third party in a common, machine-readable format.
-          to be handed over to you. If you want the data to be transferred directly to another responsible party
-          this will only be done as far as it is technically feasible.</p>
-        <h3>SSL or TLS encryption</h3>
-        <p>This site uses for security reasons and to protect the transmission of confidential content, such as to
-          For example, orders or requests that you send to us as the site operator, an SSL or TLS encryption.
-          You can recognize an encrypted connection by the fact that the address line of the browser is not encrypted.
-          "http://" to "https://" and the lock symbol in your browser line.
-          If SSL or TLS encryption is activated, the data that you transmit to us cannot be used to identify you.
-          are read by third parties.</p>
-        <h3>Information, blocking, deletion and correction</h3>
-        <p>Within the framework of the applicable statutory provisions, you have the right at any time to receive free
-          Information about your stored personal data, their origin and recipients and the
-          Purpose of the data processing and, if applicable, a right to correction, blocking or deletion of this data.
-          For this as well as for further questions on the subject of personal data, you can contact us at any time
-          under the following address
-          in the imprint given address to us.</p>
-        <h3>Right to limitation of processing</h3>
-        <p>You have the right to demand the restriction of the processing of your personal data.
-          You can contact us at any time at the address given in the imprint. The right
-          to restriction of the processing exists in the following cases:
-          If you dispute the accuracy of your personal data stored with us, we need
-          usually time to check this out. For the duration of the test, you have the right to
-          Restriction of the processing of your personal data.<br>
-          If the processing of your personal data happened / happens unlawfully, you may
-          request the restriction of data processing instead of deletion.
-          If we no longer need your personal data, but you need it to exercise it,
-          defence or assertion of legal claims, you have the right, instead of the
-          Deletion to demand the restriction of the processing of your personal data.
-          If you have lodged an objection pursuant to Art. 21 para. 1 DSGVO, you must weigh up the following options
-          their and our interests are taken into account. As long as it has not yet been determined whose interests
-          you have the right to object to the restriction of the processing of your personal data.
-          to request.<br>
-          If you have restricted the processing of your personal data, these data - from
-          storage - only with your consent or for the purpose of asserting, exercising or transmitting your rights.
-          Defense of legal claims or protection of the rights of another natural or legal person
-          a legal person or on grounds of an important public interest of the European Union, or
-          of a Member State are processed.</p>
-        <h3>Server log files</h3>
-        <p>The provider of these pages automatically collects and stores information in so-called server log files.
-          Files that your browser automatically transmits to us. These are:<br>
-          Browser type and browser version<br>
-          used operating system<br>
-          Referrer URL<br>
-          Hostname of the accessing computer<br>
-          Time of the server request<br>
-          IP address<br>
-          This data will not be merged with other data sources.<br>
-          This data is collected on the basis of Art. 6 Para. 1 lit. f DSGVO. The website operator has
-          a justified interest in the technically error-free presentation and optimisation of its website - the author
-          is not responsible for any contents linked or referred to from his pages - unless he has full knowledge of
-          illegal contents and would be able to prevent the visitors of his site fromviewing those pages.
-          the server log files must be recorded.<br>
-          Inquiry by e-mail, telephone or fax
-          If you contact us by e-mail, telephone or fax, your enquiry will be processed including all the information
-          that may result from it.
-          personal data (name, request) for the purpose of processing your request.
-          stored and processed by us. We do not pass on this data without your consent.
-          This data is processed on the basis of Art. 6 Para. 1 lit. b DSGVO, provided that your enquiry is accompanied
-          by a written consent.<br>
-          is related to the performance of a contract or to the implementation of pre-contractual measures
-          is required in all other cases. In all other cases, the processing is based on your consent (Art. 6 Para. 1
-          lit. a
-          DSGVO) and / or on our legitimate interests (Art. 6 Para. 1 lit. f DSGVO), as we have a legitimate right to
-          use your personal data for the purpose of processing your personal data
-          and we are interested in the effective processing of enquiries directed to us.<br>
-          The data sent to us by you via contact requests will remain with us until you request us to delete them.
-          request you to revoke your consent to the storage or the purpose for the data storage no longer applies
-          (e.g. after the processing of your request has been completed). Mandatory legal provisions -
-          especially legal retention periods - remain unaffected.</p>
-        <h2>4. Plugins and tools</h2>
-        <h3>Google Web Fonts</h3>
-        <p>This page uses so-called web fonts, which are provided by Google, for the uniform display of fonts. The
-          Google
-          Fonts are installed locally. A connection to Google's servers isnt made.</p>
-      </ion-list>
-    </form>
-  </div>
+                <h1>Privacy statement</h1>
+                <h2>1. Data protection at a glance</h2>
+                <h3>General information</h3>
+                <p>The following notes provide a simple overview of what to do with your personal data
+                    happens when you visit our website. Personal data is all data with which you have access to our
+                    website.
+                    can be personally identified. Detailed information on the subject of data protection can be found
+                    at
+                    you of our data protection declaration listed under this text.</p>
+                <h2>Data collection on our website</h2>
+                <h3>Who is responsible for data collection on this website?</h3>
+                <p>The data processing on this website is carried out by the website operator. His contact details
+                    can be found in the imprint of this website.</p>
+                <h3>How do we collect your data?</h3>
+                <p>On the one hand, your data is collected by you communicating it to us. This may involve e.g.
+                    data that you enter in a contact form.
+                    Other data is automatically collected by our IT systems when you visit the website. These are
+                    all technical data (e.g. Internet browser, operating system or time of the page call). The
+                    This data is collected automatically as soon as you enter our website.</p>
+                <h3>What do we use your data for?</h3>
+                <p>Some of the data is collected to ensure that the website is error-free. Other
+                    Data can be used to analyse your user behaviour.</p>
+                <h3>What rights do you have with regard to your data?</h3>
+                <p>You have the right at any time and free of charge to obtain information about the origin, recipient
+                    and
+                    purpose of your data.<br>
+                    to receive the personal data stored by us. You also have the right to request correction,
+                    to request the blocking or deletion of this data. For this as well as to further questions to the
+                    topic
+                    You can contact us at any time at the address given in the imprint. The
+                    You also have the right to appeal to the competent supervisory authority.
+                    You also have the right, under certain circumstances, to restrict the processing of your personal
+                    data.
+                    to request personal data. Details can be found in the data protection declaration under
+                    "Right to Restrict Processing".<br></p>
+                <h3>Third-party analysis tools and tools</h3>
+                <p>When you visit our website, your surfing behaviour can be statistically evaluated. This happens
+                    before
+                    cookies and so-called analysis programs. The analysis of your surfing behavior takes place in
+                    usually anonymous; the surfing behaviour cannot be traced back to you. You can use this
+                    analysis or prevent it by not using certain tools. Detailed
+                    You will find information on this in the following data protection declaration.
+                    You can object to this analysis. We will inform you about the possibilities of objection in this
+                    Privacy policy inform.</p>
+                <h2>2. general information and mandatory information</h2>
+                <h3>Data protection</h3>
+                <p>The operators of these pages take the protection of your personal data very seriously. We treat your
+                    personal data confidentially and in accordance with the statutory data protection regulations and
+                    of this privacy policy.
+                    If you use this website, various personal data will be collected.
+                    Personal information is information that personally identifies you. This
+                    Privacy Policy explains what data we collect and how we use it. It also explains how
+                    and for what purpose this happens.<br>
+                    We would like to point out that data transmission on the Internet (e.g. when communicating by
+                    e-mail) is not
+                    permitted without the express written consent of the respective party.
+                    can show security gaps. A complete protection of the data against access by third parties is not
+                    permitted.
+                    possible.</p>
+                <h3>Note on the responsible body</h3>
+                <p>The responsible party for the data processing on this website is found above.
+                    Responsible body is the natural or legal person who alone or together with others is responsible
+                    for the
+                    content of this website.<br>
+                    the purposes and means of the processing of personal data (e.g. names, e-mail addresses, etc.)
+                    decides.</p>
+                <h3>Revocation of your consent to data processing</h3>
+                <p>Many data processing operations are only possible with your express consent. You can use a
+                    to revoke your consent at any time. For this purpose, an informal e-mail notification to us is
+                    sufficient.
+                    The legality of the data processing carried out until the revocation remains unaffected by the
+                    revocation.
+                    Right of objection against data collection in special cases as well as against
+                    Direct advertising (Art. 21 DSGVO).<br>
+                    If data processing is carried out on the basis of Art. 6 Para. 1 lit. e or f DSGVO, you have
+                    at any time the right, for reasons arising from your particular situation, to object to the
+                    processing of
+                    your personal data.<br>
+                    of your personal data; this also applies to any objection to these provisions.
+                    based profiling. The respective legal basis on which processing is based can be found in
+                    of this privacy policy. If you file an objection, we will delete your affected personal data.
+                    personal data, unless we are able to identify compelling data worthy of protection.
+                    prove the existence of grounds for processing which override your interests, rights and freedoms,
+                    or which
+                    Processing serves the assertion, exercise or defence of legal claims
+                    (Opposition pursuant to Art. 21 (1) DSGVO).<br>
+                    If your personal data is processed for the purpose of direct marketing, you have the right to
+                    right to object at any time to the processing of personal data concerning you for the purpose of
+                    processing
+                    your personal data
+                    This also applies to profiling to the extent that it is compatible with such advertising.
+                    direct advertising is connected. If you object, your personal data will be used to
+                    subsequently no longer used for the purpose of direct marketing (objection pursuant to Art. 21
+                    para. 2
+                    DSGVO).</p>
+                <h3>Right of appeal to the competent supervisory authority</h3>
+                <p>In the event of violations of the DSGVO, the parties concerned have a right of appeal in the event
+                    of a
+                    the supervisory authority, in particular in the Member State of their habitual residence, of their
+                    place of
+                    work
+                    or the location of the suspected infringement. The right of appeal shall be without prejudice to
+                    any other
+                    right of appeal
+                    administrative or judicial remedies.</p><br>
+                <h3>Right to data transferability</h3>
+                <p>You have the right to use data that we have collected on the basis of your consent or in the
+                    performance of
+                    a
+                    contract
+                    automatically, to itself or to a third party in a common, machine-readable format.
+                    to be handed over to you. If you want the data to be transferred directly to another responsible
+                    party
+                    this will only be done as far as it is technically feasible.</p>
+                <h3>SSL or TLS encryption</h3>
+                <p>This site uses for security reasons and to protect the transmission of confidential content, such as
+                    to
+                    For example, orders or requests that you send to us as the site operator, an SSL or TLS encryption.
+                    You can recognize an encrypted connection by the fact that the address line of the browser is not
+                    encrypted.
+                    "http://" to "https://" and the lock symbol in your browser line.
+                    If SSL or TLS encryption is activated, the data that you transmit to us cannot be used to identify
+                    you.
+                    are read by third parties.</p>
+                <h3>Information, blocking, deletion and correction</h3>
+                <p>Within the framework of the applicable statutory provisions, you have the right at any time to
+                    receive free
+                    Information about your stored personal data, their origin and recipients and the
+                    Purpose of the data processing and, if applicable, a right to correction, blocking or deletion of
+                    this data.
+                    For this as well as for further questions on the subject of personal data, you can contact us at
+                    any time
+                    under the following address
+                    in the imprint given address to us.</p>
+                <h3>Right to limitation of processing</h3>
+                <p>You have the right to demand the restriction of the processing of your personal data.
+                    You can contact us at any time at the address given in the imprint. The right
+                    to restriction of the processing exists in the following cases:
+                    If you dispute the accuracy of your personal data stored with us, we need
+                    usually time to check this out. For the duration of the test, you have the right to
+                    Restriction of the processing of your personal data.<br>
+                    If the processing of your personal data happened / happens unlawfully, you may
+                    request the restriction of data processing instead of deletion.
+                    If we no longer need your personal data, but you need it to exercise it,
+                    defence or assertion of legal claims, you have the right, instead of the
+                    Deletion to demand the restriction of the processing of your personal data.
+                    If you have lodged an objection pursuant to Art. 21 para. 1 DSGVO, you must weigh up the following
+                    options
+                    their and our interests are taken into account. As long as it has not yet been determined whose
+                    interests
+                    you have the right to object to the restriction of the processing of your personal data.
+                    to request.<br>
+                    If you have restricted the processing of your personal data, these data - from
+                    storage - only with your consent or for the purpose of asserting, exercising or transmitting your
+                    rights.
+                    Defense of legal claims or protection of the rights of another natural or legal person
+                    a legal person or on grounds of an important public interest of the European Union, or
+                    of a Member State are processed.</p>
+                <h3>Server log files</h3>
+                <p>The provider of these pages automatically collects and stores information in so-called server log
+                    files.
+                    Files that your browser automatically transmits to us. These are:<br>
+                    Browser type and browser version<br>
+                    used operating system<br>
+                    Referrer URL<br>
+                    Hostname of the accessing computer<br>
+                    Time of the server request<br>
+                    IP address<br>
+                    This data will not be merged with other data sources.<br>
+                    This data is collected on the basis of Art. 6 Para. 1 lit. f DSGVO. The website operator has
+                    a justified interest in the technically error-free presentation and optimisation of its website -
+                    the author
+                    is not responsible for any contents linked or referred to from his pages - unless he has full
+                    knowledge of
+                    illegal contents and would be able to prevent the visitors of his site fromviewing those pages.
+                    the server log files must be recorded.<br>
+                    Inquiry by e-mail, telephone or fax
+                    If you contact us by e-mail, telephone or fax, your enquiry will be processed including all the
+                    information
+                    that may result from it.
+                    personal data (name, request) for the purpose of processing your request.
+                    stored and processed by us. We do not pass on this data without your consent.
+                    This data is processed on the basis of Art. 6 Para. 1 lit. b DSGVO, provided that your enquiry is
+                    accompanied
+                    by a written consent.<br>
+                    is related to the performance of a contract or to the implementation of pre-contractual measures
+                    is required in all other cases. In all other cases, the processing is based on your consent (Art. 6
+                    Para. 1
+                    lit. a
+                    DSGVO) and / or on our legitimate interests (Art. 6 Para. 1 lit. f DSGVO), as we have a legitimate
+                    right to
+                    use your personal data for the purpose of processing your personal data
+                    and we are interested in the effective processing of enquiries directed to us.<br>
+                    The data sent to us by you via contact requests will remain with us until you request us to delete
+                    them.
+                    request you to revoke your consent to the storage or the purpose for the data storage no longer
+                    applies
+                    (e.g. after the processing of your request has been completed). Mandatory legal provisions -
+                    especially legal retention periods - remain unaffected.</p>
+                <h2>4. Plugins and tools</h2>
+                <h3>Google Web Fonts</h3>
+                <p>This page uses so-called web fonts, which are provided by Google, for the uniform display of fonts.
+                    The
+                    Google
+                    Fonts are installed locally. A connection to Google's servers isnt made.</p>
+            </ion-list>
+        </form>
+    </div>
 
 
 </ion-content>

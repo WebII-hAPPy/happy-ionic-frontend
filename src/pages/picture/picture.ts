@@ -157,7 +157,7 @@ export class PicturePage {
         this.loading.dismissAll();
         this.presentToast('Image succesfully uploaded. Analysis complete!');
         this.person.parseAnalysis(data.response);
-        let result: IPerson = this.person.getPerson();
+        this.navCtrl.push('AnalysisPage');
 
       }, err => {
         console.log(err);

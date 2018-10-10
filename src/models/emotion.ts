@@ -6,5 +6,6 @@ export interface IEmotion {
     happiness: number,
     neutral: number,
     sadness: number,
-    suprise: number
+    fear: number,
+    surprise: number
 }
