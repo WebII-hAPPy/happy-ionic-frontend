@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/toPromise';
-
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
@@ -7,23 +5,11 @@ import { IUser } from '../../models/user';
 import { IAccountInfo } from '../../models/accountinfo';
 import { share } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import 'rxjs/add/operator/toPromise';
 
 import { Storage } from "@ionic/storage";
-/**
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }Ø
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
+
+
 @Injectable()
 export class User {
   _user: IUser;

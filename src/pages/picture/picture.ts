@@ -6,10 +6,8 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { IEmotion } from '../../models/emotion';
-import { IFacialhair } from '../../models/facialhair';
-import { EGlasses } from '../../models/glasses';
 import { IPerson } from '../../models/person';
+import { Person } from '../../providers/person/person';
 
 declare let cordova: any;
 
@@ -31,7 +29,8 @@ export class PicturePage {
     public toastCtrl: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    private storage: Storage) {
+    private storage: Storage,
+    private person: Person) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -157,7 +156,9 @@ export class PicturePage {
       fileTransfer.upload(targetPath, url, options).then(data => {
         this.loading.dismissAll();
         this.presentToast('Image succesfully uploaded. Analysis complete!');
-        const result: IPerson = this.parseAnalysis(data.response);
+        this.person.parseAnalysis(data.response);
+        let result: IPerson = this.person.getPerson();
+
       }, err => {
         console.log(err);
         this.loading.dismissAll();
@@ -216,29 +217,5 @@ export class PicturePage {
       n = d.getTime(),
       newFileName = n + ".jpg";
     return newFileName;
-  }
-
-  /**
-   * Parses the response of the Picture Analysis.
-   * @param res Response of the Analysis Endpoint.
-   */
-  private parseAnalysis(res: string): IPerson {
-
-    const analysis: any = JSON.parse(res);
-    console.log(analysis);
-    let emotion: IEmotion = analysis.data.emotion;
-    const facialhair: IFacialhair = analysis.data.facialHair;
-    const glassType: EGlasses = analysis.data.glasses;
-    let gender: string = analysis.data.gender;
-    let age: number = analysis.data.age;
-
-    let person: IPerson;
-    person.age = age;
-    person.gender = gender;
-    person.facialhair = facialhair;
-    person.glasses = glassType;
-    person.emotion = emotion;
-
-    return person;
   }
 }
