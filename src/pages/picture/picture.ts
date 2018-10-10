@@ -6,8 +6,8 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { IPerson } from '../../models/person';
-import { Person } from '../../providers/person/person';
+import { IFace } from '../../models/face';
+import { Face } from '../../providers';
 
 declare let cordova: any;
 
@@ -30,7 +30,7 @@ export class PicturePage {
     public platform: Platform,
     public loadingCtrl: LoadingController,
     private storage: Storage,
-    private person: Person) {
+    private face: Face) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -156,7 +156,7 @@ export class PicturePage {
       fileTransfer.upload(targetPath, url, options).then(data => {
         this.loading.dismissAll();
         this.presentToast('Image succesfully uploaded. Analysis complete!');
-        this.person.parseAnalysis(data.response);
+        this.face.parseAnalysis(data.response);
         this.navCtrl.push('AnalysisPage');
 
       }, err => {

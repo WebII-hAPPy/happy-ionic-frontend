@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { IPerson } from '../../models/person';
+import { IFace } from '../../models/face';
 import { IEmotion } from '../../models/emotion';
 import { IFacialhair } from '../../models/facialhair';
 import { EGlasses } from '../../models/glasses';
 
 @Injectable()
-export class Person {
-    private _person: IPerson;
+export class Face {
+    private _person: IFace;
 
     /**
    * Parses the response of the Picture Analysis.
@@ -35,11 +35,11 @@ export class Person {
         }
     }
 
-    public getPerson(): IPerson {
+    public getPerson(): IFace {
         return this._person;
     }
 
-    public setPerson(person: IPerson): void {
+    public setPerson(person: IFace): void {
         this._person = person;
     }
 }

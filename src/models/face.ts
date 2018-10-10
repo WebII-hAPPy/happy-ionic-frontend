@@ -2,7 +2,7 @@ import { IFacialhair } from "./facialhair";
 import { EGlasses } from "./glasses";
 import { IEmotion } from "./emotion";
 
-export interface IPerson {
+export interface IFace {
     facialhair: IFacialhair,
     gender: string,
     age: number,
