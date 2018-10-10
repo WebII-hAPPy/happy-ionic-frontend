@@ -6,6 +6,10 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
+import { IEmotion } from '../../models/emotion';
+import { IFacialhair } from '../../models/facialhair';
+import { EGlasses } from '../../models/glasses';
+import { IPerson } from '../../models/person';
 
 declare let cordova: any;
 
@@ -129,15 +133,16 @@ export class PicturePage {
    */
   private uploadImage(targetPath: string): void {
 
-    const url = 'https://backend.happy-service.ml/api/image';
-    const filename = this.lastImage;
+    const url: string = 'https://backend.happy-service.ml/api/image';
+    const filename: string = this.lastImage;
 
     this.storage.get('jwt_token').then((val) => {
-      console.log(val);
       const jwt_token = val;
       const fileTransfer: TransferObject = this.transfer.create();
       const options = {
-        authorization: jwt_token,
+        headers: {
+          authorization: jwt_token
+        },
         fileKey: "image",
         fileName: filename,
         chunkedMode: false,
@@ -150,9 +155,9 @@ export class PicturePage {
       });
       this.loading.present();
       fileTransfer.upload(targetPath, url, options).then(data => {
-        console.log(data);
         this.loading.dismissAll();
-        this.presentToast('Image succesful uploaded.');
+        this.presentToast('Image succesfully uploaded. Analysis complete!');
+        const result: IPerson = this.parseAnalysis(data.response);
       }, err => {
         console.log(err);
         this.loading.dismissAll();
@@ -211,5 +216,29 @@ export class PicturePage {
       n = d.getTime(),
       newFileName = n + ".jpg";
     return newFileName;
+  }
+
+  /**
+   * Parses the response of the Picture Analysis.
+   * @param res Response of the Analysis Endpoint.
+   */
+  private parseAnalysis(res: string): IPerson {
+
+    const analysis: any = JSON.parse(res);
+    console.log(analysis);
+    let emotion: IEmotion = analysis.data.emotion;
+    const facialhair: IFacialhair = analysis.data.facialHair;
+    const glassType: EGlasses = analysis.data.glasses;
+    let gender: string = analysis.data.gender;
+    let age: number = analysis.data.age;
+
+    let person: IPerson;
+    person.age = age;
+    person.gender = gender;
+    person.facialhair = facialhair;
+    person.glasses = glassType;
+    person.emotion = emotion;
+
+    return person;
   }
 }
