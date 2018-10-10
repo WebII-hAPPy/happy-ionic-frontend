@@ -24,15 +24,16 @@ export class AnalysisPage {
     private personService: Person) { }
 
 
-
   /**
-   * Get fresh data from the person service.
+   * Get fresh data from the person service and build the charts.
    */
   ionViewWillEnter(): void {
     this.person = this.personService.getPerson();
+    this.buildDoughnutChart();
+  }
 
-    console.log(this.person);
 
+  private buildDoughnutChart(): void {
     let emotionData: number[] = [];
 
     emotionData.push(this.person.emotion.sadness);
@@ -43,8 +44,6 @@ export class AnalysisPage {
     emotionData.push(this.person.emotion.neutral);
     emotionData.push(this.person.emotion.surprise);
     emotionData.push(this.person.emotion.happiness);
-
-    console.log(emotionData)
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 
