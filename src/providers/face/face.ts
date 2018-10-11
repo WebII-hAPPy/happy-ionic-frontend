@@ -13,18 +13,15 @@ export class Face {
    * Parses the response of the Picture Analysis.
    * @param res Response of the Analysis Endpoint.
    */
-    public parseAnalysis(res: string): void {
+    public parseAnalysis(res: any): void {
 
-        const analysis: any = JSON.parse(res);
+        const analysis: any = res.data;
 
-        console.log(analysis);
-
-        let emotion: IEmotion = analysis.data.emotion;
-        console.log(emotion);
-        const facialhair: IFacialhair = analysis.data.facialHair;
-        const glasses: EGlasses = analysis.data.glasses;
-        let gender: string = analysis.data.gender;
-        let age: number = analysis.data.age;
+        let emotion: IEmotion = analysis.emotion;
+        const facialhair: IFacialhair = analysis.facialHair;
+        const glasses: EGlasses = analysis.glasses;
+        let gender: string = analysis.gender;
+        let age: number = analysis.age;
 
         this._person = {
             emotion,

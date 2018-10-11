@@ -18,6 +18,9 @@
                     The robot thought hard and determined that you are a <b>{{face.age}}</b> year old <b>{{face.gender}}</b>.
                     Suprised yet?!
                 </p>
+                <p *ngIf="face.emotion.smile > 0.5">
+                    Keep on smiling!
+                </p>
             </ion-card-content>
         </ion-card>
         <ion-card>
@@ -25,9 +28,30 @@
                 Emotions
             </ion-card-header>
             <ion-card-content>
-                <div class="fullwidth">
-                    <canvas #doughnutCanvas></canvas>
-                </div>
+                <canvas width="300" height="300" #doughnutCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                Glasses
+            </ion-card-header>
+            <ion-card-content>
+                <p *ngIf="face.glasses">
+                    0
+                    {{face.glasses}}
+                </p>
+                <p *ngIf="face.glasses === 1">
+                    1
+                </p>
+                <p *ngIf="face.glasses === 2">
+                    2
+                </p>
+                <p *ngIf="face.glasses === 3">
+                    3
+                </p>
+                <p *ngIf="face.glasses === 4">
+                    4
+                </p>
             </ion-card-content>
         </ion-card>
     </div>

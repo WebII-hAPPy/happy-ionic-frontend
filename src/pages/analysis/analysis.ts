@@ -15,10 +15,11 @@ export class AnalysisPage {
 
   @ViewChild('doughnutCanvas') doughnutCanvas;
 
-  doughnutChart: any;
+  doughnutChart: Chart;
   user: IUser;
   face: IFace;
   welcome: string = "Hello";
+
 
   constructor(
     public navCtrl: NavController,
@@ -60,8 +61,25 @@ export class AnalysisPage {
     emotionData.push(face.emotion.happiness);
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-
       type: 'doughnut',
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+          }
+        },
+        animation: {
+          duration: 3000
+        },
+        legend: {
+          position: 'bottom'
+        }
+      },
       data: {
         labels: ["Sadness", "Anger", "Disgust", "Fear", "Contempt", "Neutral", "Suprise", "Happiness"],
         datasets: [{

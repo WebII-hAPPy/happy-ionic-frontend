@@ -6,7 +6,7 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { Face } from '../../providers';
+import { Face, Api } from '../../providers';
 
 declare let cordova: any;
 
@@ -29,7 +29,8 @@ export class PicturePage {
     public platform: Platform,
     public loadingCtrl: LoadingController,
     private storage: Storage,
-    private face: Face) {
+    private face: Face,
+    private api: Api) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -83,9 +84,10 @@ export class PicturePage {
     let options = {
       quality: 60,
       sourceType: sourceType,
-      saveToPhotoAlbum: false,
+      saveToPhotoAlbum: true,
       correctOrientation: true,
-      destinationType: this.camera.DestinationType.FILE_URI
+      destinationType: this.camera.DestinationType.FILE_URI,
+      cameraDirection: 0
     };
 
     this.camera.getPicture(options).then((imagePath) => {
@@ -131,7 +133,7 @@ export class PicturePage {
    */
   private uploadImage(targetPath: string): void {
 
-    const url: string = 'https://backend.happy-service.ml/api/image';
+    const url: string = 'https://backend.happy-service.ml/api/';
     const filename: string = this.lastImage;
 
     this.storage.get('jwt_token').then((val) => {
@@ -152,12 +154,18 @@ export class PicturePage {
         content: 'Uploading...',
       });
       this.loading.present();
-      fileTransfer.upload(targetPath, url, options).then(data => {
+      fileTransfer.upload(targetPath, url + 'image', options).then((data) => {
         this.loading.dismissAll();
-        this.presentToast('Image succesfully uploaded. Analysis complete!');
-        this.face.parseAnalysis(data.response);
-        this.navCtrl.push('AnalysisPage');
 
+        console.log(data)
+        let resp = JSON.parse(data.response);
+        console.log(resp);
+
+        this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
+          this.presentToast('Image succesfully uploaded. Analysis complete!');
+          this.face.parseAnalysis(analysisData);
+          this.navCtrl.push('AnalysisPage');
+        });
       }, err => {
         console.log(err);
         this.loading.dismissAll();
