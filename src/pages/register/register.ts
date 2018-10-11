@@ -7,8 +7,8 @@ import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html'
+  selector: 'page-register',
+  templateUrl: 'register.html'
 })
 export class RegisterPage {
 
@@ -18,7 +18,7 @@ export class RegisterPage {
     password: ''
   };
 
-  private signupErrorString: string = "Unable to create account. Please check your account information and try again.";
+  private registerErrorString: string = "Unable to create account. Please check your account information and try again.";
   private verificationMailString: string = "Hi! The hAPPy team send you a verification mail. Please also check your spam folder. Keep smiling!"
   private autoLoginErrorString: string = "Sorry we couldn\'t log you in... Please try again."
 
@@ -30,7 +30,7 @@ export class RegisterPage {
   /**
    * login in through our User service
    */
-  doSignup(): void {
+  doRegister(): void {
     this.user.register(this.account).subscribe((resp) => {
 
       let verficationMailToast = this.toastCtrl.create({
@@ -54,7 +54,7 @@ export class RegisterPage {
     }, (err) => {
 
       let errorToast = this.toastCtrl.create({
-        message: this.signupErrorString,
+        message: this.registerErrorString,
         duration: 3000,
         position: 'top'
       });

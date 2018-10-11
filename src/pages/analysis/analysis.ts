@@ -36,7 +36,7 @@ export class AnalysisPage {
   }
 
   /**
-   * After the view is there we can fill in the data.
+   * After the view is loaded we can fill in the data.
    */
   ionViewDidEnter(): void {
     this.buildDoughnutChart(this.face);

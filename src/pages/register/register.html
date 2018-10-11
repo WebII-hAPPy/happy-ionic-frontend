@@ -1,34 +1,34 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Signup</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Register</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <form (submit)="doSignup()">
-    <ion-list>
+    <form (submit)="doRegister()">
+        <ion-list>
 
-      <ion-item>
-        <ion-label fixed>Name</ion-label>
-        <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
-      </ion-item>
+            <ion-item>
+                <ion-label fixed>Name</ion-label>
+                <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
+            </ion-item>
 
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
+            <ion-item>
+                <ion-label fixed>Email</ion-label>
+                <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Password</ion-label>
+                <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+            </ion-item>
 
-      <div padding>
-        <button ion-button color="primary" block>Signup</button>
-      </div>
+            <div padding>
+                <button ion-button color="primary" block>Register</button>
+            </div>
 
-    </ion-list>
-  </form>
+        </ion-list>
+    </form>
 </ion-content>
