@@ -21,7 +21,7 @@ export class WelcomePage {
   /**
    * Navigates the view to the signup page.
    */
-  signup(): void {
-    this.navCtrl.push('SignupPage');
+  register(): void {
+    this.navCtrl.push('RegisterPage');
   }
 }

@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
-import { MainPage } from '../';
+import { MainPage } from '..';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
-export class SignupPage {
+export class RegisterPage {
 
   account: { name: string, email: string, password: string } = {
     name: '',
@@ -19,6 +20,7 @@ export class SignupPage {
 
   private signupErrorString: string = "Unable to create account. Please check your account information and try again.";
   private verificationMailString: string = "Hi! The hAPPy team send you a verification mail. Please also check your spam folder. Keep smiling!"
+  private autoLoginErrorString: string = "Sorry we couldn\'t log you in... Please try again."
 
   constructor(
     public navCtrl: NavController,
@@ -30,15 +32,25 @@ export class SignupPage {
    */
   doSignup(): void {
     this.user.register(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
 
       let verficationMailToast = this.toastCtrl.create({
         message: this.verificationMailString,
-        duration: 3000,
+        duration: 4000,
         position: 'top'
       });
       verficationMailToast.present();
 
+      this.user.login(this.account).subscribe((val) => {
+        this.navCtrl.push(MainPage);
+      }, (err) => {
+        let autoLoginError = this.toastCtrl.create({
+          message: this.autoLoginErrorString,
+          duration: 3000,
+          position: 'top'
+        });
+        autoLoginError.present();
+        this.navCtrl.push(LoginPage);
+      });
     }, (err) => {
 
       let errorToast = this.toastCtrl.create({
