@@ -36,21 +36,17 @@
                 Glasses
             </ion-card-header>
             <ion-card-content>
-                <p *ngIf="face.glasses">
-                    0
-                    {{face.glasses}}
+                <p *ngIf="glasses === 'ReadingGlasses'">
+
                 </p>
-                <p *ngIf="face.glasses === 1">
+                <p *ngIf="glasses === 1">
                     1
                 </p>
-                <p *ngIf="face.glasses === 2">
+                <p *ngIf="glasses === 2">
                     2
                 </p>
-                <p *ngIf="face.glasses === 3">
+                <p *ngIf="glasses === 3">
                     3
-                </p>
-                <p *ngIf="face.glasses === 4">
-                    4
                 </p>
             </ion-card-content>
         </ion-card>

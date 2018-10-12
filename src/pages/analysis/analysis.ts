@@ -19,7 +19,7 @@ export class AnalysisPage {
   user: IUser;
   face: IFace;
   welcome: string = "Hello";
-
+  glasses: any;
 
   constructor(
     public navCtrl: NavController,
@@ -34,6 +34,7 @@ export class AnalysisPage {
   ionViewWillEnter(): void {
     this.user = this.userService.getUser();
     this.face = this.faceService.getPerson();
+    this.glasses = this.face.glasses;
   }
 
   /**
