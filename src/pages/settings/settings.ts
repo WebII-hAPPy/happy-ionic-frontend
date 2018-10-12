@@ -1,86 +1,96 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 
-import { Settings, User } from '../../providers';
-import { WelcomePage } from '../welcome/welcome';
-
+import {Api, User} from '../../providers';
+import {WelcomePage} from '../welcome/welcome';
+import {Storage} from "@ionic/storage";
 
 @IonicPage()
 @Component({
-  selector: 'page-settings',
-  templateUrl: 'settings.html'
+    selector: 'page-settings',
+    templateUrl: 'settings.html'
 })
 export class SettingsPage {
-  // TODO: Think about subsettings
-  options: any;
 
-  settingsReady = false;
 
-  form: FormGroup;
-
-  aboutSettings = {
-    page: 'about',
-    pageTitleKey: 'about'
-  };
-
-  page: string = 'main';
-  pageTitleKey: string = 'Settings';
-  pageTitle: string;
-
-  about: any = SettingsPage;
-
-  constructor(public navCtrl: NavController,
-    public settings: Settings,
-    public formBuilder: FormBuilder,
-    public navParams: NavParams,
-    public user: User) {
-  }
-
-  /**
-   * Builds the form by grouping the options.
-   */
-  _buildForm(): void {
-    let group: any = {
-      name: [this.options.name]
+    aboutSettings = {
+        page: 'about',
+        pageTitleKey: 'about'
     };
-    this.form = this.formBuilder.group(group);
+    about: any = SettingsPage;
 
-    // Watch the form for changes, and
-    this.form.valueChanges.subscribe((v) => {
-      this.settings.merge(this.form.value);
-    });
-  }
+    page: string = 'main';
+    pageTitleKey: string = 'Settings';
 
-  /**
-   * Build an empty form for the template to render
-   */
-  ionViewDidLoad(): void {
-    this.form = this.formBuilder.group({});
-  }
+    name: string = '';
 
-  /**
-   * Build an empty form for the template to render
-   */
-  ionViewWillEnter(): void {
-    this.form = this.formBuilder.group({});
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public user: User,
+                private api: Api,
+                private storage: Storage,
+                private alertController: AlertController) {
+    }
 
-    this.page = this.navParams.get('page') || this.page;
-    this.pageTitleKey = this.navParams.get('pageTitleKey') || this.pageTitleKey;
+    /**
+     * Changes the name of a user
+     */
+    // TODO: correct endpoint; do not hardcode jwt_token; handle responses
+    changeName() {
+        this.storage.get('jwt_token').then((val) => {
+            this.api.put('/api/changeName', {'name': name}, { headers: { authorization: val } }).subscribe((response) => {
+                this.name = '';
+            });
+        });
+    }
 
-    this.settings.load().then(() => {
-      this.settingsReady = true;
-      this.options = this.settings.allSettings;
+    /**
+     * Deletes a account
+     */
+    // TODO: correct endpoint; do not hardcode jwt_token; handle response
+    deleteAccount() {
+        this.storage.get('jwt_token').then((val) => {
+            this.api.delete('/api/delete', { headers: { authorization: val } }).subscribe((response) => {
+                this.navCtrl.push(WelcomePage);
+            });
+        })
+    }
 
-      this._buildForm();
-    });
-  }
+    /**
+     * Shows a alert to ask the user if he really wants to delete his account.
+     */
+    showAlert() {
+        let alert = this.alertController.create({
+            title: 'Confirm deletion',
+            message: 'Are you sure you want to delete your account?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel'
+                },
+                {
+                    text: 'Delete',
+                    handler: () => this.deleteAccount()
+                }
+            ]
+        });
+        alert.present();
+    }
 
-  /**
-   * Logs the user out and displays the welcome page.
-   */
-  logout(): void {
-    this.user.logout();
-    this.navCtrl.push(WelcomePage);
-  }
+    /**
+     * Logs the user out and displays the welcome page.
+     */
+    logout(): void {
+        this.user.logout();
+        this.navCtrl.push(WelcomePage);
+    }
+
+    /**
+     * Runs when the page has finished leaving and is no longer the active page.
+     */
+    ionViewWillEnter(): void {
+        this.page = this.navParams.get('page') || this.page;
+        this.pageTitleKey = this.navParams.get('pageTitleKey') || this.pageTitleKey;
+        this.name = '';
+    }
 }
