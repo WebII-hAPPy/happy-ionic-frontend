@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 
-import { Api, User } from '../../providers';
-import { WelcomePage } from '../welcome/welcome';
-import { Storage } from "@ionic/storage";
-import { MainPage } from '..';
+import {Api, User} from '../../providers';
+import {WelcomePage} from '../welcome/welcome';
+import {Storage} from "@ionic/storage";
+import {MainPage} from '..';
 
 @IonicPage()
 @Component({
@@ -22,15 +22,15 @@ export class SettingsPage {
     page: string = 'main';
     pageTitleKey: string = 'Settings';
 
-    model = { name: '' };
+    model = {name: ''};
 
     constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        public user: User,
-        private api: Api,
-        private storage: Storage,
-        private alertController: AlertController,
-        private toastController: ToastController) {
+                public navParams: NavParams,
+                public user: User,
+                private api: Api,
+                private storage: Storage,
+                private alertController: AlertController,
+                private toastController: ToastController) {
     }
 
     /**
@@ -40,7 +40,7 @@ export class SettingsPage {
         const userId: number = this.user.getUser().id;
 
         this.storage.get('jwt_token').then((val) => {
-            this.api.put('api/changeName/' + userId, this.model, { headers: { authorization: val } }).subscribe((response) => {
+            this.api.put('api/changeName/' + userId, this.model, {headers: {authorization: val}}).subscribe((response) => {
                 this.navCtrl.push(MainPage).then(() => this.presentToast('Successfully updated your name.'));
             }, err => {
                 if (err.status === 401) {
@@ -60,7 +60,7 @@ export class SettingsPage {
         const userId: number = this.user.getUser().id;
 
         this.storage.get('jwt_token').then((val) => {
-            this.api.delete('api/deleteAccount/' + userId, { headers: { authorization: val } }).subscribe((response) => {
+            this.api.delete('api/deleteAccount/' + userId, {headers: {authorization: val}}).subscribe((response) => {
                 this.storage.clear();
 
                 this.navCtrl.push(WelcomePage).then(() => this.presentToast('Your account was successfully deleted.'));
@@ -105,9 +105,9 @@ export class SettingsPage {
     }
 
     /**
-   * Show a message with a toast.
-   * @param text Message
-   */
+     * Show a message with a toast.
+     * @param text Message
+     */
     private presentToast(text: string): void {
         let toast = this.toastController.create({
             message: text,
@@ -118,7 +118,7 @@ export class SettingsPage {
     }
 
     /**
-     * Runs when the page has finished leaving and is no longer the active page.
+     * Runs when the page is about to enter and become the active page.
      */
     ionViewWillEnter(): void {
         this.page = this.navParams.get('page') || this.page;
