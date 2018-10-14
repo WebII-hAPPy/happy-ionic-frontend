@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Api, User, Utils } from '../../providers';
+import { Api, User, Utils, Strings } from '../../providers';
 import { WelcomePage } from '../welcome/welcome';
 import { Storage } from "@ionic/storage";
 import { MainPage } from '..';
@@ -30,7 +30,8 @@ export class SettingsPage {
         private api: Api,
         private storage: Storage,
         private alertController: AlertController,
-        private utils: Utils) {
+        private utils: Utils,
+        private strings: Strings) {
     }
 
     /**
@@ -45,7 +46,9 @@ export class SettingsPage {
             }, err => {
                 if (err.status === 401) {
                     this.storage.clear();
-                    this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast('You are not logged in...'));
+                    this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast(this.strings.global_401Error));
+                } else if (err.status === 500) {
+                    this.utils.presentToast(this.strings.global_500Error);
                 } else {
                     this.utils.presentToast('Could not update your name.');
                 }
@@ -63,13 +66,15 @@ export class SettingsPage {
             this.api.delete('api/deleteAccount/' + userId, { headers: { authorization: val } }).subscribe((response) => {
                 this.storage.clear();
 
-                this.navCtrl.push(WelcomePage).then(() => this.utils.presentToast('Your account was successfully deleted.'));
+                this.navCtrl.push(WelcomePage).then(() => this.utils.presentToast(this.strings.settings_accountDeleted));
             }, err => {
                 if (err.status === 401) {
                     this.storage.clear();
-                    this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast('You are not logged in...'));
+                    this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast(this.strings.global_401Error));
+                } else if (err.status === 500) {
+                    this.utils.presentToast(this.strings.global_500Error);
                 } else {
-                    this.utils.presentToast('Could not delete your account.');
+                    this.utils.presentToast(this.strings.settings_accountDeletedError);
                 }
             });
         })

@@ -18,7 +18,6 @@ export class AnalysisPage {
   doughnutChart: Chart;
   user: IUser;
   face: IFace;
-  welcome: string = "Hello";
   glasses: any;
 
   constructor(

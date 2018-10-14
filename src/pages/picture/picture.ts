@@ -6,7 +6,7 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { Face, Api, Utils } from '../../providers';
+import { Face, Api, Utils, Strings } from '../../providers';
 
 declare let cordova: any;
 
@@ -31,7 +31,8 @@ export class PicturePage {
     private storage: Storage,
     private face: Face,
     private api: Api,
-    private utils: Utils) {
+    private utils: Utils,
+    private strings: Strings) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -108,7 +109,7 @@ export class PicturePage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      this.utils.presentToast('Error while selecting image.');
+      this.utils.presentToast(this.strings.picture_fileSelectError);
     });
   }
 
@@ -124,7 +125,7 @@ export class PicturePage {
         this.changeCardImage(this.pathForImage(newFileName));
         this.uploadImage(this.pathForImage(newFileName));
       }, err => {
-        this.utils.presentToast('Error while storing file.');
+        this.utils.presentToast(this.strings.picture_fileStoredError);
       });
   }
 
@@ -134,7 +135,6 @@ export class PicturePage {
    */
   private uploadImage(targetPath: string): void {
 
-    const url: string = 'https://backend.happy-service.ml/api/';
     const filename: string = this.lastImage;
 
     this.storage.get('jwt_token').then((val) => {
@@ -155,7 +155,7 @@ export class PicturePage {
         content: 'Uploading...',
       });
       this.loading.present();
-      fileTransfer.upload(targetPath, url + 'image', options).then((data) => {
+      fileTransfer.upload(targetPath, this.strings.picture_apiUrl + 'image', options).then((data) => {
         this.loading.dismissAll();
 
         console.log(data)
@@ -163,7 +163,7 @@ export class PicturePage {
         console.log(resp);
 
         this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
-          this.utils.presentToast('Image succesfully uploaded. Analysis complete!');
+          this.utils.presentToast(this.strings.picture_uploadSuccess);
           this.face.parseAnalysis(analysisData);
           this.navCtrl.push('AnalysisPage');
         });
@@ -171,16 +171,17 @@ export class PicturePage {
         console.log(err);
         this.loading.dismissAll();
         if (err.http_status === 401) {
-          this.utils.presentToast('You are not logged in...');
+          this.utils.presentToast(this.strings.global_401Error);
+          this.storage.clear();
           this.navCtrl.push('WelcomePage');
         } else if (err.http_status === 413) {
-          this.utils.presentToast('Error: Your file is too big.')
+          this.utils.presentToast(this.strings.picture_fileTooBigError);
         } else if (err.http_status === 416) {
-          this.utils.presentToast('Sorry we couldn\'t find a face on your picture...');
+          this.utils.presentToast(this.strings.picture_noFaceFoundError);
         } else if (err.http_status === 500) {
-          this.utils.presentToast('We have an error on our site. Please contact the developer via the about page.');
+          this.utils.presentToast(this.strings.global_500Error);
         } else {
-          this.utils.presentToast('Error while uploading file.');
+          this.utils.presentToast(this.strings.picture_fileUploadError);
         }
       });
     });
