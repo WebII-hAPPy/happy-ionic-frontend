@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User } from '../../providers';
+import { User, Utils } from '../../providers';
 import { MainPage } from '..';
 import { LoginPage } from '../login/login';
 
@@ -25,40 +25,23 @@ export class RegisterPage {
   constructor(
     public navCtrl: NavController,
     public user: User,
-    public toastCtrl: ToastController) { }
+    public toastCtrl: ToastController,
+    private utils: Utils) { }
 
   /**
    * login in through our User service
    */
   doRegister(): void {
     this.user.register(this.account).subscribe((resp) => {
-
-      let verficationMailToast = this.toastCtrl.create({
-        message: this.verificationMailString,
-        duration: 4000,
-        position: 'top'
-      });
-      verficationMailToast.present();
-
+      this.utils.presentToast(this.verificationMailString, 4000);
       this.user.login(this.account).subscribe((val) => {
         this.navCtrl.push(MainPage);
       }, (err) => {
-        let autoLoginError = this.toastCtrl.create({
-          message: this.autoLoginErrorString,
-          duration: 3000,
-          position: 'top'
-        });
-        autoLoginError.present();
+        this.utils.presentToast(this.autoLoginErrorString);
         this.navCtrl.push(LoginPage);
       });
     }, (err) => {
-
-      let errorToast = this.toastCtrl.create({
-        message: this.registerErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      errorToast.present();
+      this.utils.presentToast(this.registerErrorString);
     });
   }
 }

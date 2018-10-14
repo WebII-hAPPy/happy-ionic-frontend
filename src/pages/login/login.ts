@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User } from '../../providers';
+import { User, Utils } from '../../providers';
 import { MainPage } from '../';
 import { IAccountInfo } from '../../models/accountinfo';
 
@@ -22,7 +22,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
     public user: User,
-    public toastCtrl: ToastController) { }
+    public toastCtrl: ToastController,
+    private utils: Utils) { }
 
   /**
    * Login trough the user service. Else show error.
@@ -33,14 +34,7 @@ export class LoginPage {
     }, (err) => {
 
       console.error("ERR:  ", err);
-
-      // TODO: Differentiate between error messages.
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
+      this.utils.presentToast(this.loginErrorString);
     });
   }
 }

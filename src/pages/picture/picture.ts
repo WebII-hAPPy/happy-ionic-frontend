@@ -6,7 +6,7 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { Face, Api } from '../../providers';
+import { Face, Api, Utils } from '../../providers';
 
 declare let cordova: any;
 
@@ -30,7 +30,8 @@ export class PicturePage {
     public loadingCtrl: LoadingController,
     private storage: Storage,
     private face: Face,
-    private api: Api) {
+    private api: Api,
+    private utils: Utils) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -107,7 +108,7 @@ export class PicturePage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      this.presentToast('Error while selecting image.');
+      this.utils.presentToast('Error while selecting image.');
     });
   }
 
@@ -123,7 +124,7 @@ export class PicturePage {
         this.changeCardImage(this.pathForImage(newFileName));
         this.uploadImage(this.pathForImage(newFileName));
       }, err => {
-        this.presentToast('Error while storing file.');
+        this.utils.presentToast('Error while storing file.');
       });
   }
 
@@ -162,7 +163,7 @@ export class PicturePage {
         console.log(resp);
 
         this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
-          this.presentToast('Image succesfully uploaded. Analysis complete!');
+          this.utils.presentToast('Image succesfully uploaded. Analysis complete!');
           this.face.parseAnalysis(analysisData);
           this.navCtrl.push('AnalysisPage');
         });
@@ -170,16 +171,16 @@ export class PicturePage {
         console.log(err);
         this.loading.dismissAll();
         if (err.http_status === 401) {
-          this.presentToast('You are not logged in...');
+          this.utils.presentToast('You are not logged in...');
           this.navCtrl.push('WelcomePage');
         } else if (err.http_status === 413) {
-          this.presentToast('Error: Your file is too big.')
+          this.utils.presentToast('Error: Your file is too big.')
         } else if (err.http_status === 416) {
-          this.presentToast('Sorry we couldn\'t find a face on your picture...');
+          this.utils.presentToast('Sorry we couldn\'t find a face on your picture...');
         } else if (err.http_status === 500) {
-          this.presentToast('We have an error on our site. Please contact the developer via the about page.');
+          this.utils.presentToast('We have an error on our site. Please contact the developer via the about page.');
         } else {
-          this.presentToast('Error while uploading file.');
+          this.utils.presentToast('Error while uploading file.');
         }
       });
     });
@@ -195,19 +196,6 @@ export class PicturePage {
     } else {
       return (cordova.file.externalDataDirectory + img).replace(/^file:\/\//, '');
     }
-  }
-
-  /**
-   * Show a message with a toast.
-   * @param text Message
-   */
-  private presentToast(text: string): void {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
   }
 
   /**
