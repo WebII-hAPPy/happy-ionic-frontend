@@ -17,7 +17,7 @@ export class MyApp {
 
     platform.ready().then(() => {
 
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
     });
   }

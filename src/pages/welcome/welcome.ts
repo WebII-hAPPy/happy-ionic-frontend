@@ -10,7 +10,8 @@ import { MainPage } from '../';
 })
 export class WelcomePage {
 
-    constructor(public navCtrl: NavController,
+    constructor(
+        public navCtrl: NavController,
         private storage: Storage) {
     }
 

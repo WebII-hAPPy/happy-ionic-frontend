@@ -12,7 +12,9 @@ import { IChartData } from '../../models/chartData';
 })
 export class StatsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams) {
   }
 
   public lineChartData: Array<IChartData> = [

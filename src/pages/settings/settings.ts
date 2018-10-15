@@ -25,7 +25,8 @@ export class SettingsPage {
 
     model = { name: '' };
 
-    constructor(public navCtrl: NavController,
+    constructor(
+        public navCtrl: NavController,
         public navParams: NavParams,
         public user: User,
         private api: Api,
