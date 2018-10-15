@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { MainPage } from '../';
+import { Api } from '../../providers';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,8 @@ export class WelcomePage {
 
     constructor(
         public navCtrl: NavController,
-        private storage: Storage) {
+        private storage: Storage,
+        private api: Api) {
     }
 
     /**
@@ -34,9 +36,11 @@ export class WelcomePage {
      */
     ionViewWillEnter(): void {
         this.storage.get('jwt_token').then((value) => {
-            if (value != null) {
-                this.navCtrl.push(MainPage);
-            }
+            this.api.post('api/verifyToken', null, { headers: { authorization: value } }).subscribe((res) => {
+                if (res) {
+                    this.navCtrl.push(MainPage);
+                }
+            }, (err) => { });
         });
     }
 }

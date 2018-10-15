@@ -4,7 +4,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { User, Utils } from '../../providers';
 import { MainPage } from '../';
 import { IAccountInfo } from '../../models/accountinfo';
-import { login_loginErrorString } from '../../providers/utils/strings';
+import { login_loginErrorString, global_500Error } from '../../providers/utils/strings';
 
 @IonicPage()
 @Component({
@@ -35,7 +35,14 @@ export class LoginPage {
     }, (err) => {
 
       console.error("ERR:  ", err);
-      this.utils.presentToast(login_loginErrorString);
+
+      if (err.status === 500) {
+        this.utils.presentToast(global_500Error);
+      } else if (err.status === 502) {
+        this.utils.presentToast(global_500Error);
+      } else {
+        this.utils.presentToast(login_loginErrorString);
+      }
     });
   }
 }
