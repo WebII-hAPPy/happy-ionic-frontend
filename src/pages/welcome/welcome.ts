@@ -38,7 +38,9 @@ export class WelcomePage {
         this.storage.get('jwt_token').then((value) => {
             this.api.post('api/verifyToken', null, { headers: { authorization: value } }).subscribe((res) => {
                 if (res) {
-                    this.navCtrl.push(MainPage);
+                    this.navCtrl.push(MainPage, {
+                        autoLogin: true
+                    });
                 }
             }, (err) => { });
         });

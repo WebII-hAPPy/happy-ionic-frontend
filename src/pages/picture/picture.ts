@@ -40,7 +40,6 @@ export class PicturePage {
   lastImage: string = null;
   loading: Loading;
 
-
   /**
    * Removes the current cardImage and changes it to the default one.
    * TODO: Delete local file? Endpoint file?
@@ -157,12 +156,10 @@ export class PicturePage {
       this.loading.present();
       fileTransfer.upload(targetPath, global_apiUrl + 'image', options).then((data) => {
         this.loading.dismissAll();
-
-        console.log(data)
         let resp = JSON.parse(data.response);
-        console.log(resp);
 
         this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
+          console.log(analysisData);
           this.utils.presentToast(picture_uploadSuccess);
           this.face.parseAnalysis(analysisData);
           this.navCtrl.push('AnalysisPage');
