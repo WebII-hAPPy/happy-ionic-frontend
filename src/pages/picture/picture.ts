@@ -172,8 +172,11 @@ export class PicturePage {
         this.loading.dismissAll();
         if (err.http_status === 401) {
           this.utils.presentToast(this.strings.global_401Error);
-          this.storage.clear();
           this.navCtrl.push('WelcomePage');
+        } else if (err.http_status === 404) {
+          this.utils.presentToast(this.strings.picture_userNotFoundError);
+          this.storage.clear();
+          this.navCtrl.push('WelcomePage')
         } else if (err.http_status === 413) {
           this.utils.presentToast(this.strings.picture_fileTooBigError);
         } else if (err.http_status === 416) {

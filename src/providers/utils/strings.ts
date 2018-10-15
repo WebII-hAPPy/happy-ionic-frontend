@@ -17,6 +17,7 @@ export class Strings {
     public picture_fileTooBigError: string = 'Error: Your file is too big.';
     public picture_fileUploadError: string = 'Error while uploading file.';
     public picture_noFaceFoundError: string = 'Sorry we couldn\'t find a face on your picture...';
+    public picture_userNotFoundError: string = 'Sorry this user does not exist...';
 
     public register_registerErrorString: string = "Unable to create account. Please check your account information and try again.";
     public register_verificationMailString: string = "Hi! The hAPPy team send you a verification mail. Please also check your spam folder. Keep smiling!"

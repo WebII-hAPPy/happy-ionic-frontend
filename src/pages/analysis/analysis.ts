@@ -5,6 +5,7 @@ import { IFace } from '../../models/face';
 
 import { Chart } from 'chart.js';
 import { IUser } from '../../models/user';
+import { IEmotion } from '../../models/emotion';
 
 @IonicPage()
 @Component({
@@ -48,17 +49,8 @@ export class AnalysisPage {
    * @param face The personal data to be analyzed.
    */
   private buildDoughnutChart(face: IFace): void {
-    let emotionData: number[] = [];
 
-    // Be carefull the sorting matters!
-    emotionData.push(face.emotion.sadness);
-    emotionData.push(face.emotion.anger);
-    emotionData.push(face.emotion.disgust);
-    emotionData.push(face.emotion.fear);
-    emotionData.push(face.emotion.contempt);
-    emotionData.push(face.emotion.neutral);
-    emotionData.push(face.emotion.surprise);
-    emotionData.push(face.emotion.happiness);
+    const emotionData: number[] = this.sortedEmotionsArray(face.emotion);
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
       type: 'doughnut',
@@ -107,5 +99,21 @@ export class AnalysisPage {
         }]
       }
     });
+  }
+
+  private sortedEmotionsArray(emotion: IEmotion) {
+
+    let emotionData: number[] = [];
+
+    emotionData.push(emotion.sadness);
+    emotionData.push(emotion.anger);
+    emotionData.push(emotion.disgust);
+    emotionData.push(emotion.fear);
+    emotionData.push(emotion.contempt);
+    emotionData.push(emotion.neutral);
+    emotionData.push(emotion.surprise);
+    emotionData.push(emotion.happiness);
+
+    return emotionData;
   }
 }
