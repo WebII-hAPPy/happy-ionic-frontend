@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User, Utils, Strings } from '../../providers';
+import { User, Utils } from '../../providers';
 import { MainPage } from '../';
 import { IAccountInfo } from '../../models/accountinfo';
+import { login_loginErrorString } from '../../providers/utils/strings';
 
 @IonicPage()
 @Component({
@@ -21,8 +22,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    private utils: Utils,
-    private strings: Strings) { }
+    private utils: Utils) { }
 
   /**
    * Login trough the user service. Else show error.
@@ -34,7 +34,7 @@ export class LoginPage {
     }, (err) => {
 
       console.error("ERR:  ", err);
-      this.utils.presentToast(this.strings.login_loginErrorString);
+      this.utils.presentToast(login_loginErrorString);
     });
   }
 }

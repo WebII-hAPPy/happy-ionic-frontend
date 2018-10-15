@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User, Utils, Strings } from '../../providers';
+import { User, Utils } from '../../providers';
 import { MainPage } from '..';
 import { LoginPage } from '../login/login';
+import { register_verificationMailString, register_autoLoginErrorString, register_registerErrorString } from '../../providers/utils/strings';
 
 @IonicPage()
 @Component({
@@ -22,23 +23,22 @@ export class RegisterPage {
     public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    private utils: Utils,
-    private strings: Strings) { }
+    private utils: Utils) { }
 
   /**
    * login in through our User service
    */
   doRegister(): void {
     this.user.register(this.account).subscribe((resp) => {
-      this.utils.presentToast(this.strings.register_verificationMailString, 4000);
+      this.utils.presentToast(register_verificationMailString, 4000);
       this.user.login(this.account).subscribe((val) => {
         this.navCtrl.push(MainPage);
       }, (err) => {
-        this.utils.presentToast(this.strings.register_autoLoginErrorString);
+        this.utils.presentToast(register_autoLoginErrorString);
         this.navCtrl.push(LoginPage);
       });
     }, (err) => {
-      this.utils.presentToast(this.strings.register_registerErrorString);
+      this.utils.presentToast(register_registerErrorString);
     });
   }
 }

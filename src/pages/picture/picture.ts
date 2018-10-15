@@ -6,7 +6,8 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
-import { Face, Api, Utils, Strings } from '../../providers';
+import { Face, Api, Utils } from '../../providers';
+import { picture_fileSelectError, picture_fileStoredError, picture_apiUrl, picture_uploadSuccess, global_401Error, picture_userNotFoundError, picture_fileTooBigError, picture_noFaceFoundError, global_500Error, picture_fileUploadError } from '../../providers/utils/strings';
 
 declare let cordova: any;
 
@@ -31,8 +32,7 @@ export class PicturePage {
     private storage: Storage,
     private face: Face,
     private api: Api,
-    private utils: Utils,
-    private strings: Strings) {
+    private utils: Utils) {
   }
 
   cardImage: string = "./assets/img/women_being_analyse_compressed.png";
@@ -109,7 +109,7 @@ export class PicturePage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      this.utils.presentToast(this.strings.picture_fileSelectError);
+      this.utils.presentToast(picture_fileSelectError);
     });
   }
 
@@ -125,7 +125,7 @@ export class PicturePage {
         this.changeCardImage(this.pathForImage(newFileName));
         this.uploadImage(this.pathForImage(newFileName));
       }, err => {
-        this.utils.presentToast(this.strings.picture_fileStoredError);
+        this.utils.presentToast(picture_fileStoredError);
       });
   }
 
@@ -155,7 +155,7 @@ export class PicturePage {
         content: 'Uploading...',
       });
       this.loading.present();
-      fileTransfer.upload(targetPath, this.strings.picture_apiUrl + 'image', options).then((data) => {
+      fileTransfer.upload(targetPath, picture_apiUrl + 'image', options).then((data) => {
         this.loading.dismissAll();
 
         console.log(data)
@@ -163,7 +163,7 @@ export class PicturePage {
         console.log(resp);
 
         this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
-          this.utils.presentToast(this.strings.picture_uploadSuccess);
+          this.utils.presentToast(picture_uploadSuccess);
           this.face.parseAnalysis(analysisData);
           this.navCtrl.push('AnalysisPage');
         });
@@ -171,20 +171,22 @@ export class PicturePage {
         console.log(err);
         this.loading.dismissAll();
         if (err.http_status === 401) {
-          this.utils.presentToast(this.strings.global_401Error);
+          this.utils.presentToast(global_401Error);
           this.navCtrl.push('WelcomePage');
         } else if (err.http_status === 404) {
-          this.utils.presentToast(this.strings.picture_userNotFoundError);
+          this.utils.presentToast(picture_userNotFoundError);
           this.storage.clear();
           this.navCtrl.push('WelcomePage')
         } else if (err.http_status === 413) {
-          this.utils.presentToast(this.strings.picture_fileTooBigError);
+          this.utils.presentToast(picture_fileTooBigError);
         } else if (err.http_status === 416) {
-          this.utils.presentToast(this.strings.picture_noFaceFoundError);
+          this.utils.presentToast(picture_noFaceFoundError);
         } else if (err.http_status === 500) {
-          this.utils.presentToast(this.strings.global_500Error);
+          this.utils.presentToast(global_500Error);
+        } else if (err.http_status === 502) {
+          this.utils.presentToast(global_500Error);
         } else {
-          this.utils.presentToast(this.strings.picture_fileUploadError);
+          this.utils.presentToast(picture_fileUploadError);
         }
       });
     });
