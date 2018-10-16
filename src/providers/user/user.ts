@@ -64,17 +64,22 @@ export class User {
    * Stores the values of the response to the local user object and stores the jwt token.
    */
   _loggedIn(resp): void {
-
     this._user = resp.data.user;
-    this._user.token = resp.data.token;
     this.storage.set('jwt_token', resp.data.token);
   }
 
   /**
    * Returns the cached user object.
-   * TODO: What if the user is null?
    */
   getUser(): IUser {
     return this._user;
+  }
+
+  /**
+   * Caches the user.
+   * @param data Sets 
+   */
+  setUser(data): void {
+    this._user = data;
   }
 }

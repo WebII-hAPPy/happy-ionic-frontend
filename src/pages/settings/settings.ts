@@ -28,7 +28,7 @@ export class SettingsPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        public user: User,
+        private user: User,
         private api: Api,
         private storage: Storage,
         private alertController: AlertController,

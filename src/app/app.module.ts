@@ -23,7 +23,7 @@ import { ChartsModule } from 'ng2-charts';
         BrowserModule,
         HttpClientModule,
         ChartsModule,
-        IonicModule.forRoot(MyApp),
+        IonicModule.forRoot(MyApp, {preloadModules: true}),
         IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
