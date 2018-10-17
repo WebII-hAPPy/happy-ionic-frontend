@@ -8,6 +8,7 @@
     <div padding>
         <ion-list *ngIf="page == 'main'">
 
+
             <form (submit)="changeName()">
                 <ion-item padding-left padding-right>
                     <ion-label>Name</ion-label>
@@ -20,6 +21,8 @@
                     </button>
                 </div>
             </form>
+
+
 
             <div padding>
                 <button ion-button block (click)="logout()">Logout</button>

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IDataPoint } from '../../models/dataPoint';
-import { Api, User } from '../../providers';
+import { Api, User, Utils } from '../../providers';
 import { Storage } from '@ionic/storage';
 import { IUser } from '../../models/user';
 import { IChartData } from '../../models/chartData';
 
 import Chart from 'chart.js';
+import { MainPage } from '..';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,8 @@ export class StatsPage {
     public navParams: NavParams,
     private api: Api,
     private user: User,
-    private storage: Storage) {
+    private storage: Storage,
+    private utils: Utils) {
   }
 
   public chart;
@@ -43,20 +45,41 @@ export class StatsPage {
       this.api.get('api/statistics/' + user.id, null, { headers: { authorization: jwt_token } }).subscribe((resp: any) => {
 
         let i: number = 0;
-        resp.data.forEach((data) => {
-          i++;
-          this.scaleLabel.push(i);
-          this.addDataPointToChart(data);
-        });
+        if (resp.data !== 0) {
+          resp.data.forEach((data) => {
+            i++;
+            this.scaleLabel.push(i);
+            this.addDataPointToChart(data);
+          });
+        }
       }, (err) => {
 
+        console.error(err);
+
       }, () => {
+
         this.options.data.datasets = this.lineChartData;
         this.options.data.labels = this.scaleLabel;
         const canvas: any = document.getElementById('chartCanvas');
         this.chart = new Chart(canvas.getContext('2d'), this.options);
+
       });
     });
+  }
+
+  /**
+   * Deletes the history of the current user.
+   */
+  public deleteHistory(): void {
+    this.storage.get('jwt_token').then((jwt_token) => {
+      const user: IUser = this.user.getUser();
+      this.api.delete('api/statistics/' + user.id, { headers: { authorization: jwt_token } }).subscribe((resp) => {
+        this.utils.presentToast('We deleted your history.')
+        this.navCtrl.push(MainPage);
+      }, (err) => {
+        console.error(err);
+      })
+    })
   }
 
   /**

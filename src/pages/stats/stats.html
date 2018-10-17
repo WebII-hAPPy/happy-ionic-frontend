@@ -9,9 +9,34 @@
 
 <ion-content padding>
 
-    <div class="row">
-        <div class="chart_container">
-            <canvas baseChart width="400" height="400" id="chartCanvas"></canvas>
-        </div>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-card-title>
+                Your recent results!
+            </ion-card-title>
+            <p>
+                You can find you recent results here.<br>
+                Just take a look and see what you think.<br>
+                If you want to clear your data from our server you can find a button at the bottom of the page.
+            </p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-card-title>
+                Graph
+            </ion-card-title>
+            <div class="row">
+                <div class="chart_container">
+                    <canvas baseChart width="400" height="400" id="chartCanvas"></canvas>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+    <div padding>
+        <button ion-button block color="danger" (click)="deleteHistory()">Delete History</button>
     </div>
+
 </ion-content>

@@ -23,14 +23,15 @@ export class MyApp {
     platform.ready().then(() => {
       this.storage.get('jwt_token').then((value) => {
         if (value != null) {
-          this.api.get('verifyToken', null, { headers: { authorization: value } }).subscribe((res) => {
+          this.api.get('verifyToken', null, { headers: { authorization: value } }).subscribe((res: any) => {
             console.log(res);
             this.rootPage = MainPage;
-            this._saveUser(res);
+            this.user.setUser(res.data);
           }, (err) => {
             this.rootPage = FirstRunPage;
             console.log(err);
           }, () => {
+            console.log('Auto Login finished');
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
           });
@@ -41,14 +42,5 @@ export class MyApp {
         }
       });
     });
-  }
-
-  /**
-   * Chaches the user object.
-   * TODO: interface for data
-   * @param res 
-   */
-  private _saveUser(res: any): void {
-    this.user.setUser(res.data);
   }
 }
