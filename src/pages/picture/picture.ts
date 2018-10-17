@@ -7,7 +7,7 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Storage } from "@ionic/storage";
 import { Face, Api, Utils } from '../../providers';
-import { picture_fileSelectError, picture_fileStoredError, picture_apiUrl, picture_uploadSuccess, global_401Error, picture_userNotFoundError, picture_fileTooBigError, picture_noFaceFoundError, global_500Error, picture_fileUploadError } from '../../providers/utils/strings';
+import { picture_fileSelectError, picture_fileStoredError, picture_uploadSuccess, global_apiUrl, global_401Error, picture_userNotFoundError, picture_fileTooBigError, picture_noFaceFoundError, global_500Error, picture_fileUploadError } from '../../providers/utils/strings';
 
 declare let cordova: any;
 
@@ -39,7 +39,6 @@ export class PicturePage {
   base64Image: String;
   lastImage: string = null;
   loading: Loading;
-
 
   /**
    * Removes the current cardImage and changes it to the default one.
@@ -155,14 +154,12 @@ export class PicturePage {
         content: 'Uploading...',
       });
       this.loading.present();
-      fileTransfer.upload(targetPath, picture_apiUrl + 'image', options).then((data) => {
+      fileTransfer.upload(targetPath, global_apiUrl + 'image', options).then((data) => {
         this.loading.dismissAll();
-
-        console.log(data)
         let resp = JSON.parse(data.response);
-        console.log(resp);
 
         this.api.get('api/analysis/' + resp.data.analysisId, null, { headers: { authorization: jwt_token } }).subscribe((analysisData) => {
+          console.log(analysisData);
           this.utils.presentToast(picture_uploadSuccess);
           this.face.parseAnalysis(analysisData);
           this.navCtrl.push('AnalysisPage');

@@ -28,7 +28,7 @@ export class SettingsPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        public user: User,
+        private user: User,
         private api: Api,
         private storage: Storage,
         private alertController: AlertController,
@@ -48,7 +48,7 @@ export class SettingsPage {
                 if (err.status === 401) {
                     this.storage.clear();
                     this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast(global_401Error));
-                } else if (err.status === 500) {
+                } else if (err.status === 500 || err.status === 502) {
                     this.utils.presentToast(global_500Error);
                 } else {
                     this.utils.presentToast('Could not update your name.');
@@ -72,7 +72,7 @@ export class SettingsPage {
                 if (err.status === 401) {
                     this.storage.clear();
                     this.navCtrl.push('WelcomePage').then(() => this.utils.presentToast(global_401Error));
-                } else if (err.status === 500) {
+                } else if (err.status === 500 || err.status === 502) {
                     this.utils.presentToast(global_500Error);
                 } else {
                     this.utils.presentToast(settings_accountDeletedError);

@@ -4,7 +4,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { User, Utils } from '../../providers';
 import { MainPage } from '..';
 import { LoginPage } from '../login/login';
-import { register_verificationMailString, register_autoLoginErrorString, register_registerErrorString } from '../../providers/utils/strings';
+import { register_verificationMailString, register_autoLoginErrorString, register_registerErrorString, global_500Error } from '../../providers/utils/strings';
 
 @IonicPage()
 @Component({
@@ -38,7 +38,13 @@ export class RegisterPage {
         this.navCtrl.push(LoginPage);
       });
     }, (err) => {
-      this.utils.presentToast(register_registerErrorString);
+      if (err.status === 500) {
+        this.utils.presentToast(global_500Error);
+      } else if (err.status === 502) {
+        this.utils.presentToast(global_500Error);
+      } else {
+        this.utils.presentToast(register_registerErrorString);
+      }
     });
   }
 }
