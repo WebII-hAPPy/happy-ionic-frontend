@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IDataPoint } from '../../models/dataPoint';
-import { IColor } from '../../models/color';
-import { IChartData } from '../../models/chartData';
 import { Api, User } from '../../providers';
 import { Storage } from '@ionic/storage';
 import { IUser } from '../../models/user';
@@ -35,6 +33,9 @@ export class StatsPage {
     this.scaleLabel = [];
   }
 
+  /**
+   * When the view enters the chart is build.
+   */
   ionViewDidEnter() {
     this.storage.get('jwt_token').then((jwt_token) => {
       const user: IUser = this.user.getUser();
@@ -55,8 +56,6 @@ export class StatsPage {
         this.chart = new Chart(canvas.getContext('2d'), this.options);
       });
     });
-
-
   }
 
   /**
@@ -82,7 +81,9 @@ export class StatsPage {
     });
   }
 
-
+  /**
+   * Defines the data for the line chart at its colors.
+   */
   private lineChartData: Array<any> = [
     {
       data: [],
@@ -165,6 +166,10 @@ export class StatsPage {
       pointHoverBorderColor: 'rgba(255,193,7,0.8)'
     },
   ];
+
+  /**
+   * Defines the options of the chart.
+   */
   private options = {
     type: 'line',
     data: {

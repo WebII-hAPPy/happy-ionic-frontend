@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { Storage } from "@ionic/storage";
-import { Api, User } from '../../providers';
-import { MainPage } from '..';
 
 @IonicPage()
 @Component({
@@ -12,10 +9,7 @@ import { MainPage } from '..';
 export class WelcomePage {
 
     constructor(
-        public navCtrl: NavController,
-        private storage: Storage,
-        private api: Api,
-        private user: User) {
+        public navCtrl: NavController) {
     }
 
     /**
