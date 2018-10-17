@@ -1,12 +1,12 @@
 export interface IDataPoint {
-    emotion: {
+    emotions: {
         sadness: number,
         anger: number,
         disgust: number,
         fear: number,
         contempt: number,
         neutral: number,
-        suprise: number,
+        surprise: number,
         happiness: number
     }
 }

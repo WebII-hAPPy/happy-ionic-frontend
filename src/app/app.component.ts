@@ -24,6 +24,7 @@ export class MyApp {
       this.storage.get('jwt_token').then((value) => {
         if (value != null) {
           this.api.get('verifyToken', null, { headers: { authorization: value } }).subscribe((res) => {
+            console.log(res);
             this.rootPage = MainPage;
             this._saveUser(res);
           }, (err) => {
