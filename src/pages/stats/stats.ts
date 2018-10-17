@@ -4,8 +4,9 @@ import { IDataPoint } from '../../models/dataPoint';
 import { Api, User } from '../../providers';
 import { Storage } from '@ionic/storage';
 import { IUser } from '../../models/user';
-import Chart from 'chart.js';
+import { IChartData } from '../../models/chartData';
 
+import Chart from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -84,7 +85,7 @@ export class StatsPage {
   /**
    * Defines the data for the line chart at its colors.
    */
-  private lineChartData: Array<any> = [
+  private lineChartData: Array<IChartData> = [
     {
       data: [],
       label: 'sadness',

@@ -1,4 +1,10 @@
 export interface IChartData {
-    data: any, 
-    label: string
+    data: Array<number>,
+    label: string,
+    backgroundColor: string,
+    borderColor: string,
+    pointBackgroundColor: string,
+    pointBorderColor: string,
+    pointHoverBackgroundColor: string,
+    pointHoverBorderColor: string
 }
