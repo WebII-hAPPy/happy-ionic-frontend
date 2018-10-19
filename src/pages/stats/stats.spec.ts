@@ -8,20 +8,41 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Transfer } from "@ionic-native/transfer";
 import { IonicStorageModule } from "@ionic/storage";
-import { IonicErrorHandler, IonicModule, NavController } from "ionic-angular";
+import {
+    IonicErrorHandler,
+    IonicModule,
+    NavController,
+    NavParams
+} from "ionic-angular";
 import { ChartsModule } from "ng2-charts";
 import { MyApp } from "../../app/app.component";
 import { Api, Face, User, Utils } from "../../providers";
-import { LoginPage } from "./login";
+import { AnalysisPage } from "../analysis/analysis";
+import { LoginPage } from "../login/login";
+import { PicturePage } from "../picture/picture";
+import { RegisterPage } from "../register/register";
+import { StatsPage } from "./stats";
+import { TabsPage } from "../tabs/tabs";
 import { WelcomePage } from "../welcome/welcome";
+import { SettingsPage } from "../settings/settings";
 
-describe("LoginPage", () => {
-    let component: LoginPage;
-    let fixture: ComponentFixture<LoginPage>;
+describe("RegisterPage", () => {
+    let component: StatsPage;
+    let fixture: ComponentFixture<StatsPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyApp, LoginPage, WelcomePage],
+            declarations: [
+                MyApp,
+                SettingsPage,
+                WelcomePage,
+                TabsPage,
+                AnalysisPage,
+                PicturePage,
+                RegisterPage,
+                StatsPage,
+                LoginPage
+            ],
             imports: [
                 BrowserModule,
                 HttpClientModule,
@@ -31,6 +52,7 @@ describe("LoginPage", () => {
             ],
             providers: [
                 NavController,
+                NavParams,
                 Api,
                 User,
                 Camera,
@@ -47,7 +69,7 @@ describe("LoginPage", () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LoginPage);
+        fixture = TestBed.createComponent(StatsPage);
         component = fixture.componentInstance;
     });
 
@@ -55,11 +77,7 @@ describe("LoginPage", () => {
     //     fixture.destroy();
     // });
 
-    it("Should create the login page", async(() => {
+    it("Should create the register page", async(() => {
         expect(component).toBeTruthy();
     }));
-
-    it("Should have have a model for account information", () => {
-        expect(component.account).toBeDefined();
-    });
 });

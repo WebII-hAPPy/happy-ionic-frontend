@@ -19,11 +19,12 @@ describe("Welcome", () => {
         component = fixture.componentInstance;
     });
 
-    afterEach(() => {
-        fixture.destroy();
-    });
+    // afterEach(() => {
+    //     fixture.destroy();
+    // });
 
     it("Should create the welcome page", async(() => {
+        component.register()
         expect(component).toBeTruthy();
     }));
 });

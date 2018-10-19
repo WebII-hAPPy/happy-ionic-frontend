@@ -12,16 +12,16 @@ import { IonicErrorHandler, IonicModule, NavController } from "ionic-angular";
 import { ChartsModule } from "ng2-charts";
 import { MyApp } from "../../app/app.component";
 import { Api, Face, User, Utils } from "../../providers";
-import { LoginPage } from "./login";
 import { WelcomePage } from "../welcome/welcome";
+import { RegisterPage } from "./register";
 
-describe("LoginPage", () => {
-    let component: LoginPage;
-    let fixture: ComponentFixture<LoginPage>;
+describe("RegisterPage", () => {
+    let component: RegisterPage;
+    let fixture: ComponentFixture<RegisterPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyApp, LoginPage, WelcomePage],
+            declarations: [MyApp, RegisterPage, WelcomePage],
             imports: [
                 BrowserModule,
                 HttpClientModule,
@@ -47,7 +47,7 @@ describe("LoginPage", () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LoginPage);
+        fixture = TestBed.createComponent(RegisterPage);
         component = fixture.componentInstance;
     });
 
@@ -55,7 +55,7 @@ describe("LoginPage", () => {
     //     fixture.destroy();
     // });
 
-    it("Should create the login page", async(() => {
+    it("Should create the register page", async(() => {
         expect(component).toBeTruthy();
     }));
 
