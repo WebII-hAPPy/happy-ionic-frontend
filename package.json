@@ -8,7 +8,8 @@
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint"
+    "lint": "ionic-app-scripts lint",
+    "test": "karma start ./test-config/karma.conf.js"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
@@ -55,6 +56,22 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
     "@ionic/lab": "1.0.9",
+    "@netbasal/spectator": "^2.0.3",
+    "@types/jasmine": "^2.8.9",
+    "@types/node": "^10.12.0",
+    "angular2-template-loader": "^0.6.2",
+    "html-loader": "^0.5.5",
+    "jasmine": "^3.2.0",
+    "jasmine-core": "^3.2.1",
+    "jasmine-spec-reporter": "^4.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-jasmine-html-reporter": "^1.3.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.5",
+    "null-loader": "^0.1.1",
+    "ts-loader": "^3.5.0",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
