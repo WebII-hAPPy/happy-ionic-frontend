@@ -14,6 +14,7 @@ import {
     NavController,
     NavParams
 } from "ionic-angular";
+import { File } from "@ionic-native/file";
 import { ChartsModule } from "ng2-charts";
 import { MyApp } from "../../app/app.component";
 import { Api, Face, User, Utils } from "../../providers";
@@ -25,7 +26,7 @@ import { SettingsPage } from "../settings/settings";
 import { StatsPage } from "../stats/stats";
 import { WelcomePage } from "../welcome/welcome";
 
-describe("RegisterPage", () => {
+describe("PicturePage", () => {
     let component: PicturePage;
     let fixture: ComponentFixture<PicturePage>;
 
@@ -51,7 +52,8 @@ describe("RegisterPage", () => {
             ],
             providers: [
                 NavController,
-                NavParams,
+                { provide: NavParams, useClass: WelcomePage },
+                { provide: File, useClass: WelcomePage },
                 Api,
                 User,
                 Camera,

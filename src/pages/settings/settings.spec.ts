@@ -26,7 +26,7 @@ import { TabsPage } from "../tabs/tabs";
 import { WelcomePage } from "../welcome/welcome";
 import { SettingsPage } from "./settings";
 
-describe("RegisterPage", () => {
+describe("SettingsPage", () => {
     let component: SettingsPage;
     let fixture: ComponentFixture<SettingsPage>;
 
@@ -52,7 +52,7 @@ describe("RegisterPage", () => {
             ],
             providers: [
                 NavController,
-                NavParams,
+                { provide: NavParams, useClass: WelcomePage },
                 Api,
                 User,
                 Camera,

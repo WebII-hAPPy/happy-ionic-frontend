@@ -25,7 +25,7 @@ import { SettingsPage } from "../settings/settings";
 import { StatsPage } from "../stats/stats";
 import { WelcomePage } from "../welcome/welcome";
 
-describe("RegisterPage", () => {
+describe("AnalysisPage", () => {
     let component: AnalysisPage;
     let fixture: ComponentFixture<AnalysisPage>;
 
@@ -51,7 +51,7 @@ describe("RegisterPage", () => {
             ],
             providers: [
                 NavController,
-                NavParams,
+                { provide: NavParams, useClass: WelcomePage },
                 Api,
                 User,
                 Camera,

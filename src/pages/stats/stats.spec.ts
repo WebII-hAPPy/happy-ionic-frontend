@@ -21,12 +21,11 @@ import { AnalysisPage } from "../analysis/analysis";
 import { LoginPage } from "../login/login";
 import { PicturePage } from "../picture/picture";
 import { RegisterPage } from "../register/register";
-import { StatsPage } from "./stats";
-import { TabsPage } from "../tabs/tabs";
-import { WelcomePage } from "../welcome/welcome";
 import { SettingsPage } from "../settings/settings";
+import { StatsPage } from "../stats/stats";
+import { WelcomePage } from "../welcome/welcome";
 
-describe("RegisterPage", () => {
+describe("StatsPage", () => {
     let component: StatsPage;
     let fixture: ComponentFixture<StatsPage>;
 
@@ -36,7 +35,7 @@ describe("RegisterPage", () => {
                 MyApp,
                 SettingsPage,
                 WelcomePage,
-                TabsPage,
+                PicturePage,
                 AnalysisPage,
                 PicturePage,
                 RegisterPage,
@@ -52,7 +51,10 @@ describe("RegisterPage", () => {
             ],
             providers: [
                 NavController,
-                NavParams,
+                {
+                    provide: NavParams,
+                    useClass: WelcomePage
+                },
                 Api,
                 User,
                 Camera,
@@ -77,7 +79,7 @@ describe("RegisterPage", () => {
     //     fixture.destroy();
     // });
 
-    it("Should create the register page", async(() => {
+    it("Should create the welcome page", async(() => {
         expect(component).toBeTruthy();
     }));
 });

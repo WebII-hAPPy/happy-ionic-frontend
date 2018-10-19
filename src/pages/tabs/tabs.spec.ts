@@ -3,6 +3,7 @@ import { ErrorHandler } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { Camera } from "@ionic-native/camera";
+import { File } from "@ionic-native/file";
 import { FilePath } from "@ionic-native/file-path";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -21,12 +22,12 @@ import { AnalysisPage } from "../analysis/analysis";
 import { LoginPage } from "../login/login";
 import { PicturePage } from "../picture/picture";
 import { RegisterPage } from "../register/register";
+import { SettingsPage } from "../settings/settings";
 import { StatsPage } from "../stats/stats";
 import { TabsPage } from "../tabs/tabs";
 import { WelcomePage } from "../welcome/welcome";
-import { SettingsPage } from "../settings/settings";
 
-describe("RegisterPage", () => {
+describe("TabsPage", () => {
     let component: TabsPage;
     let fixture: ComponentFixture<TabsPage>;
 
@@ -52,7 +53,7 @@ describe("RegisterPage", () => {
             ],
             providers: [
                 NavController,
-                NavParams,
+                { provide: NavParams, useClass: TabsPage },
                 Api,
                 User,
                 Camera,

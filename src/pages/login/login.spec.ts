@@ -8,11 +8,21 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Transfer } from "@ionic-native/transfer";
 import { IonicStorageModule } from "@ionic/storage";
-import { IonicErrorHandler, IonicModule, NavController } from "ionic-angular";
+import {
+    IonicErrorHandler,
+    IonicModule,
+    NavController,
+    NavParams
+} from "ionic-angular";
 import { ChartsModule } from "ng2-charts";
 import { MyApp } from "../../app/app.component";
 import { Api, Face, User, Utils } from "../../providers";
-import { LoginPage } from "./login";
+import { AnalysisPage } from "../analysis/analysis";
+import { LoginPage } from "../login/login";
+import { PicturePage } from "../picture/picture";
+import { RegisterPage } from "../register/register";
+import { SettingsPage } from "../settings/settings";
+import { StatsPage } from "../stats/stats";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("LoginPage", () => {
@@ -21,7 +31,17 @@ describe("LoginPage", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyApp, LoginPage, WelcomePage],
+            declarations: [
+                MyApp,
+                SettingsPage,
+                WelcomePage,
+                PicturePage,
+                AnalysisPage,
+                PicturePage,
+                RegisterPage,
+                StatsPage,
+                LoginPage
+            ],
             imports: [
                 BrowserModule,
                 HttpClientModule,
@@ -31,6 +51,10 @@ describe("LoginPage", () => {
             ],
             providers: [
                 NavController,
+                {
+                    provide: NavParams,
+                    useClass: LoginPage
+                },
                 Api,
                 User,
                 Camera,
@@ -55,11 +79,7 @@ describe("LoginPage", () => {
     //     fixture.destroy();
     // });
 
-    it("Should create the login page", async(() => {
+    it("Should create the welcome page", async(() => {
         expect(component).toBeTruthy();
     }));
-
-    it("Should have have a model for account information", () => {
-        expect(component.account).toBeDefined();
-    });
 });
