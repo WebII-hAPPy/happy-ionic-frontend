@@ -75,11 +75,11 @@ describe("StatsPage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+    });
 
-    it("Should create the welcome page", async(() => {
+    it("Should create the stat page", async(() => {
         expect(component).toBeTruthy();
     }));
 });

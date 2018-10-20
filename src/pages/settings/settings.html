@@ -26,10 +26,10 @@
 
             <div padding>
                 <button ion-button block (click)="logout()">Logout</button>
-                <button ion-button block [navPush]="about" [navParams]="aboutSettings">
+                <button id="about" ion-button block [navPush]="about" [navParams]="aboutSettings">
                     About
                 </button>
-                <button ion-button block color="danger" (click)="showDeleteAccountAlert()">
+                <button id="del" ion-button block color="danger" (click)="showDeleteAccountAlert()">
                     Delete account
                 </button>
             </div>

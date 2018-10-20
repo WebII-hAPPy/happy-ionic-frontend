@@ -39,7 +39,7 @@ export class SettingsPage {
         private user: User,
         private api: Api,
         private storage: Storage,
-        private alertController: AlertController,
+        public alertController: AlertController,
         private utils: Utils
     ) {}
 

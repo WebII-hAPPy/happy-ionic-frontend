@@ -23,4 +23,12 @@ export class WelcomePage {
     register(): void {
         this.navCtrl.push("RegisterPage");
     }
+
+    public registerChildNav(nav: any) {
+        // do nothing
+    }
+
+    public unregisterChildNav(nav: any) {
+        // do nothing
+    }
 }

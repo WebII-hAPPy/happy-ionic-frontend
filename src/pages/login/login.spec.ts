@@ -1,7 +1,7 @@
 import { HttpClientModule } from "@angular/common/http";
-import { ErrorHandler } from "@angular/core";
+import { DebugElement, ErrorHandler } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, By } from "@angular/platform-browser";
 import { Camera } from "@ionic-native/camera";
 import { FilePath } from "@ionic-native/file-path";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -28,6 +28,7 @@ import { WelcomePage } from "../welcome/welcome";
 describe("LoginPage", () => {
     let component: LoginPage;
     let fixture: ComponentFixture<LoginPage>;
+    let de: DebugElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -70,16 +71,26 @@ describe("LoginPage", () => {
         });
     }));
 
+    afterEach(() => {
+        fixture.destroy();
+        de = null;
+    });
+
     beforeEach(() => {
         fixture = TestBed.createComponent(LoginPage);
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
-
-    it("Should create the welcome page", async(() => {
+    it("Should create the login page", async(() => {
         expect(component).toBeTruthy();
     }));
+
+    it("Should perform login action upon button press", () => {
+        spyOn(component, "doLogin");
+
+        de = fixture.debugElement.query(By.css("form"));
+        de.triggerEventHandler("submit", null);
+
+        expect(component.doLogin).toHaveBeenCalled();
+    });
 });

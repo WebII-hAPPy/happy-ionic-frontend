@@ -48,7 +48,7 @@ export class AnalysisPage {
    * Builds the Emotions-Doughnut Chart by filling the Chart Object with relevant data.
    * @param face The personal data to be analyzed.
    */
-  private buildDoughnutChart(face: IFace): void {
+  public buildDoughnutChart(face: IFace): void {
 
     const emotionData: number[] = this.sortedEmotionsArray(face.emotion);
 
@@ -101,7 +101,7 @@ export class AnalysisPage {
     });
   }
 
-  private sortedEmotionsArray(emotion: IEmotion) {
+  sortedEmotionsArray(emotion: IEmotion) {
 
     let emotionData: number[] = [];
 

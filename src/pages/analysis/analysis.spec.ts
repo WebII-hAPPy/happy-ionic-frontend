@@ -24,6 +24,7 @@ import { RegisterPage } from "../register/register";
 import { SettingsPage } from "../settings/settings";
 import { StatsPage } from "../stats/stats";
 import { WelcomePage } from "../welcome/welcome";
+import { IEmotion } from "../../models/emotion";
 
 describe("AnalysisPage", () => {
     let component: AnalysisPage;
@@ -72,11 +73,55 @@ describe("AnalysisPage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+    });
 
-    it("Should create the register page", async(() => {
+    it("Should create the analysis page", async(() => {
         expect(component).toBeTruthy();
     }));
+
+    it("Should build a sorted array of exactly 8 emotion values in following order: sadness, anger, disgust, fear, contempt, neutral, surprise, happiness", () => {
+        const emotions: IEmotion = {
+            anger: 0.1,
+            contempt: 0.2,
+            disgust: 0.3,
+            fear: 0.4,
+            happiness: 0.5,
+            neutral: 0.6,
+            sadness: 0.7,
+            smile: 0.8,
+            surprise: 0.9
+        };
+
+        const emotionData: number[] = component.sortedEmotionsArray(emotions);
+
+        expect(emotionData.length).toBe(8);
+
+        const sadness: number = emotions.sadness;
+        const anger: number = emotions.anger;
+        const disgust: number = emotions.disgust;
+        const fear: number = emotions.fear;
+        const contempt: number = emotions.contempt;
+        const neutral: number = emotions.neutral;
+        const surprise: number = emotions.surprise;
+        const happiness: number = emotions.happiness;
+
+        expect(emotionData[0]).toBe(sadness);
+        expect(emotionData[1]).toBe(anger);
+        expect(emotionData[2]).toBe(disgust);
+        expect(emotionData[3]).toBe(fear);
+        expect(emotionData[4]).toBe(contempt);
+        expect(emotionData[5]).toBe(neutral);
+        expect(emotionData[6]).toBe(surprise);
+        expect(emotionData[7]).toBe(happiness);
+    });
+
+    it("Should built chart when data is loaded", () => {
+        spyOn(component, "buildDoughnutChart");
+
+        component.ionViewDidEnter();
+
+        expect(component.buildDoughnutChart).toHaveBeenCalled();
+    });
 });

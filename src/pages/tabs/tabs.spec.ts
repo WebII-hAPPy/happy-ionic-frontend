@@ -17,7 +17,7 @@ import {
 } from "ionic-angular";
 import { ChartsModule } from "ng2-charts";
 import { MyApp } from "../../app/app.component";
-import { Api, Face, User, Utils } from "../../providers";
+import { Api, Face, User, Utils, Mock } from "../../providers";
 import { AnalysisPage } from "../analysis/analysis";
 import { LoginPage } from "../login/login";
 import { PicturePage } from "../picture/picture";
@@ -26,6 +26,7 @@ import { SettingsPage } from "../settings/settings";
 import { StatsPage } from "../stats/stats";
 import { TabsPage } from "../tabs/tabs";
 import { WelcomePage } from "../welcome/welcome";
+import { NavMock } from "../../../test-config/mock-ionic";
 
 describe("TabsPage", () => {
     let component: TabsPage;
@@ -52,7 +53,7 @@ describe("TabsPage", () => {
                 IonicStorageModule.forRoot()
             ],
             providers: [
-                NavController,
+                { provide: NavController, useClass: NavMock },
                 { provide: NavParams, useClass: TabsPage },
                 Api,
                 User,
@@ -74,11 +75,11 @@ describe("TabsPage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+    });
 
-    it("Should create the register page", async(() => {
+    it("Should create the tabs page", async(() => {
         expect(component).toBeTruthy();
     }));
 });

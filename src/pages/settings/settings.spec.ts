@@ -1,7 +1,7 @@
 import { HttpClientModule } from "@angular/common/http";
-import { ErrorHandler } from "@angular/core";
+import { ErrorHandler, DebugElement } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, By } from "@angular/platform-browser";
 import { Camera } from "@ionic-native/camera";
 import { FilePath } from "@ionic-native/file-path";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -25,10 +25,12 @@ import { StatsPage } from "../stats/stats";
 import { TabsPage } from "../tabs/tabs";
 import { WelcomePage } from "../welcome/welcome";
 import { SettingsPage } from "./settings";
+import { DebugContext } from "@angular/core/src/view";
 
 describe("SettingsPage", () => {
     let component: SettingsPage;
     let fixture: ComponentFixture<SettingsPage>;
+    let deleteButton: DebugElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -73,11 +75,32 @@ describe("SettingsPage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+        deleteButton = null;
+    });
 
-    it("Should create the register page", async(() => {
+    it("Should create the settings page", async(() => {
         expect(component).toBeTruthy();
     }));
+
+    it("Should open confirmation test when atempting to delete account.", () => {
+        spyOn(component, "showDeleteAccountAlert");
+
+        fixture.detectChanges();
+
+        deleteButton = fixture.debugElement.query(By.css("button[id=del]"));
+        deleteButton.triggerEventHandler("click", null);
+
+        expect(component.showDeleteAccountAlert).toHaveBeenCalled();
+    });
+
+    it("Should redirect WelcomePage upon logout", () => {
+        let navCtrl = fixture.debugElement.injector.get(NavController);
+        spyOn(navCtrl, "push");
+
+        component.logout();
+
+        expect(navCtrl.push).toHaveBeenCalledWith(WelcomePage);
+    });
 });

@@ -75,11 +75,20 @@ describe("WelcomePage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+    });
 
     it("Should create the welcome page", async(() => {
         expect(component).toBeTruthy();
     }));
+
+    it("Should redirect to login page when choosing login option", () => {
+        const navCtrl = fixture.debugElement.injector.get(NavController);
+        spyOn(navCtrl, "push");
+
+        component.login();
+
+        expect(navCtrl.push).toHaveBeenCalledWith("LoginPage");
+    });
 });

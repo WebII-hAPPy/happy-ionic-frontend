@@ -74,11 +74,11 @@ describe("PicturePage", () => {
         component = fixture.componentInstance;
     });
 
-    // afterEach(() => {
-    //     fixture.destroy();
-    // });
+    afterEach(() => {
+        fixture.destroy();
+    });
 
-    it("Should create the register page", async(() => {
+    it("Should create the picture page", async(() => {
         expect(component).toBeTruthy();
     }));
 });
