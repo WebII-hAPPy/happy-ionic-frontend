@@ -14,7 +14,8 @@ import {
     global_401Error,
     global_500Error,
     settings_accountDeleted,
-    settings_accountDeletedError
+    settings_accountDeletedError,
+    settings_passwordReset
 } from "../../providers/utils/strings";
 
 @IonicPage()
@@ -110,7 +111,7 @@ export class SettingsPage {
                         if (err.status === 401) {
                             this.storage.clear();
                             this.navCtrl
-                                .push("WelcomePage")
+                                .push(WelcomePage)
                                 .then(() =>
                                     this.utils.presentToast(global_401Error)
                                 );
@@ -156,6 +157,21 @@ export class SettingsPage {
     }
 
     changePassword(): void {
+        const userId: number = this.user.getUser().id;
+        this.storage.get("jwt_token").then(val => {
+            this.api.put("api/passwordReset/" + userId, {
+                headers: { authorization: val }
+            }).subscribe((resp) => {
+                this.storage.clear();
+
+                this.navCtrl
+                .push(WelcomePage)
+                .then(() => this.utils.presentToast(settings_passwordReset));
+            }, (err) => {
+                // TODO: Error handling
+            })
+            
+        });
     }
 
     /**
