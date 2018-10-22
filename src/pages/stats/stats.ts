@@ -75,7 +75,7 @@ export class StatsPage {
       const user: IUser = this.user.getUser();
       this.api.delete('api/statistics/' + user.id, { headers: { authorization: jwt_token } }).subscribe((resp) => {
         this.utils.presentToast('We deleted your history.')
-        this.navCtrl.push(MainPage);
+        this.navCtrl.parent.select(0);
       }, (err) => {
         console.error(err);
       })
