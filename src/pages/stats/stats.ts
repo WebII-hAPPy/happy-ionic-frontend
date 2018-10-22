@@ -26,6 +26,7 @@ export class StatsPage {
 
   public chart: Chart;
   public scaleLabel = [];
+  private noDataFlag: boolean = true;
 
   /**
    * Reset the data before the view loads.
@@ -33,6 +34,8 @@ export class StatsPage {
   ionViewWillEnter() {
     this.clearLineChartData();
     this.scaleLabel = [];
+    this.noDataFlag = true;
+    this.setView(true, true, true, true, true);
   }
 
   /**
@@ -43,25 +46,36 @@ export class StatsPage {
       const user: IUser = this.user.getUser();
       this.api.get('api/statistics/' + user.id, null, { headers: { authorization: jwt_token } }).subscribe((resp: any) => {
 
+
         let i: number = 0;
-        if (resp.data !== 0) {
+        console.log(resp.data.length);
+        if (resp.data.length > 0) {
+          this.noDataFlag = false;
           resp.data.forEach((data) => {
             i++;
             this.scaleLabel.push(i);
             this.addDataPointToChart(data);
           });
+        } else {
+          this.noDataFlag = true;
+          this.setView(true, true, true, false, false);
         }
       }, (err) => {
 
+        this.noDataFlag = true;
+        this.setView(true, true, true, false, false);
         console.error(err);
 
       }, () => {
-
-        this.options.data.datasets = this.lineChartData;
-        this.options.data.labels = this.scaleLabel;
-        const canvas: any = document.getElementById('chartCanvas');
-        this.chart = new Chart(canvas.getContext('2d'), this.options);
-
+        if (this.noDataFlag === false) {
+          this.options.data.datasets = this.lineChartData;
+          this.options.data.labels = this.scaleLabel;
+          const canvas: any = document.getElementById('chartCanvas');
+          this.chart = new Chart(canvas.getContext('2d'), this.options);
+          this.setView(false, false, false, true, true);
+        } else {
+          this.setView(true, true, true, false, false);
+        }
       });
     });
   }
@@ -95,6 +109,14 @@ export class StatsPage {
         }
       }
     });
+  }
+
+  private setView(deleteHistoryButton: boolean, graphCard: boolean, introductionCard: boolean, noDataIntroductionCard: boolean, noGraphCard: boolean) {
+    document.getElementById('deleteHistoryButton').hidden = deleteHistoryButton;
+    document.getElementById('graphCard').hidden = graphCard;
+    document.getElementById('introductionCard').hidden = introductionCard;
+    document.getElementById('noDataIntroductionCard').hidden = noDataIntroductionCard;
+    document.getElementById('noGraphCard').hidden = noGraphCard;
   }
 
   /**
