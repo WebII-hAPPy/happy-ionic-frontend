@@ -7,7 +7,6 @@ import { IUser } from '../../models/user';
 import { IChartData } from '../../models/chartData';
 
 import Chart from 'chart.js';
-import { MainPage } from '..';
 
 @IonicPage()
 @Component({
@@ -25,7 +24,7 @@ export class StatsPage {
     private utils: Utils) {
   }
 
-  public chart;
+  public chart: Chart;
   public scaleLabel = [];
 
   /**
@@ -74,7 +73,9 @@ export class StatsPage {
     this.storage.get('jwt_token').then((jwt_token) => {
       const user: IUser = this.user.getUser();
       this.api.delete('api/statistics/' + user.id, { headers: { authorization: jwt_token } }).subscribe((resp) => {
-        this.utils.presentToast('We deleted your history.')
+        this.utils.presentToast('We deleted your history.');
+        this.clearLineChartData();
+        this.chart.destroy();
         this.navCtrl.parent.select(0);
       }, (err) => {
         console.error(err);
