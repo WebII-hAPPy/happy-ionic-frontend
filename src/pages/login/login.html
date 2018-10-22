@@ -13,15 +13,15 @@
 
             <ion-item>
                 <ion-label fixed>Email</ion-label>
-                <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+                <ion-input id="email" type="email" [(ngModel)]="account.email" name="email"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed>Password</ion-label>
-                <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+                <ion-input id="password" type="password" [(ngModel)]="account.password" name="password"></ion-input>
             </ion-item>
 
             <div padding>
-                <button ion-button color="primary" block>Login</button>
+                <button id="btn" ionion-button color="primary" block>Login</button>
             </div>
 
         </ion-list>
