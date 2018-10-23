@@ -1,13 +1,12 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
-
-import { User, Utils } from "../../providers";
 import { MainPage } from "../";
 import { IAccountInfo } from "../../models/accountinfo";
+import { User, Utils } from "../../providers";
 import {
-    login_loginErrorString,
+    global_422Error,
     global_500Error,
-    global_422Error
+    login_loginErrorString
 } from "../../providers/utils/strings";
 import { PasswordResetPage } from "../password-reset/password-reset";
 
@@ -55,5 +54,9 @@ export class LoginPage {
                 }
             }
         );
+    }
+
+    navigate(): void {
+        this.navCtrl.push("PasswordResetPage");
     }
 }

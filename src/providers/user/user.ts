@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
-
-import { Api } from "../api/api";
-import { IUser } from "../../models/user";
-import { IAccountInfo } from "../../models/accountinfo";
-import { share } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/toPromise";
-
 import { Storage } from "@ionic/storage";
-import { ObserveOnSubscriber } from "rxjs/operators/observeOn";
+import "rxjs/add/operator/toPromise";
+import { Observable } from "rxjs/Observable";
+import { share } from "rxjs/operators";
+import { IAccountInfo } from "../../models/accountinfo";
+import { IUser } from "../../models/user";
+import { Api } from "../api/api";
 
 @Injectable()
 export class User {
@@ -29,9 +26,8 @@ export class User {
         seq.subscribe(
             (res: any) => {
                 if (
-                    (res.data.user.PasswordReset ==
-                        res.data.user.PasswordReset.isResetting) ===
-                    true
+                    (res.data.user.PasswordReset &&
+                        res.data.user.PasswordReset.isResetting) === true
                 ) {
                     // TODO smth
                 } else {
@@ -75,7 +71,7 @@ export class User {
             password: password
         };
         let seq: Observable<ArrayBuffer> = this.api
-            .put("resetPassword", password)
+            .put("resetPassword", _password)
             .pipe(share());
 
         seq.subscribe(
