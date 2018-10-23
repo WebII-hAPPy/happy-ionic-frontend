@@ -37,3 +37,6 @@ export const passwordReset_passwordMatchError: string =
     "Passwords do not match!";
 export const passwordReset_passwordErrorString: string =
     "Unable to change password. Please check your account information and try again.";
+
+export const passwordResetEmail_passwordErrorString: string =
+    "Unable to change password.";

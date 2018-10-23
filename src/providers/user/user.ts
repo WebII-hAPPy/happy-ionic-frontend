@@ -25,12 +25,7 @@ export class User {
 
         seq.subscribe(
             (res: any) => {
-                if (
-                    (res.data.user.PasswordReset &&
-                        res.data.user.PasswordReset.isResetting) === true
-                ) {
-                    // TODO smth
-                } else {
+                if (res.status === "201") {
                     this._loggedIn(res);
                 }
             },

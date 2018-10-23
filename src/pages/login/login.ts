@@ -9,6 +9,7 @@ import {
     login_loginErrorString
 } from "../../providers/utils/strings";
 import { PasswordResetPage } from "../password-reset/password-reset";
+import { PasswordResetEmailPage } from "../password-reset-email/password-reset-email";
 
 @IonicPage()
 @Component({
@@ -56,7 +57,7 @@ export class LoginPage {
         );
     }
 
-    navigate(): void {
-        this.navCtrl.push("PasswordResetPage");
+    navigateToPasswordReset(): void {
+        this.navCtrl.push("PasswordResetEmailPage");
     }
 }

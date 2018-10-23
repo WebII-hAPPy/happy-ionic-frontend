@@ -2,6 +2,9 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController } from "ionic-angular";
 import { PasswordValidator } from "../../providers/utils/formValidation";
+import { User, Utils } from "../../providers";
+import { MainPage } from "..";
+import { global_500Error, global_422Error, passwordReset_passwordErrorString } from "../../providers/utils/strings";
 
 @IonicPage()
 @Component({
@@ -13,8 +16,8 @@ export class PasswordResetPage {
 
     constructor(
         public navCtrl: NavController,
-        // private user: User,
-        // private utils: Utils,
+        private user: User,
+        private utils: Utils,
         private fb: FormBuilder
     ) {
         this.form = this.fb.group(
@@ -26,24 +29,24 @@ export class PasswordResetPage {
         );
     }
 
-    // resetPassword(): void {
-    //     this.user.resetPassword(this.form.controls.password.value).subscribe(
-    //         resp => {
-    //             this.navCtrl.push(MainPage);
-    //         },
-    //         err => {
-    //             console.error("ERROR: ", err);
+    resetPassword(): void {
+        this.user.resetPassword(this.form.controls.password.value).subscribe(
+            resp => {
+                this.navCtrl.push(MainPage);
+            },
+            err => {
+                console.error("ERROR: ", err);
 
-    //             if (err.status === 500) {
-    //                 this.utils.presentToast(global_500Error);
-    //             } else if (err.status === 502) {
-    //                 this.utils.presentToast(global_500Error);
-    //             } else if (err.status === 422) {
-    //                 this.utils.presentToast(global_422Error);
-    //             } else {
-    //                 this.utils.presentToast(passwordReset_passwordErrorString);
-    //             }
-    //         }
-    //     );
-    // }
+                if (err.status === 500) {
+                    this.utils.presentToast(global_500Error);
+                } else if (err.status === 502) {
+                    this.utils.presentToast(global_500Error);
+                } else if (err.status === 422) {
+                    this.utils.presentToast(global_422Error);
+                } else {
+                    this.utils.presentToast(passwordReset_passwordErrorString);
+                }
+            }
+        );
+    }
 }

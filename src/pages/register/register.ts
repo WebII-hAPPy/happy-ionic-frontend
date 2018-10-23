@@ -31,15 +31,7 @@ export class RegisterPage {
         public user: User,
         public toastCtrl: ToastController,
         private utils: Utils
-    ) // private fb: FormBuilder
-    {
-        // this.form = this.fb.group({
-        //     email: [""]
-        // });
-        // this.form.valueChanges.subscribe((changeObj: any) => {
-        //     this.disable = this.form.valid;
-        // });
-    }
+    ) {}
 
     /**
      * login in through our User service
