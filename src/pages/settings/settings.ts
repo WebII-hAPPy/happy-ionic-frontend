@@ -15,7 +15,8 @@ import {
     global_500Error,
     settings_accountDeleted,
     settings_accountDeletedError,
-    settings_passwordReset
+    settings_passwordReset,
+    settings_passwordResetError
 } from "../../providers/utils/strings";
 
 @IonicPage()
@@ -159,18 +160,37 @@ export class SettingsPage {
     changePassword(): void {
         const userId: number = this.user.getUser().id;
         this.storage.get("jwt_token").then(val => {
-            this.api.put("api/passwordReset/" + userId, {
-                headers: { authorization: val }
-            }).subscribe((resp) => {
-                this.storage.clear();
+            this.api
+                .put("api/passwordReset/" + userId, {
+                    headers: { authorization: val }
+                })
+                .subscribe(
+                    resp => {
+                        this.storage.clear();
 
-                this.navCtrl
-                .push(WelcomePage)
-                .then(() => this.utils.presentToast(settings_passwordReset));
-            }, (err) => {
-                // TODO: Error handling
-            })
-            
+                        this.navCtrl
+                            .push(WelcomePage)
+                            .then(() =>
+                                this.utils.presentToast(settings_passwordReset)
+                            );
+                    },
+                    err => {
+                        if (err.status === 401) {
+                            this.storage.clear();
+                            this.navCtrl
+                                .push(WelcomePage)
+                                .then(() =>
+                                    this.utils.presentToast(global_401Error)
+                                );
+                        } else if (err.status === 500 || err.status === 502) {
+                            this.utils.presentToast(global_500Error);
+                        } else {
+                            this.utils.presentToast(
+                                settings_passwordResetError
+                            );
+                        }
+                    }
+                );
         });
     }
 
