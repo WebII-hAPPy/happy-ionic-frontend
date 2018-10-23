@@ -41,7 +41,7 @@ export class SettingsPage {
         private storage: Storage,
         public alertController: AlertController,
         private utils: Utils
-    ) {}
+    ) { }
 
     /**
      * Changes the name of a user
@@ -99,6 +99,7 @@ export class SettingsPage {
                     response => {
                         this.storage.clear();
 
+                        // TODO: Needs fixing push is wrong here
                         this.navCtrl
                             .push(WelcomePage)
                             .then(() =>
@@ -108,8 +109,10 @@ export class SettingsPage {
                     err => {
                         if (err.status === 401) {
                             this.storage.clear();
+
+                            // TODO: Needs fixing push is wrong here
                             this.navCtrl
-                                .push("WelcomePage")
+                                .push(WelcomePage)
                                 .then(() =>
                                     this.utils.presentToast(global_401Error)
                                 );

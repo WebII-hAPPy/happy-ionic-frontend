@@ -72,6 +72,7 @@ export class StatsPage {
           this.options.data.labels = this.scaleLabel;
           const canvas: any = document.getElementById('chartCanvas');
           this.chart = new Chart(canvas.getContext('2d'), this.options);
+          console.log("View");
           this.setView(false, false, false, true, true);
         } else {
           this.setView(true, true, true, false, false);
