@@ -9,5 +9,5 @@ test_app:
     - master 
   stage: test
   script:
-    - run npm install  
+    - npm install  
     - npm test
