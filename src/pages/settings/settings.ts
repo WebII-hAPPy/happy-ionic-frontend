@@ -4,7 +4,8 @@ import {
     AlertController,
     IonicPage,
     NavController,
-    NavParams
+    NavParams,
+    App
 } from "ionic-angular";
 import { MainPage } from "..";
 import { Api, User, Utils } from "../../providers";
@@ -34,10 +35,10 @@ export class SettingsPage {
         public navCtrl: NavController,
         public navParams: NavParams,
         private user: User,
-        private api: Api,
         private storage: Storage,
         public alertController: AlertController,
-        private utils: Utils
+        private utils: Utils,
+        private api: Api
     ) { }
 
     /**
@@ -53,22 +54,17 @@ export class SettingsPage {
                 })
                 .subscribe(
                     response => {
-                        this.navCtrl
-                            .push(MainPage)
-                            .then(() =>
-                                this.utils.presentToast(
-                                    "Successfully updated your name."
-                                )
-                            );
+                        this.utils.navigateToNewRoot(MainPage).then(() => {
+                            this.utils.presentToast("Successfully updated your name.");
+                        })
                     },
                     err => {
                         if (err.status === 401) {
                             this.storage.clear();
-                            this.navCtrl
-                                .push("WelcomePage")
-                                .then(() =>
-                                    this.utils.presentToast(global_401Error)
-                                );
+                            
+                            this.utils.navigateToNewRoot("WelcomePage").then(() => {
+                                this.utils.presentToast(global_401Error)
+                            });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {
@@ -96,23 +92,17 @@ export class SettingsPage {
                     response => {
                         this.storage.clear();
 
-                        // TODO: Needs fixing push is wrong here
-                        this.navCtrl
-                            .push(WelcomePage)
-                            .then(() =>
-                                this.utils.presentToast(settings_accountDeleted)
-                            );
+                        this.utils.navigateToNewRoot(WelcomePage).then(() => {
+                            this.utils.presentToast(settings_accountDeleted)
+                        });
                     },
                     err => {
                         if (err.status === 401) {
                             this.storage.clear();
 
-                            // TODO: Needs fixing push is wrong here
-                            this.navCtrl
-                                .push(WelcomePage)
-                                .then(() =>
-                                    this.utils.presentToast(global_401Error)
-                                );
+                            this.utils.navigateToNewRoot(WelcomePage).then(() => {
+                                this.utils.presentToast(global_401Error);
+                            });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {
@@ -151,7 +141,7 @@ export class SettingsPage {
      */
     logout(): void {
         this.user.logout();
-        this.navCtrl.push(WelcomePage);
+        this.utils.navigateToNewRoot(WelcomePage);
     }
 
     about(): void {
@@ -165,20 +155,16 @@ export class SettingsPage {
                 resp => {
                     this.storage.clear();
 
-                    this.navCtrl
-                        .push(WelcomePage)
-                        .then(() =>
-                            this.utils.presentToast(passwordReset_success)
-                        );
+                    this.utils.navigateToNewRoot(WelcomePage).then(() => {
+                        this.utils.presentToast(passwordReset_success)
+                    });
                 },
                 err => {
                     if (err.status === 401) {
                         this.storage.clear();
-                        this.navCtrl
-                            .push(WelcomePage)
-                            .then(() =>
-                                this.utils.presentToast(global_401Error)
-                            );
+                        this.utils.navigateToNewRoot(WelcomePage).then(() => {
+                            this.utils.presentToast(global_401Error)
+                        });
                     } else if (err.status === 500 || err.status === 502) {
                         this.utils.presentToast(global_500Error);
                     } else if (err.status === 403) {

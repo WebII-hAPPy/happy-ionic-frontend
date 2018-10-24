@@ -39,7 +39,7 @@ export class RegisterPage {
                 this.utils.presentToast(register_verificationMailString, 4000);
                 this.user.login(this.account).subscribe(
                     val => {
-                        this.navCtrl.push(MainPage);
+                        this.utils.navigateToNewRoot(MainPage);
                     },
                     err => {
                         this.utils.presentToast(register_autoLoginErrorString);
