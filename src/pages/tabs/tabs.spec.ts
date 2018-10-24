@@ -2,12 +2,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { ErrorHandler } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
-import { Camera } from "@ionic-native/camera";
-import { File } from "@ionic-native/file";
-import { FilePath } from "@ionic-native/file-path";
-import { SplashScreen } from "@ionic-native/splash-screen";
-import { StatusBar } from "@ionic-native/status-bar";
-import { Transfer } from "@ionic-native/transfer";
 import { IonicStorageModule } from "@ionic/storage";
 import {
     IonicErrorHandler,
@@ -15,18 +9,9 @@ import {
     NavController,
     NavParams
 } from "ionic-angular";
-import { ChartsModule } from "ng2-charts";
-import { MyApp } from "../../app/app.component";
-import { Api, Face, User, Utils, Mock } from "../../providers";
-import { AnalysisPage } from "../analysis/analysis";
-import { LoginPage } from "../login/login";
-import { PicturePage } from "../picture/picture";
-import { RegisterPage } from "../register/register";
-import { SettingsPage } from "../settings/settings";
-import { StatsPage } from "../stats/stats";
-import { TabsPage } from "../tabs/tabs";
-import { WelcomePage } from "../welcome/welcome";
 import { NavMock } from "../../../test-config/mock-ionic";
+import { MyApp } from "../../app/app.component";
+import { TabsPage } from "../tabs/tabs";
 
 describe("TabsPage", () => {
     let component: TabsPage;
@@ -34,36 +19,16 @@ describe("TabsPage", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                MyApp,
-                SettingsPage,
-                WelcomePage,
-                TabsPage,
-                AnalysisPage,
-                PicturePage,
-                RegisterPage,
-                StatsPage,
-                LoginPage
-            ],
+            declarations: [MyApp, TabsPage],
             imports: [
                 BrowserModule,
                 HttpClientModule,
-                ChartsModule,
                 IonicModule.forRoot(MyApp, { preloadModules: true }),
                 IonicStorageModule.forRoot()
             ],
             providers: [
                 { provide: NavController, useClass: NavMock },
                 { provide: NavParams, useClass: TabsPage },
-                Api,
-                User,
-                Camera,
-                Face,
-                Utils,
-                Transfer,
-                FilePath,
-                SplashScreen,
-                StatusBar,
                 // Keep this to enable Ionic's runtime error handling during development
                 { provide: ErrorHandler, useClass: IonicErrorHandler }
             ]

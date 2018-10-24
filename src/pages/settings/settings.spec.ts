@@ -37,18 +37,10 @@ describe("SettingsPage", () => {
             declarations: [
                 MyApp,
                 SettingsPage,
-                WelcomePage,
-                TabsPage,
-                AnalysisPage,
-                PicturePage,
-                RegisterPage,
-                StatsPage,
-                LoginPage
             ],
             imports: [
                 BrowserModule,
                 HttpClientModule,
-                ChartsModule,
                 IonicModule.forRoot(MyApp, { preloadModules: true }),
                 IonicStorageModule.forRoot()
             ],
@@ -57,13 +49,7 @@ describe("SettingsPage", () => {
                 { provide: NavParams, useClass: WelcomePage },
                 Api,
                 User,
-                Camera,
-                Face,
                 Utils,
-                Transfer,
-                FilePath,
-                SplashScreen,
-                StatusBar,
                 // Keep this to enable Ionic's runtime error handling during development
                 { provide: ErrorHandler, useClass: IonicErrorHandler }
             ]

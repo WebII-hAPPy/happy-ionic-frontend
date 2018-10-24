@@ -34,19 +34,11 @@ describe("LoginPage", () => {
         TestBed.configureTestingModule({
             declarations: [
                 MyApp,
-                SettingsPage,
-                WelcomePage,
-                PicturePage,
-                AnalysisPage,
-                PicturePage,
-                RegisterPage,
-                StatsPage,
                 LoginPage
             ],
             imports: [
                 BrowserModule,
                 HttpClientModule,
-                ChartsModule,
                 IonicModule.forRoot(MyApp, { preloadModules: true }),
                 IonicStorageModule.forRoot()
             ],
@@ -58,13 +50,7 @@ describe("LoginPage", () => {
                 },
                 Api,
                 User,
-                Camera,
-                Face,
                 Utils,
-                Transfer,
-                FilePath,
-                SplashScreen,
-                StatusBar,
                 // Keep this to enable Ionic's runtime error handling during development
                 { provide: ErrorHandler, useClass: IonicErrorHandler }
             ]
