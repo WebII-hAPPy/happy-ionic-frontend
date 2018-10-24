@@ -34,10 +34,7 @@ describe("SettingsPage", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                MyApp,
-                SettingsPage,
-            ],
+            declarations: [MyApp, SettingsPage],
             imports: [
                 BrowserModule,
                 HttpClientModule,
@@ -82,11 +79,11 @@ describe("SettingsPage", () => {
     });
 
     it("Should redirect WelcomePage upon logout", () => {
-        let navCtrl = fixture.debugElement.injector.get(NavController);
-        spyOn(navCtrl, "push");
+        let utils = fixture.debugElement.injector.get(Utils);
+        spyOn(utils, "navigateToNewRoot");
 
         component.logout();
 
-        expect(navCtrl.push).toHaveBeenCalledWith(WelcomePage);
+        expect(utils.navigateToNewRoot).toHaveBeenCalledWith(WelcomePage);
     });
 });
