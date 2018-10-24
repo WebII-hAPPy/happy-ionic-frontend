@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController } from "ionic-angular";
+import { IonicPage, NavController, Platform, AlertController } from "ionic-angular";
 
 @IonicPage()
 @Component({
@@ -8,7 +8,29 @@ import { IonicPage, NavController } from "ionic-angular";
 })
 export class WelcomePage {
 
-    constructor(public navCtrl: NavController) { }
+    constructor(public navCtrl: NavController, private platform: Platform, private alertCtrl: AlertController) {
+        this.platform.registerBackButtonAction(() => {
+
+            const leaveAlert = this.alertCtrl.create({
+                title: "Exit app",
+                message: "Do you really want to exit?",
+                buttons: [
+                    {
+                        text: 'Exit',
+                        handler: () => {
+                            platform.exitApp();
+                        }
+                    }, {
+                        text: 'Cancel',
+                        handler: () => {
+                            leaveAlert.dismiss();
+                        }
+                    }
+                ]
+            });
+            leaveAlert.present();
+        }, 1);
+    }
 
     /**
      * Navigates the view to the login page.

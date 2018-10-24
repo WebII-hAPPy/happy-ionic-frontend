@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { IDataPoint } from '../../models/dataPoint';
 import { Api, User, Utils } from '../../providers';
 import { Storage } from '@ionic/storage';
@@ -21,7 +21,29 @@ export class StatsPage {
     private api: Api,
     private user: User,
     private storage: Storage,
-    private utils: Utils) {
+    private utils: Utils,
+    private platform: Platform,
+    private alertCtrl: AlertController) {
+    this.platform.registerBackButtonAction(() => {
+      const leaveAlert = this.alertCtrl.create({
+        title: "Exit app",
+        message: "Do you really want to exit?",
+        buttons: [
+          {
+            text: 'Exit',
+            handler: () => {
+              platform.exitApp();
+            }
+          }, {
+            text: 'Cancel',
+            handler: () => {
+              leaveAlert.dismiss();
+            }
+          }
+        ]
+      });
+      leaveAlert.present();
+    }, 1);
   }
 
   public chart: Chart;
@@ -32,6 +54,7 @@ export class StatsPage {
    * Reset the data before the view loads.
    */
   ionViewWillEnter() {
+
     this.clearLineChartData();
     this.scaleLabel = [];
     this.noDataFlag = true;
@@ -112,6 +135,14 @@ export class StatsPage {
     });
   }
 
+  /**
+   * Set view by hiding parts of the html template
+   * @param deleteHistoryButton true to hide | false to show
+   * @param graphCard true to hide | false to show
+   * @param introductionCard true to hide | false to show
+   * @param noDataIntroductionCard true to hide | false to show
+   * @param noGraphCard true to hide | false to show
+   */
   private setView(deleteHistoryButton: boolean, graphCard: boolean, introductionCard: boolean, noDataIntroductionCard: boolean, noGraphCard: boolean) {
     document.getElementById('deleteHistoryButton').hidden = deleteHistoryButton;
     document.getElementById('graphCard').hidden = graphCard;
@@ -130,7 +161,7 @@ export class StatsPage {
   }
 
   /**
-   * Defines the data for the line chart at its colors.
+   * Defines the data for the line chart and its colors.
    */
   private lineChartData: Array<IChartData> = [
     {

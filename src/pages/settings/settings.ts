@@ -4,7 +4,8 @@ import {
     AlertController,
     IonicPage,
     NavController,
-    NavParams
+    NavParams,
+    Platform
 } from "ionic-angular";
 import { MainPage } from "..";
 import { Api, User, Utils } from "../../providers";
@@ -36,8 +37,31 @@ export class SettingsPage {
         private storage: Storage,
         public alertController: AlertController,
         private utils: Utils,
-        private api: Api
-    ) {}
+        private api: Api,
+        private platform: Platform,
+        private alertCtrl: AlertController
+    ) {
+        this.platform.registerBackButtonAction(() => {
+            const leaveAlert = this.alertCtrl.create({
+                title: "Exit app",
+                message: "Do you really want to exit?",
+                buttons: [
+                    {
+                        text: 'Exit',
+                        handler: () => {
+                            platform.exitApp();
+                        }
+                    }, {
+                        text: 'Cancel',
+                        handler: () => {
+                            leaveAlert.dismiss();
+                        }
+                    }
+                ]
+            });
+            leaveAlert.present();
+        }, 1);
+    }
 
     /**
      * Changes the name of a user
@@ -62,11 +86,9 @@ export class SettingsPage {
                         if (err.status === 401) {
                             this.storage.clear();
 
-                            this.utils
-                                .navigateToNewRoot("WelcomePage")
-                                .then(() => {
-                                    this.utils.presentToast(global_401Error);
-                                });
+                            this.utils.navigateToNewRoot("WelcomePage").then(() => {
+                                this.utils.presentToast(global_401Error)
+                            });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {

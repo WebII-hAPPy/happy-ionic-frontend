@@ -12,7 +12,8 @@ import {
     NavController,
     NavParams,
     Platform,
-    ToastController
+    ToastController,
+    AlertController
 } from "ionic-angular";
 import { Api, Face, Utils } from "../../providers";
 import {
@@ -43,6 +44,7 @@ export class PicturePage {
         private transfer: Transfer,
         private file: File,
         private filePath: FilePath,
+        private alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
         public toastCtrl: ToastController,
         public platform: Platform,
@@ -51,7 +53,28 @@ export class PicturePage {
         private face: Face,
         private api: Api,
         private utils: Utils
-    ) {}
+    ) {
+        this.platform.registerBackButtonAction(() => {
+            const leaveAlert = this.alertCtrl.create({
+                title: "Exit app",
+                message: "Do you really want to exit?",
+                buttons: [
+                    {
+                        text: 'Exit',
+                        handler: () => {
+                            platform.exitApp();
+                        }
+                    }, {
+                        text: 'Cancel',
+                        handler: () => {
+                            leaveAlert.dismiss();
+                        }
+                    }
+                ]
+            });
+            leaveAlert.present();
+        }, 1);
+    }
 
     cardImage: string = "./assets/img/women_being_analyse_compressed.png";
     base64Image: String;
