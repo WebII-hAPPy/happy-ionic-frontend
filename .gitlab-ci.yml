@@ -10,4 +10,4 @@ test_app:
   stage: test
   script:
     - npm install  
-    - npm test-gitlab-ci
+    - npm test
