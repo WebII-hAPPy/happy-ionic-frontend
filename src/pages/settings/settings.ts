@@ -11,6 +11,10 @@ import { Api, User, Utils } from "../../providers";
 import {
     global_401Error,
     global_500Error,
+    passwordReset_failure,
+    passwordReset_invalidEmail,
+    passwordReset_noEmail,
+    passwordReset_success,
     settings_accountDeleted,
     settings_accountDeletedError
 } from "../../providers/utils/strings";
@@ -155,6 +159,41 @@ export class SettingsPage {
     logout(): void {
         this.user.logout();
         this.navCtrl.push(WelcomePage);
+    }
+
+    changePassword(): void {
+        const userEmail: string = this.user.getUser().email;
+        this.storage.get("jwt_token").then(val => {
+            this.api.post("resetPassword", { email: userEmail }).subscribe(
+                resp => {
+                    this.storage.clear();
+
+                    this.navCtrl
+                        .push(WelcomePage)
+                        .then(() =>
+                            this.utils.presentToast(passwordReset_success)
+                        );
+                },
+                err => {
+                    if (err.status === 401) {
+                        this.storage.clear();
+                        this.navCtrl
+                            .push(WelcomePage)
+                            .then(() =>
+                                this.utils.presentToast(global_401Error)
+                            );
+                    } else if (err.status === 500 || err.status === 502) {
+                        this.utils.presentToast(global_500Error);
+                    } else if (err.status === 403) {
+                        this.utils.presentToast(passwordReset_invalidEmail);
+                    } else if (err.status === 422) {
+                        this.utils.presentToast(passwordReset_noEmail);
+                    } else {
+                        this.utils.presentToast(passwordReset_failure);
+                    }
+                }
+            );
+        });
     }
 
     /**
