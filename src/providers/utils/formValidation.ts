@@ -21,18 +21,10 @@ export class CustomFormValidator {
         return null;
     }
 
-    static validateRegister(form: FormGroup): any {
-        const email = form.controls.email.value;
-
-        if (/^.+@.+$/.test(email)) {
-            return null;
-        }
-
-        return {
-            doesMatchPassword: true
-        };
-    }
-
+    /**
+     * Checks if input matches email regex
+     * @param nameRe regex for email
+     */
     static validateEmail(nameRe: RegExp): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
             const valid = nameRe.test(control.value);
