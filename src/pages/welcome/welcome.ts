@@ -8,7 +8,7 @@ import { IonicPage, NavController } from "ionic-angular";
 })
 export class WelcomePage {
 
-    constructor(public navCtrl: NavController) {}
+    constructor(public navCtrl: NavController) { }
 
     /**
      * Navigates the view to the login page.
@@ -22,6 +22,13 @@ export class WelcomePage {
      */
     register(): void {
         this.navCtrl.push("RegisterPage");
+    }
+
+    /**
+     * Navigates the view to the about page.
+     */
+    about(): void {
+        this.navCtrl.push("AboutPage");
     }
 
     public registerChildNav(nav: any) {
