@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { FormGroup } from "@angular/forms";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
 import { MainPage } from "..";
 import { User, Utils } from "../../providers";
@@ -28,7 +27,7 @@ export class RegisterPage {
         public user: User,
         public toastCtrl: ToastController,
         private utils: Utils
-    ) {}
+    ) { }
 
     /**
      * login in through our User service
