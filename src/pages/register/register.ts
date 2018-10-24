@@ -1,15 +1,15 @@
 import { Component } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
-
-import { User, Utils } from "../../providers";
 import { MainPage } from "..";
-import { LoginPage } from "../login/login";
+import { User, Utils } from "../../providers";
 import {
-    register_verificationMailString,
+    global_500Error,
     register_autoLoginErrorString,
     register_registerErrorString,
-    global_500Error
+    register_verificationMailString
 } from "../../providers/utils/strings";
+import { LoginPage } from "../login/login";
 
 @IonicPage()
 @Component({

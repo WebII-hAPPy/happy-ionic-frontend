@@ -1,14 +1,14 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
-
-import { User, Utils } from "../../providers";
 import { MainPage } from "../";
 import { IAccountInfo } from "../../models/accountinfo";
+import { User, Utils } from "../../providers";
 import {
-    login_loginErrorString,
+    global_422Error,
     global_500Error,
-    global_422Error
+    login_loginErrorString
 } from "../../providers/utils/strings";
+import { PasswordResetPage } from "../password-reset/password-reset";
 
 @IonicPage()
 @Component({
@@ -33,11 +33,15 @@ export class LoginPage {
      */
     doLogin(): void {
         this.user.login(this.account).subscribe(
-            resp => {
-                this.navCtrl.push(MainPage);
+            (resp: any) => {
+                if (resp.data.user.passwordReset) {
+                    this.navCtrl.push(PasswordResetPage);
+                } else {
+                    this.navCtrl.push(MainPage);
+                }
             },
             err => {
-                console.error("ERR:  ", err);
+                console.error("ERR: ", err);
 
                 if (err.status === 500) {
                     this.utils.presentToast(global_500Error);
@@ -50,5 +54,9 @@ export class LoginPage {
                 }
             }
         );
+    }
+
+    navigateToPasswordReset(): void {
+        this.navCtrl.push("PasswordResetEmailPage");
     }
 }
