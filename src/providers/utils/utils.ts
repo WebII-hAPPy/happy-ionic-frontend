@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController } from 'ionic-angular';
+import { ToastController, AlertController, App } from 'ionic-angular';
+import { Page } from 'ionic-angular/umd/navigation/nav-util';
+import { TabsPage } from 'pages/tabs/tabs';
 
 @Injectable()
 export class Utils {
 
     constructor(
         private toastCtrl: ToastController,
-        private alertCtrl: AlertController) { }
+        private alertCtrl: AlertController,
+        private app: App) { }
 
     /**
      * Show a message with a toast.
@@ -38,5 +41,13 @@ export class Utils {
             ]
         });
         alert.present();
+    }
+
+    /**
+     * Sets a new app root page. 
+     * @param page The new root page
+     */
+    public navigateToNewRoot(page: Page | TabsPage | string) {
+        return this.app.getRootNavs()[0].setRoot(page, null, {animate: true, direction: 'forward'});
     }
 }
