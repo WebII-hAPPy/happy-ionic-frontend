@@ -15,6 +15,7 @@ import {
     settings_accountDeletedError
 } from "../../providers/utils/strings";
 import { WelcomePage } from "../welcome/welcome";
+import { AboutPage } from "../about/about";
 
 @IonicPage()
 @Component({
@@ -22,14 +23,6 @@ import { WelcomePage } from "../welcome/welcome";
     templateUrl: "settings.html"
 })
 export class SettingsPage {
-    aboutSettings = {
-        page: "about",
-        pageTitleKey: "about"
-    };
-    about: any = SettingsPage;
-
-    page: string = "main";
-    pageTitleKey: string = "Settings";
 
     model = { name: "" };
 
@@ -157,13 +150,7 @@ export class SettingsPage {
         this.navCtrl.push(WelcomePage);
     }
 
-    /**
-     * Runs when the page is about to enter and becomes the active page.
-     */
-    ionViewWillEnter(): void {
-        this.page = this.navParams.get("page") || this.page;
-        this.pageTitleKey =
-            this.navParams.get("pageTitleKey") || this.pageTitleKey;
-        this.model.name = "";
+    about(): void {
+        this.navCtrl.push(AboutPage);
     }
 }
