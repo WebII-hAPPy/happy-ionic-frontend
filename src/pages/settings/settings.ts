@@ -105,7 +105,7 @@ export class SettingsPage {
 
                         // TODO: Needs fixing push is wrong here
                         this.navCtrl
-                            .popAll()
+                            .push(WelcomePage)
                             .then(() =>
                                 this.utils.presentToast(settings_accountDeleted)
                             );
@@ -116,7 +116,7 @@ export class SettingsPage {
 
                             // TODO: Needs fixing push is wrong here
                             this.navCtrl
-                                .popAll()
+                                .push(WelcomePage)
                                 .then(() =>
                                     this.utils.presentToast(global_401Error)
                                 );
