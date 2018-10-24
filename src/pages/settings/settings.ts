@@ -4,8 +4,7 @@ import {
     AlertController,
     IonicPage,
     NavController,
-    NavParams,
-    App
+    NavParams
 } from "ionic-angular";
 import { MainPage } from "..";
 import { Api, User, Utils } from "../../providers";
@@ -19,8 +18,8 @@ import {
     settings_accountDeleted,
     settings_accountDeletedError
 } from "../../providers/utils/strings";
-import { WelcomePage } from "../welcome/welcome";
 import { AboutPage } from "../about/about";
+import { WelcomePage } from "../welcome/welcome";
 
 @IonicPage()
 @Component({
@@ -28,7 +27,6 @@ import { AboutPage } from "../about/about";
     templateUrl: "settings.html"
 })
 export class SettingsPage {
-
     model = { name: "" };
 
     constructor(
@@ -39,7 +37,7 @@ export class SettingsPage {
         public alertController: AlertController,
         private utils: Utils,
         private api: Api
-    ) { }
+    ) {}
 
     /**
      * Changes the name of a user
@@ -55,16 +53,20 @@ export class SettingsPage {
                 .subscribe(
                     response => {
                         this.utils.navigateToNewRoot(MainPage).then(() => {
-                            this.utils.presentToast("Successfully updated your name.");
-                        })
+                            this.utils.presentToast(
+                                "Successfully updated your name."
+                            );
+                        });
                     },
                     err => {
                         if (err.status === 401) {
                             this.storage.clear();
-                            
-                            this.utils.navigateToNewRoot("WelcomePage").then(() => {
-                                this.utils.presentToast(global_401Error)
-                            });
+
+                            this.utils
+                                .navigateToNewRoot("WelcomePage")
+                                .then(() => {
+                                    this.utils.presentToast(global_401Error);
+                                });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {
@@ -93,16 +95,18 @@ export class SettingsPage {
                         this.storage.clear();
 
                         this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                            this.utils.presentToast(settings_accountDeleted)
+                            this.utils.presentToast(settings_accountDeleted);
                         });
                     },
                     err => {
                         if (err.status === 401) {
                             this.storage.clear();
 
-                            this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                                this.utils.presentToast(global_401Error);
-                            });
+                            this.utils
+                                .navigateToNewRoot(WelcomePage)
+                                .then(() => {
+                                    this.utils.presentToast(global_401Error);
+                                });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {
@@ -156,14 +160,14 @@ export class SettingsPage {
                     this.storage.clear();
 
                     this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                        this.utils.presentToast(passwordReset_success)
+                        this.utils.presentToast(passwordReset_success);
                     });
                 },
                 err => {
                     if (err.status === 401) {
                         this.storage.clear();
                         this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                            this.utils.presentToast(global_401Error)
+                            this.utils.presentToast(global_401Error);
                         });
                     } else if (err.status === 500 || err.status === 502) {
                         this.utils.presentToast(global_500Error);

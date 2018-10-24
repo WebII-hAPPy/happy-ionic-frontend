@@ -25,6 +25,10 @@
                 <ion-label fixed>Password</ion-label>
                 <ion-input id="password" type="password" [formGroup]="form" formControlName="password" name="password"></ion-input>
             </ion-item>
+            <ion-item padding-right padding-left>
+                <ion-label fixed>Confirm Password</ion-label>
+                <ion-input id="confirmPassword" type="password" [formGroup]="form" formControlName="confirmPassword" name="password"></ion-input>
+            </ion-item>
 
             <div padding>
                 <button [disabled]="!form.valid" ion-button color="primary" block>Register</button>

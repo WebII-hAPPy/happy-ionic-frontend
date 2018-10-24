@@ -33,17 +33,23 @@ export class RegisterPage {
         private utils: Utils,
         private fb: FormBuilder
     ) {
-        this.form = this.fb.group({
-            name: ["", [Validators.required]],
-            email: [
-                "",
-                [
-                    Validators.required,
-                    CustomFormValidator.validateEmail(/^.+@.+$/)
-                ]
-            ],
-            password: ["", [Validators.required]]
-        });
+        this.form = this.fb.group(
+            {
+                name: ["", [Validators.required]],
+                email: [
+                    "",
+                    [
+                        Validators.required,
+                        CustomFormValidator.validateEmail(/^.+@.+$/)
+                    ]
+                ],
+                password: ["", [Validators.required]],
+                confirmPassword: ["", [Validators.required]]
+            },
+            {
+                validator: CustomFormValidator.validatePasswords.bind(this)
+            }
+        );
     }
 
     /**
