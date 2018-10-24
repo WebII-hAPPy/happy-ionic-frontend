@@ -25,7 +25,7 @@ export class User {
 
         seq.subscribe(
             (res: any) => {
-                if (res.status === "201") {
+                if (res.data.user) {
                     this._loggedIn(res);
                 }
             },
@@ -61,12 +61,15 @@ export class User {
         return seq;
     }
 
-    resetPassword(password: string): Observable<ArrayBuffer> {
-        const _password = {
+    async resetPassword(password: string): Promise<Observable<ArrayBuffer>> {
+        const jwt_token = await this.storage.get("jwt_token");
+        const data = {
             password: password
         };
-        let seq: Observable<ArrayBuffer> = this.api
-            .put("resetPassword", _password)
+        const seq: Observable<ArrayBuffer> = this.api
+            .put("api/updatePassword", data, {
+                headers: { authorization: jwt_token }
+            })
             .pipe(share());
 
         seq.subscribe(
@@ -79,7 +82,6 @@ export class User {
                 console.error("ERROR ", err);
             }
         );
-
         return seq;
     }
 

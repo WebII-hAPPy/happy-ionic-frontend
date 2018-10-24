@@ -4,7 +4,12 @@ import { IonicPage, NavController } from "ionic-angular";
 import { PasswordValidator } from "../../providers/utils/formValidation";
 import { User, Utils } from "../../providers";
 import { MainPage } from "..";
-import { global_500Error, global_422Error, passwordReset_passwordErrorString } from "../../providers/utils/strings";
+import {
+    global_500Error,
+    global_422Error,
+    passwordReset_passwordErrorString
+} from "../../providers/utils/strings";
+import { Observable } from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -29,8 +34,11 @@ export class PasswordResetPage {
         );
     }
 
-    resetPassword(): void {
-        this.user.resetPassword(this.form.controls.password.value).subscribe(
+    async resetPassword(): Promise<void> {
+        const seq: Observable<ArrayBuffer> = await this.user.resetPassword(
+            this.form.controls.password.value
+        );
+        seq.subscribe(
             resp => {
                 this.navCtrl.push(MainPage);
             },

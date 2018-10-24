@@ -9,7 +9,6 @@ import {
     login_loginErrorString
 } from "../../providers/utils/strings";
 import { PasswordResetPage } from "../password-reset/password-reset";
-import { PasswordResetEmailPage } from "../password-reset-email/password-reset-email";
 
 @IonicPage()
 @Component({
@@ -34,8 +33,8 @@ export class LoginPage {
      */
     doLogin(): void {
         this.user.login(this.account).subscribe(
-            resp => {
-                if (this.user.getUser().isResetingPassword) {
+            (resp: any) => {
+                if (resp.data.user.passwordReset) {
                     this.navCtrl.push(PasswordResetPage);
                 } else {
                     this.navCtrl.push(MainPage);

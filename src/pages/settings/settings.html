@@ -29,7 +29,7 @@
                 <button ion-button block [navPush]="about" [navParams]="aboutSettings">
                     About
                 </button>
-                <button ion-button block>
+                <button ion-button block (click)="changePassword()">
                     Change Password
                 </button>
                 <button ion-button block color="danger" (click)="showDeleteAccountAlert()">

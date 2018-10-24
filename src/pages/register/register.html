@@ -18,15 +18,15 @@
 
             <ion-item>
                 <ion-label fixed>Email</ion-label>
-                <ion-input email name="email" type="email" [(ngModel)]="account.email" name="email"></ion-input>
+                <ion-input name="email" type="email" [(ngModel)]="account.email" name="email"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed>Password</ion-label>
-                <ion-input password type="password" [(ngModel)]="account.password" name="password"></ion-input>
+                <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
             </ion-item>
 
             <div padding>
-                <button [disabled]="disable" ion-button color="primary" block>Register</button>
+                <button ion-button color="primary" block>Register</button>
             </div>
 
         </ion-list>

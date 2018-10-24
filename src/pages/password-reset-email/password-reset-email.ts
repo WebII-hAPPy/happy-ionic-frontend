@@ -1,12 +1,13 @@
-import { IonicPage, NavController } from "ionic-angular";
 import { Component } from "@angular/core";
-import { Api, Utils } from "../../providers";
+import { IonicPage, NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
+import { Api, Utils } from "../../providers";
 import {
-    global_500Error,
     global_422Error,
-    login_loginErrorString,
-    passwordResetEmail_passwordErrorString
+    global_500Error,
+    passwordReset_invalidEmail,
+    passwordReset_passwordErrorString,
+    passwordReset_success
 } from "../../providers/utils/strings";
 
 @IonicPage()
@@ -24,26 +25,26 @@ export class PasswordResetEmailPage {
     ) {}
 
     requestPasswordReset() {
-        let seq: Observable<ArrayBuffer> = this.api.post("resetEmail", {
+        let seq: Observable<ArrayBuffer> = this.api.post("resetPassword", {
             email: this.email
         });
 
         seq.subscribe(
             (res: any) => {
+                this.utils.presentToast(passwordReset_success);
                 this.navCtrl.pop();
             },
             err => {
-                console.error("ERROR ", err);
                 if (err.status === 500) {
                     this.utils.presentToast(global_500Error);
                 } else if (err.status === 502) {
                     this.utils.presentToast(global_500Error);
                 } else if (err.status === 422) {
                     this.utils.presentToast(global_422Error);
+                } else if (err.status === 403) {
+                    this.utils.presentToast(passwordReset_invalidEmail);
                 } else {
-                    this.utils.presentToast(
-                        passwordResetEmail_passwordErrorString
-                    );
+                    this.utils.presentToast(passwordReset_passwordErrorString);
                 }
             }
         );

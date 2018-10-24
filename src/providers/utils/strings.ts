@@ -29,14 +29,15 @@ export const settings_accountDeleted: string =
     "Your account was successfully deleted.";
 export const settings_accountDeletedError: string =
     "Could not delete your account.";
-export const settings_passwordReset: string =
-    "Hi! The hAPPy team send you a password reset mail. Please check your inbox. Keep laughing!";
-export const settings_passwordResetError: string = "Could not change password.";
 
+export const passwordReset_success: string =
+    "Hi! The hAPPy team send you a password reset mail. Please check your inbox.";
+export const passwordReset_failure: string = "Could not change password.";
 export const passwordReset_passwordMatchError: string =
     "Passwords do not match!";
 export const passwordReset_passwordErrorString: string =
     "Unable to change password. Please check your account information and try again.";
-
-export const passwordResetEmail_passwordErrorString: string =
-    "Unable to change password.";
+export const passwordReset_invalidEmail: string =
+    "Cannot reset password with not validated E-Mail";
+export const passwordReset_noEmail: string =
+    "E-Mail is required for a password reset.";

@@ -23,8 +23,8 @@ export class RegisterPage {
         password: ""
     };
 
-    form: FormGroup;
-    disable: boolean;
+    // form: FormGroup;
+    // disable: boolean;
 
     constructor(
         public navCtrl: NavController,
