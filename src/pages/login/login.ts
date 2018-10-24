@@ -37,7 +37,7 @@ export class LoginPage {
                 if (resp.data.user.passwordReset) {
                     this.navCtrl.push(PasswordResetPage);
                 } else {
-                    this.navCtrl.push(MainPage);
+                    this.utils.navigateToNewRoot(MainPage);
                 }
             },
             err => {

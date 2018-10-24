@@ -40,7 +40,7 @@ export class PasswordResetPage {
         );
         seq.subscribe(
             resp => {
-                this.navCtrl.push(MainPage);
+                this.utils.navigateToNewRoot(MainPage);
             },
             err => {
                 console.error("ERROR: ", err);
