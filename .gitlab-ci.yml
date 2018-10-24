@@ -1,4 +1,4 @@
-image: node:latest
+image: trion/ng-cli-karma
 
 stages:
   - test
@@ -10,4 +10,4 @@ test_app:
   stage: test
   script:
     - npm install  
-    - npm test
+    - npm test-gitlab-ci
