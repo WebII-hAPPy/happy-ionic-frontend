@@ -34,6 +34,9 @@ export class PasswordResetPage {
         );
     }
 
+    /**
+     * Request password update from server and logs user in when successful
+     */
     async resetPassword(): Promise<void> {
         const seq: Observable<ArrayBuffer> = await this.user.resetPassword(
             this.form.controls.password.value

@@ -61,6 +61,11 @@ export class User {
         return seq;
     }
 
+    /**
+     * Send a PUT request to the update password endpoint with the new
+     * password
+     * @param password new password
+     */
     async resetPassword(password: string): Promise<Observable<ArrayBuffer>> {
         const jwt_token = await this.storage.get("jwt_token");
         const data = {

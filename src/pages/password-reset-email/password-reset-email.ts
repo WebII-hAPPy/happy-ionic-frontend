@@ -24,6 +24,10 @@ export class PasswordResetEmailPage {
         private utils: Utils
     ) {}
 
+    /**
+     * Request password reset from server und navigates back
+     * to login page when successful
+     */
     requestPasswordReset() {
         let seq: Observable<ArrayBuffer> = this.api.post("resetPassword", {
             email: this.email
