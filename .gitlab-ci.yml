@@ -10,4 +10,4 @@ test_app:
   stage: test
   script:
     - npm install  
-    - npm test
+    - karma start --single-run ./test-config/karma.conf.js
