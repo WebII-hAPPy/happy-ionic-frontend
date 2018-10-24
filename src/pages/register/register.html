@@ -8,25 +8,26 @@
 
 
 <ion-content>
-    <form (submit)="doRegister()">
+    <form [formGroup]="form" (submit)="doRegister()">
         <ion-list>
 
             <ion-item padding-right padding-left>
                 <ion-label fixed>Name</ion-label>
-                <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
+                <ion-input id="name" type="text" [formGroup]="form" formControlName="name" name="name"></ion-input>
             </ion-item>
 
             <ion-item padding-right padding-left>
                 <ion-label fixed>Email</ion-label>
-                <ion-input name="email" type="email" [(ngModel)]="account.email" name="email"></ion-input>
+                <ion-input id="email" name="email" type="email" [formGroup]="form" formControlName="email"
+                    name="email"></ion-input>
             </ion-item>
             <ion-item padding-right padding-left>
                 <ion-label fixed>Password</ion-label>
-                <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+                <ion-input id="password" type="password" [formGroup]="form" formControlName="password" name="password"></ion-input>
             </ion-item>
 
             <div padding>
-                <button ion-button color="primary" block>Register</button>
+                <button [disabled]="!form.valid" ion-button color="primary" block>Register</button>
             </div>
 
         </ion-list>

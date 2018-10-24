@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, ToastController } from "ionic-angular";
 import { MainPage } from "..";
 import { User, Utils } from "../../providers";
+import { CustomFormValidator } from "../../providers/utils/formValidation";
 import {
     global_500Error,
     register_autoLoginErrorString,
@@ -23,17 +24,38 @@ export class RegisterPage {
         password: ""
     };
 
+    form: FormGroup;
+
     constructor(
         public navCtrl: NavController,
         public user: User,
         public toastCtrl: ToastController,
-        private utils: Utils
-    ) {}
+        private utils: Utils,
+        private fb: FormBuilder
+    ) {
+        this.form = this.fb.group({
+            name: ["", [Validators.required]],
+            email: [
+                "",
+                [
+                    Validators.required,
+                    CustomFormValidator.validateEmail(/^.+@.+$/)
+                ]
+            ],
+            password: ["", [Validators.required]]
+        });
+    }
 
     /**
      * login in through our User service
      */
     doRegister(): void {
+        this.account = {
+            name: this.form.controls.name.value,
+            email: this.form.controls.email.value,
+            password: this.form.controls.password.value
+        };
+
         this.user.register(this.account).subscribe(
             resp => {
                 this.utils.presentToast(register_verificationMailString, 4000);

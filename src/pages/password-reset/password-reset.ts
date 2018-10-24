@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController } from "ionic-angular";
-import { PasswordValidator } from "../../providers/utils/formValidation";
+import { CustomFormValidator } from "../../providers/utils/formValidation";
 import { User, Utils } from "../../providers";
 import { MainPage } from "..";
 import {
@@ -30,7 +30,7 @@ export class PasswordResetPage {
                 password: ["", [Validators.required]],
                 confirmPassword: ["", [Validators.required]]
             },
-            { validator: PasswordValidator.validate.bind(this) }
+            { validator: CustomFormValidator.validatePasswords.bind(this) }
         );
     }
 
