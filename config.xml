@@ -45,7 +45,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+        <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
             <string>Allow the app to access your photos</string>
         </config-file>
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">

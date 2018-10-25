@@ -39,7 +39,7 @@ export class MyApp {
         } else {
           this.rootPage = FirstRunPage;
           if (platform.is('ios') || platform.is('ipad')) {
-            this.statusBar.backgroundColorByHexString('#000000');
+            this.statusBar.styleDefault();
           } else {
             this.statusBar.styleLightContent();
           }
