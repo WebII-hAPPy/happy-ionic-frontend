@@ -30,7 +30,6 @@ export class MyApp {
             this.rootPage = FirstRunPage;
           }, () => {
             if (platform.is('ios') || platform.is('ipad')) {
-              this.statusBar.overlaysWebView(true);
               this.statusBar.backgroundColorByHexString('#000000');
             } else {
               this.statusBar.styleLightContent();
@@ -40,7 +39,6 @@ export class MyApp {
         } else {
           this.rootPage = FirstRunPage;
           if (platform.is('ios') || platform.is('ipad')) {
-            this.statusBar.overlaysWebView(true);
             this.statusBar.backgroundColorByHexString('#000000');
           } else {
             this.statusBar.styleLightContent();

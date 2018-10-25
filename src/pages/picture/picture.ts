@@ -193,11 +193,24 @@ export class PicturePage {
         currentName: string,
         newFileName: string
     ): void {
+
+        console.log("COPY FILE TO LOCAL DIR");
+        console.log("DataDirectory: " + cordova.file.dataDirectory);
+        console.log("EDataDirectory: " + cordova.file.externalDataDirectory);
+
+        let directory: string;
+
+        if (this.platform.is("ios") || this.platform.is("ipad")) {
+            directory = cordova.file.externalDataDirectory;
+        } else {
+            directory = cordova.file.dataDirectory;
+        }
+
         this.file
             .moveFile(
                 namePath,
                 currentName,
-                cordova.file.externalDataDirectory,
+                directory,
                 newFileName
             )
             .then(
@@ -285,6 +298,10 @@ export class PicturePage {
      * @param img Name of the image
      */
     private pathForImage(img: string): string {
+        console.log("PATH FOR IMAGE");
+        console.log("DataDirectory: " + cordova.file.dataDirectory);
+        console.log("EDataDirectory: " + cordova.file.externalDataDirectory);
+
         if (img === null) {
             return "";
         } else if (this.platform.is("ios") || this.platform.is("ipad")) {
