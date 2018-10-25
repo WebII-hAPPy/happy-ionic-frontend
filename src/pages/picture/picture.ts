@@ -287,6 +287,8 @@ export class PicturePage {
     private pathForImage(img: string): string {
         if (img === null) {
             return "";
+        } else if (this.platform.is("ios") || this.platform.is("ipad")) {
+            return (cordova.file.dataDirectory + img);
         } else {
             return (cordova.file.externalDataDirectory + img).replace(
                 /^file:\/\//,
