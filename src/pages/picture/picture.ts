@@ -193,19 +193,12 @@ export class PicturePage {
         currentName: string,
         newFileName: string
     ): void {
-
-        console.log("COPY FILE TO LOCAL DIR");
-        console.log("DataDirectory: " + cordova.file.dataDirectory);
-        this.filePath.resolveNativePath(cordova.file.dataDirectory).then((val) => {
-            console.log("ResolveNativePath (DataDirectory): " +  val);
-        });
-
         let directory: string;
 
         if (this.platform.is("ios") || this.platform.is("ipad")) {
-            directory = cordova.file.externalDataDirectory;
+            directory = cordova.file.dataDirectory.replace(/^file:\/\//, "");
         } else {
-            directory = cordova.file.dataDirectory;
+            directory = cordova.file.externalDataDirectory;
         }
 
         this.file
@@ -300,16 +293,12 @@ export class PicturePage {
      * @param img Name of the image
      */
     private pathForImage(img: string): string {
-        console.log("Path for image");
         if (img === null) {
             return "";
         } else if (this.platform.is("ios") || this.platform.is("ipad")) {
-            return (cordova.file.dataDirectory + img);
+            return (cordova.file.dataDirectory + img).replace(/^file:\/\//, "");
         } else {
-            return (cordova.file.externalDataDirectory + img).replace(
-                /^file:\/\//,
-                ""
-            );
+            return (cordova.file.externalDataDirectory + img).replace(/^file:\/\//, "");
         }
     }
 
