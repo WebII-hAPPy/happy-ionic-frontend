@@ -129,7 +129,7 @@ export class StatsPage {
     this.lineChartData.forEach(emotion => {
       for (let key in dataPoint.emotions) {
         if (key === emotion.label && dataPoint.emotions.hasOwnProperty(key)) {
-          emotion.data.push(dataPoint.emotions[key])
+          emotion.data.push(Math.trunc(dataPoint.emotions[key] * 100));
         }
       }
     });

@@ -144,7 +144,11 @@ export class AnalysisPage {
         });
     }
 
-    sortedEmotionsArray(emotion: IEmotion) {
+    /**
+     * Get numbers in the order of the graph.
+     * @param emotion an Object containing the emotional values.
+     */
+    private sortedEmotionsArray(emotion: IEmotion): number[] {
         let emotionData: number[] = [];
 
         emotionData.push(emotion.sadness);
@@ -156,6 +160,22 @@ export class AnalysisPage {
         emotionData.push(emotion.surprise);
         emotionData.push(emotion.happiness);
 
+        emotionData = this.decimalToPercent(emotionData);
         return emotionData;
+    }
+
+    /**
+     * Converts an array from decimal to percent
+     * @param array An array containing decimal values between 0 and 1.
+     */
+    private decimalToPercent(array: number[]): number[] {
+
+        let result: number[] = [];
+        array.forEach((e) => {
+            result.push(
+                Math.trunc(e * 100)
+            )
+        });
+        return result;
     }
 }
