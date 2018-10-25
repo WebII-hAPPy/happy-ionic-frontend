@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ml.hAPPy.app" version="1.0.0" 
-    xmlns="http://www.w3.org/ns/widgets" 
-    xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ml.hAPPy.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>hAPPy</name>
     <description>hAPPy provides a service which analyses yur pictures for fun while keeping your data as secure as possible.</description>
     <content src="index.html" />
@@ -22,7 +20,7 @@
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="orientation" value="portrait" />
     <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -46,10 +44,10 @@
     </platform>
     <platform name="ios">
         <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
-            <string>Allow the app to access your photos</string>
+            <string>Please allow the app to access your photos.</string>
         </config-file>
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
-            <string>Allow the app to use your camera</string>
+            <string>Please allow the app to use your camera.</string>
         </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
@@ -97,6 +95,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <engine name="android" spec="^7.1.1" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.0.0" />
 </widget>

@@ -196,7 +196,9 @@ export class PicturePage {
 
         console.log("COPY FILE TO LOCAL DIR");
         console.log("DataDirectory: " + cordova.file.dataDirectory);
-        console.log("ResolveNativePath (DataDirectory): " + this.filePath.resolveNativePath(cordova.file.dataDirectory));
+        this.filePath.resolveNativePath(cordova.file.dataDirectory).then((val) => {
+            console.log("ResolveNativePath (DataDirectory): " +  val);
+        });
 
         let directory: string;
 
@@ -298,9 +300,7 @@ export class PicturePage {
      * @param img Name of the image
      */
     private pathForImage(img: string): string {
-        console.log("PATH FOR IMAGE");
-        console.log("DataDirectory: " + cordova.file.dataDirectory);
-
+        console.log("Path for image");
         if (img === null) {
             return "";
         } else if (this.platform.is("ios") || this.platform.is("ipad")) {
