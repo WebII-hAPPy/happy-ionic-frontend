@@ -6,20 +6,21 @@ import { Transfer, TransferObject } from "@ionic-native/transfer";
 import { Storage } from "@ionic/storage";
 import {
     ActionSheetController,
+    AlertController,
     IonicPage,
     Loading,
     LoadingController,
     NavController,
     NavParams,
     Platform,
-    ToastController,
-    AlertController
+    ToastController
 } from "ionic-angular";
 import { Api, Face, Utils } from "../../providers";
 import {
     global_401Error,
     global_500Error,
     global_apiUrl,
+    picture_fileNotAllowed,
     picture_fileSelectError,
     picture_fileStoredError,
     picture_fileTooBigError,
@@ -60,12 +61,13 @@ export class PicturePage {
                 message: "Do you really want to exit?",
                 buttons: [
                     {
-                        text: 'Exit',
+                        text: "Exit",
                         handler: () => {
                             platform.exitApp();
                         }
-                    }, {
-                        text: 'Cancel',
+                    },
+                    {
+                        text: "Cancel",
                         handler: () => {
                             leaveAlert.dismiss();
                         }
@@ -264,10 +266,12 @@ export class PicturePage {
                             this.utils.presentToast(picture_userNotFoundError);
                             this.storage.clear();
                             this.utils.navigateToNewRoot("WelcomePage");
+                        } else if (err.http_status === 406) {
+                            this.utils.presentToast(picture_noFaceFoundError);
                         } else if (err.http_status === 413) {
                             this.utils.presentToast(picture_fileTooBigError);
-                        } else if (err.http_status === 416) {
-                            this.utils.presentToast(picture_noFaceFoundError);
+                        } else if (err.http.status === 415) {
+                            this.utils.presentToast(picture_fileNotAllowed);
                         } else if (err.http_status === 500) {
                             this.utils.presentToast(global_500Error);
                         } else if (err.http_status === 502) {
