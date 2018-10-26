@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
-    AlertController,
     IonicPage,
     NavController,
     Platform,
@@ -41,12 +40,10 @@ export class RegisterPage {
         public toastCtrl: ToastController,
         private utils: Utils,
         private fb: FormBuilder,
-        private platform: Platform,
-        private alertCtrl: AlertController,
+        private platform: Platform
     ) {
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl

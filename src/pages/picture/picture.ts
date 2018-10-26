@@ -6,7 +6,6 @@ import { Transfer, TransferObject } from "@ionic-native/transfer";
 import { Storage } from "@ionic/storage";
 import {
     ActionSheetController,
-    AlertController,
     IonicPage,
     Loading,
     LoadingController,
@@ -46,7 +45,6 @@ export class PicturePage {
         private transfer: Transfer,
         private file: File,
         private filePath: FilePath,
-        private alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
         public toastCtrl: ToastController,
         public platform: Platform,
@@ -58,7 +56,6 @@ export class PicturePage {
     ) {
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl

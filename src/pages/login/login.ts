@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-    AlertController,
     IonicPage,
     NavController,
     Platform,
@@ -15,8 +14,8 @@ import {
     global_500Error,
     login_loginErrorString
 } from "../../providers/utils/strings";
-import { PasswordResetPage } from "../password-reset/password-reset";
 import { PasswordResetEmailPage } from "../password-reset-email/password-reset-email";
+import { PasswordResetPage } from "../password-reset/password-reset";
 
 @IonicPage()
 @Component({
@@ -37,12 +36,10 @@ export class LoginPage {
         public user: User,
         public toastCtrl: ToastController,
         private utils: Utils,
-        private platform: Platform,
-        private alertCtrl: AlertController
+        private platform: Platform
     ) {
         this.exitCount = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl

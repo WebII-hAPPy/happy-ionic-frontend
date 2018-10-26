@@ -44,12 +44,10 @@ export class SettingsPage {
         private utils: Utils,
         private api: Api,
         private platform: Platform,
-        private alertCtrl: AlertController,
         private toastCtrl: ToastController
     ) {
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl

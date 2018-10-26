@@ -1,16 +1,21 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, AlertController, Platform, ToastController } from "ionic-angular";
-import { CustomFormValidator } from "../../providers/utils/formValidation";
-import { User, Utils } from "../../providers";
-import { MainPage } from "..";
 import {
-    global_500Error,
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
+import { Observable } from "rxjs/Observable";
+import { MainPage } from "..";
+import { User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
+import { CustomFormValidator } from "../../providers/utils/formValidation";
+import {
     global_422Error,
+    global_500Error,
     passwordReset_passwordErrorString
 } from "../../providers/utils/strings";
-import { Observable } from "rxjs/Observable";
-import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
 @IonicPage()
 @Component({
@@ -26,13 +31,11 @@ export class PasswordResetPage {
         private user: User,
         private utils: Utils,
         private fb: FormBuilder,
-        private alertCtrl: AlertController,
         private platform: Platform,
         private toastCtrl: ToastController
     ) {
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl

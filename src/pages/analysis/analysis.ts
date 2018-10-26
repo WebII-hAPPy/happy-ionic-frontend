@@ -1,7 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { Chart } from "chart.js";
 import {
-    AlertController,
     IonicPage,
     NavController,
     NavParams,
@@ -35,12 +34,10 @@ export class AnalysisPage {
         public navParams: NavParams,
         private faceService: Face,
         private userService: User,
-        private alertCtrl: AlertController,
         private platform: Platform,
         private toastCtrl: ToastController
     ) {
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl
@@ -156,12 +153,9 @@ export class AnalysisPage {
      * @param array An array containing decimal values between 0 and 1.
      */
     private decimalToPercent(array: number[]): number[] {
-
         let result: number[] = [];
-        array.forEach((e) => {
-            result.push(
-                Math.trunc(e * 100)
-            )
+        array.forEach(e => {
+            result.push(Math.trunc(e * 100));
         });
         return result;
     }

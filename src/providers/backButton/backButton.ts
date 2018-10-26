@@ -1,15 +1,9 @@
-import {
-    AlertController,
-    NavController,
-    Platform,
-    ToastController
-} from "ionic-angular";
+import { NavController, Platform, ToastController } from "ionic-angular";
 
 export class BackButtonOverwrite {
     exitCounter: number;
 
     constructor(
-        private alertCtrl: AlertController,
         private platform: Platform,
         private navCtrl: NavController,
         private toastCtrl: ToastController
@@ -50,12 +44,5 @@ export class BackButtonOverwrite {
             }
             this.navCtrl.pop();
         }, 1);
-    }
-
-    public overwriteBackButtonPopAndReturn() {
-        this.platform.registerBackButtonAction(() => {
-            this.navCtrl.pop();
-            this.overwriteBackButtonToast();
-        });
     }
 }

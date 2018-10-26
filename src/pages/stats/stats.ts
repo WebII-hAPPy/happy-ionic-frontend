@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import Chart from "chart.js";
 import {
-    AlertController,
     IonicPage,
     NavController,
     NavParams,
@@ -29,12 +28,10 @@ export class StatsPage {
         private storage: Storage,
         private utils: Utils,
         private platform: Platform,
-        private alertCtrl: AlertController,
         private toastCtrl: ToastController
     ) {
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
-            this.alertCtrl,
             this.platform,
             this.navCtrl,
             this.toastCtrl
