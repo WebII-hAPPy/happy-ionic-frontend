@@ -117,3 +117,27 @@ export class NavMock {
 }
 
 export class DeepLinkerMock {}
+
+class User {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+export class UserMock {
+    user: User;
+
+    constructor() {
+        this.user = {
+            name: "Mock"
+        };
+    }
+
+    getUser() {
+        return this.user;
+    }
+
+    logout() {
+        return;
+    }
+}
