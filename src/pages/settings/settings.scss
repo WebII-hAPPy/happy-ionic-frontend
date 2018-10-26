@@ -1,8 +1,64 @@
 page-settings {
-    .schrott {
+    .red {
         color: red;
     }
-}
-.schrott {
-    color: red;
+
+    .specific-button .button-inner {
+        justify-content: flex-start;
+    }
+
+    $prim: #2b2b2b;
+
+    button {
+        text-align: left;
+        appearance: none;
+        background-color: white;
+        border: 0;
+        padding: 15px 15px;
+        color: $prim;
+        border-radius: 3px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 18px;
+        transition-duration: 0.25s;
+
+        &:hover {
+            background-color: rgb(245, 247, 249);
+        }
+
+        &#del {
+            color: red;
+        }
+    }
+
+    form {
+        padding: 25px 0;
+    }
+
+    ion-icon {
+        padding: 0 10px;
+    }
+
+    #container {
+        display: flex;
+        width: 100%;
+        margin: auto;
+        box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+        border-radius: 999px;
+    }
+
+    #name {
+        border-top-left-radius: 999px;
+        border-bottom-left-radius: 999px;
+        width: 100%;
+        height: 100%;
+        padding: 15px 15px 15px 10%;
+        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+        font-size: 20px;
+    }
+
+    #changeName {
+        width: 100%;
+        height: 100%;
+    }
 }

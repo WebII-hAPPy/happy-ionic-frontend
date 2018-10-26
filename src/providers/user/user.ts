@@ -120,4 +120,8 @@ export class User {
     setUser(data): void {
         this._user = data;
     }
+
+    setUserName(name: string): void {
+        this._user.name = name;
+    }
 }

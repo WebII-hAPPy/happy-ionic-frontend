@@ -8,30 +8,44 @@
     <div padding>
         <ion-list>
 
-            <form (submit)="changeName()">
-                <ion-item padding-left padding-right>
+            <form (submit)="showChangeNameAlert()">
+                <!-- <ion-item padding-left padding-right>
                     <ion-label>Name</ion-label>
                     <ion-input [(ngModel)]="model.name" name="new-name"></ion-input>
-                </ion-item>
+                </ion-item> -->
+                <div id="container">
 
-                <div padding>
-                    <button ion-button block padding>
-                        Change your name
-                    </button>
+
+                    <div id="name">
+                        {{model.name}}
+                    </div>
+
+                    <div>
+                        <button id="changeName">
+                            <ion-icon name="create"></ion-icon>
+                        </button>
+                    </div>
                 </div>
             </form>
 
 
-            <div padding>
-                <button ion-button block (click)="logout()">Logout</button>
-                <button ion-button block (click)="about()">About</button>
-                <button ion-button block (click)="showChangePasswordAlert()">
+            <div id="buttons" padding>
+                <button (click)="logout()">
+                    <ion-icon name="key"></ion-icon>Logout
+                </button>
+                <button (click)="showChangePasswordAlert()">
+                    <ion-icon name="unlock"></ion-icon>
                     Change Password
                 </button>
-                <button id="del" ion-button block color="danger" (click)="showDeleteAccountAlert()">
+                <button (click)="about()">
+                    <ion-icon name="bulb"></ion-icon>About
+                </button>
+                <button id="del" (click)="showDeleteAccountAlert()">
+                    <ion-icon name="close-circle"></ion-icon>
                     Delete account
                 </button>
             </div>
+
         </ion-list>
 
     </div>

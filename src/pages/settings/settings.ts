@@ -46,6 +46,7 @@ export class SettingsPage {
         private platform: Platform,
         private toastCtrl: ToastController
     ) {
+        this.model.name = this.user.getUser().name;
         this.exitCounter = 0;
         const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
             this.platform,
@@ -55,17 +56,43 @@ export class SettingsPage {
         overwrite.overwriteBackButtonToast();
     }
 
+    showChangeNameAlert(): void {
+        let alert = this.alertController.create({
+            title: "Change Name",
+            inputs: [
+                {
+                    name: "name",
+                    type: "text"
+                }
+            ],
+            buttons: [
+                {
+                    text: "Confirm",
+                    handler: data => {
+                        this.changeName(data.name);
+                        this.user.setUserName(data.name);
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
     /**
      * Changes the name of a user
      */
-    changeName(): void {
+    changeName(name: string): void {
         const userId: number = this.user.getUser().id;
 
         this.storage.get("jwt_token").then(val => {
             this.api
-                .put("api/changeName/" + userId, this.model, {
-                    headers: { authorization: val }
-                })
+                .put(
+                    "api/changeName/" + userId,
+                    { name: name },
+                    {
+                        headers: { authorization: val }
+                    }
+                )
                 .subscribe(
                     response => {
                         this.utils.navigateToNewRoot(MainPage).then(() => {
@@ -172,7 +199,6 @@ export class SettingsPage {
         let alert = this.alertController.create({
             title: "New Password",
             message: "Please confirm your new password.",
-            enableBackdropDismiss: false,
             inputs: [
                 {
                     name: "password",
@@ -191,7 +217,7 @@ export class SettingsPage {
                             this.changePassword(data);
                         } else {
                             alert.setMessage(
-                                `<b class="schrott" style="color: red;">Password must match</b>`
+                                `<b class="red" style="color: red;">Password must match</b>`
                             );
                             return false;
                         }
