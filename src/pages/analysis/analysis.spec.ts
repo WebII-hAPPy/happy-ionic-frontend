@@ -56,31 +56,33 @@ describe("AnalysisPage", () => {
         expect(component).toBeTruthy();
     }));
 
-    it("Should build a sorted array of exactly 8 emotion values in following order: sadness, anger, disgust, fear, contempt, neutral, surprise, happiness", () => {
+    it("Should build a sorted array of exactly 8 emotion values in following order: sadness, anger, disgust, fear, contempt, neutral, surprise, happiness and to be multiplied be 100 to show percentages", () => {
         const emotions: IEmotion = {
-            anger: 10,
-            contempt: 20,
-            disgust: 30,
-            fear: 40,
-            happiness: 50,
-            neutral: 60,
-            sadness: 70,
-            smile: 80,
-            surprise: 90
+            anger: 0.1,
+            contempt: 0.2,
+            disgust: 0.3,
+            fear: 0.4,
+            happiness: 0.5,
+            neutral: 0.6,
+            sadness: 0.7,
+            smile: 0.8,
+            surprise: 0.9
         };
 
         const emotionData: number[] = component.sortedEmotionsArray(emotions);
 
         expect(emotionData.length).toBe(8);
 
-        const sadness: number = emotions.sadness;
-        const anger: number = emotions.anger;
-        const disgust: number = emotions.disgust;
-        const fear: number = emotions.fear;
-        const contempt: number = emotions.contempt;
-        const neutral: number = emotions.neutral;
-        const surprise: number = emotions.surprise;
-        const happiness: number = emotions.happiness;
+        const multiplier: number = 100;
+
+        const sadness: number = emotions.sadness * multiplier;
+        const anger: number = emotions.anger * multiplier;
+        const disgust: number = emotions.disgust * multiplier;
+        const fear: number = emotions.fear * multiplier;
+        const contempt: number = emotions.contempt * multiplier;
+        const neutral: number = emotions.neutral * multiplier;
+        const surprise: number = emotions.surprise * multiplier;
+        const happiness: number = emotions.happiness * multiplier;
 
         expect(emotionData[0]).toBe(sadness);
         expect(emotionData[1]).toBe(anger);
