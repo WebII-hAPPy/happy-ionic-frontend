@@ -20,7 +20,7 @@
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="orientation" value="portrait" />
     <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
