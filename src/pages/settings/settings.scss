@@ -36,7 +36,7 @@ page-settings {
     }
 
     ion-icon {
-        padding: 0 10px;
+        padding: 0 20px 0 10px;
     }
 
     #container {
@@ -45,6 +45,7 @@ page-settings {
         margin: auto;
         box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
         border-radius: 999px;
+        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif; 
     }
 
     #name {
@@ -53,7 +54,6 @@ page-settings {
         width: 100%;
         height: 100%;
         padding: 15px 15px 15px 10%;
-        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
         font-size: 20px;
     }
 

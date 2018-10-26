@@ -121,6 +121,10 @@ export class User {
         this._user = data;
     }
 
+    /**
+     * synchronizes name change with model
+     * @param name new name
+     */
     setUserName(name: string): void {
         this._user.name = name;
     }

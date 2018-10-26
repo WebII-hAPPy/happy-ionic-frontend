@@ -56,6 +56,9 @@ export class SettingsPage {
         overwrite.overwriteBackButtonToast();
     }
 
+    /**
+     * Opens alert with input when trying to change name
+     */
     showChangeNameAlert(): void {
         let alert = this.alertController.create({
             title: "Change Name",
@@ -191,10 +194,16 @@ export class SettingsPage {
         this.utils.navigateToNewRoot(WelcomePage);
     }
 
+    /**
+     * Opens about page
+     */
     about(): void {
         this.navCtrl.push(AboutPage);
     }
 
+    /**
+     * Opens alert when trying to change password
+     */
     showChangePasswordAlert(): void {
         let alert = this.alertController.create({
             title: "New Password",
@@ -228,6 +237,10 @@ export class SettingsPage {
         alert.present();
     }
 
+    /**
+     * Http request: change user password. Logout when successful.
+     * @param data new password
+     */
     async changePassword(data: {
         password: string;
         confirmPassword: string;
