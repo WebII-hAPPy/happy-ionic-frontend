@@ -1,17 +1,18 @@
 import { Component, ViewChild } from "@angular/core";
+import { Chart } from "chart.js";
 import {
+    AlertController,
     IonicPage,
     NavController,
     NavParams,
-    AlertController,
-    Platform
+    Platform,
+    ToastController
 } from "ionic-angular";
-import { Face, User } from "../../providers";
-import { IFace } from "../../models/face";
-
-import { Chart } from "chart.js";
-import { IUser } from "../../models/user";
 import { IEmotion } from "../../models/emotion";
+import { IFace } from "../../models/face";
+import { IUser } from "../../models/user";
+import { Face, User } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
 @IonicPage()
 @Component({
@@ -27,38 +28,24 @@ export class AnalysisPage {
     face: IFace;
     glasses: any;
 
+    exitCounter: number;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         private faceService: Face,
         private userService: User,
         private alertCtrl: AlertController,
-        private platform: Platform
+        private platform: Platform,
+        private toastCtrl: ToastController
     ) {
-        this.platform.registerBackButtonAction(() => {
-            this.platform.registerBackButtonAction(() => {
-                const leaveAlert = this.alertCtrl.create({
-                    title: "Exit app",
-                    message: "Do you really want to exit?",
-                    buttons: [
-                        {
-                            text: "Exit",
-                            handler: () => {
-                                platform.exitApp();
-                            }
-                        },
-                        {
-                            text: "Cancel",
-                            handler: () => {
-                                leaveAlert.dismiss();
-                            }
-                        }
-                    ]
-                });
-                leaveAlert.present();
-            }, 1);
-            this.navCtrl.pop();
-        }, 1);
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonToast();
     }
 
     /**

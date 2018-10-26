@@ -4,8 +4,10 @@ import {
     IonicPage,
     NavController,
     NavParams,
-    Platform
+    Platform,
+    ToastController
 } from "ionic-angular";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
 @IonicPage()
 @Component({
@@ -13,35 +15,21 @@ import {
     templateUrl: "about.html"
 })
 export class AboutPage {
+    exitCounter: number;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         private platform: Platform,
-        private alertCtrl: AlertController
+        private alertCtrl: AlertController,
+        private toastCtrl: ToastController
     ) {
-        this.platform.registerBackButtonAction(() => {
-            this.platform.registerBackButtonAction(() => {
-                const leaveAlert = this.alertCtrl.create({
-                    title: "Exit app",
-                    message: "Do you really want to exit?",
-                    buttons: [
-                        {
-                            text: "Exit",
-                            handler: () => {
-                                platform.exitApp();
-                            }
-                        },
-                        {
-                            text: "Cancel",
-                            handler: () => {
-                                leaveAlert.dismiss();
-                            }
-                        }
-                    ]
-                });
-                leaveAlert.present();
-            }, 1);
-            this.navCtrl.pop();
-        }, 1);
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
     }
 }

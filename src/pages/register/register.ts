@@ -1,8 +1,15 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, ToastController } from "ionic-angular";
+import {
+    AlertController,
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
 import { MainPage } from "..";
 import { User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import { CustomFormValidator } from "../../providers/utils/formValidation";
 import {
     global_500Error,
@@ -26,13 +33,26 @@ export class RegisterPage {
 
     form: FormGroup;
 
+    exitCounter: number;
+
     constructor(
         public navCtrl: NavController,
         public user: User,
         public toastCtrl: ToastController,
         private utils: Utils,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private platform: Platform,
+        private alertCtrl: AlertController,
     ) {
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
+
         this.form = this.fb.group(
             {
                 name: ["", [Validators.required]],
@@ -40,9 +60,7 @@ export class RegisterPage {
                     "",
                     [
                         Validators.required,
-                        CustomFormValidator.validateEmail(
-                            /^.+@.+$/
-                        )
+                        CustomFormValidator.validateEmail(/^.+@.+$/)
                     ]
                 ],
                 password: ["", [Validators.required]],

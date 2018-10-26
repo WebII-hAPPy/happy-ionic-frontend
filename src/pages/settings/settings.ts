@@ -5,12 +5,14 @@ import {
     IonicPage,
     NavController,
     NavParams,
-    Platform
+    Platform,
+    ToastController
 } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { share } from "rxjs/operators";
 import { MainPage } from "..";
 import { Api, User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_401Error,
     global_500Error,
@@ -31,6 +33,7 @@ import { WelcomePage } from "../welcome/welcome";
 })
 export class SettingsPage {
     model = { name: "" };
+    exitCounter: number;
 
     constructor(
         public navCtrl: NavController,
@@ -41,29 +44,17 @@ export class SettingsPage {
         private utils: Utils,
         private api: Api,
         private platform: Platform,
-        private alertCtrl: AlertController
+        private alertCtrl: AlertController,
+        private toastCtrl: ToastController
     ) {
-        this.platform.registerBackButtonAction(() => {
-            const leaveAlert = this.alertCtrl.create({
-                title: "Exit app",
-                message: "Do you really want to exit?",
-                buttons: [
-                    {
-                        text: "Exit",
-                        handler: () => {
-                            platform.exitApp();
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        handler: () => {
-                            leaveAlert.dismiss();
-                        }
-                    }
-                ]
-            });
-            leaveAlert.present();
-        }, 1);
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonToast();
     }
 
     /**
@@ -199,10 +190,8 @@ export class SettingsPage {
                     text: "Change Password",
                     handler: data => {
                         if (data.password === data.confirmPassword) {
-                            console.log(data);
                             this.changePassword(data);
                         } else {
-                            console.log("NO! ", data);
                             alert.setMessage(
                                 `<b class="schrott" style="color: red;">Password must match</b>`
                             );
