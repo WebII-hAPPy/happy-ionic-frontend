@@ -27,7 +27,8 @@ import {
     picture_fileUploadError,
     picture_noFaceFoundError,
     picture_uploadSuccess,
-    picture_userNotFoundError
+    picture_userNotFoundError,
+    picture_couldNotDeleteLocalFile
 } from "../../providers/utils/strings";
 
 declare let cordova: any;
@@ -76,24 +77,7 @@ export class PicturePage {
     public deleteCurrentImage(): void {
         const defaultCardImage =
             "./assets/img/women_being_analyse_compressed.png";
-
-        let path: string;
-
-        if (this.platform.is("ios") || this.platform.is("ipad")) {
-            path = cordova.file.dataDirectory;
-        } else {
-            path = cordova.file.externalDataDirectory;
-        }
-        
-        console.log("Path: " + path);
-        console.log("FileName: " + this.imageName);
-
-        this.file.removeFile(path, this.imageName).then(val => {
-            this.imageName = "";
-            this.changeCardImage(defaultCardImage);
-        }, err => {
-            console.log(err);
-        });
+        this.changeCardImage(defaultCardImage);
     }
 
     /**
@@ -134,7 +118,7 @@ export class PicturePage {
         let options = {
             quality: 60,
             sourceType: sourceType,
-            saveToPhotoAlbum: true,
+            saveToPhotoAlbum: sourceType === this.camera.PictureSourceType.PHOTOLIBRARY ? false : true,
             correctOrientation: true,
             destinationType: this.camera.DestinationType.FILE_URI,
             cameraDirection: 1
@@ -270,6 +254,7 @@ export class PicturePage {
                                 this.face.parseAnalysis(analysisData);
                                 this.navCtrl.push("AnalysisPage");
                             });
+                        this.deleteAppImage();
                     },
                     err => {
                         this.loading.dismissAll();
@@ -293,8 +278,25 @@ export class PicturePage {
                         } else {
                             this.utils.presentToast(picture_fileUploadError);
                         }
+                        this.deleteAppImage();
                     }
                 );
+        });
+    }
+
+    private deleteAppImage() {
+        let path: string;
+
+        if (this.platform.is("ios") || this.platform.is("ipad")) {
+            path = cordova.file.dataDirectory;
+        } else {
+            path = cordova.file.externalDataDirectory;
+        }
+
+        this.file.removeFile(path, this.imageName).then(val => {
+            this.imageName = "";
+        }, err => {
+            this.utils.presentToast(picture_couldNotDeleteLocalFile);
         });
     }
 

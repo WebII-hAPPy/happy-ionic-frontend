@@ -18,6 +18,7 @@ export const picture_noFaceFoundError: string =
     "Sorry we couldn't find a face on your picture...";
 export const picture_userNotFoundError: string =
     "Sorry this user does not exist...";
+export const picture_couldNotDeleteLocalFile: string = "Error while deleting your image copy."
 
 export const register_registerErrorString: string =
     "Unable to create account. Please check your account information and try again.";
