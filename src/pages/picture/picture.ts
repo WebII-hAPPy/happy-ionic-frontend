@@ -16,6 +16,7 @@ import {
     ToastController
 } from "ionic-angular";
 import { Api, Face, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_401Error,
     global_500Error,
@@ -55,33 +56,22 @@ export class PicturePage {
         private api: Api,
         private utils: Utils
     ) {
-        this.platform.registerBackButtonAction(() => {
-            const leaveAlert = this.alertCtrl.create({
-                title: "Exit app",
-                message: "Do you really want to exit?",
-                buttons: [
-                    {
-                        text: "Exit",
-                        handler: () => {
-                            platform.exitApp();
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        handler: () => {
-                            leaveAlert.dismiss();
-                        }
-                    }
-                ]
-            });
-            leaveAlert.present();
-        }, 1);
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
     }
 
     cardImage: string = "./assets/img/women_being_analyse_compressed.png";
     base64Image: String;
     lastImage: string = null;
     loading: Loading;
+
+    exitCounter: number;
 
     /**
      * Removes the current cardImage and changes it to the default one.
@@ -250,14 +240,13 @@ export class PicturePage {
                                 headers: { authorization: jwt_token }
                             })
                             .subscribe(analysisData => {
-                                console.log(analysisData);
                                 this.utils.presentToast(picture_uploadSuccess);
                                 this.face.parseAnalysis(analysisData);
                                 this.navCtrl.push("AnalysisPage");
                             });
                     },
                     err => {
-                        console.log(err);
+                        console.error(err);
                         this.loading.dismissAll();
                         if (err.http_status === 401) {
                             this.utils.presentToast(global_401Error);

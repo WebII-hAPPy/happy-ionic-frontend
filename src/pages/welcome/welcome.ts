@@ -1,5 +1,12 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, Platform, AlertController } from "ionic-angular";
+import {
+    AlertController,
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
 @IonicPage()
 @Component({
@@ -7,29 +14,22 @@ import { IonicPage, NavController, Platform, AlertController } from "ionic-angul
     templateUrl: "welcome.html"
 })
 export class WelcomePage {
+    exitCounter: number;
 
-    constructor(public navCtrl: NavController, private platform: Platform, private alertCtrl: AlertController) {
-        this.platform.registerBackButtonAction(() => {
-
-            const leaveAlert = this.alertCtrl.create({
-                title: "Exit app",
-                message: "Do you really want to exit?",
-                buttons: [
-                    {
-                        text: 'Exit',
-                        handler: () => {
-                            platform.exitApp();
-                        }
-                    }, {
-                        text: 'Cancel',
-                        handler: () => {
-                            leaveAlert.dismiss();
-                        }
-                    }
-                ]
-            });
-            leaveAlert.present();
-        }, 1);
+    constructor(
+        public navCtrl: NavController,
+        private platform: Platform,
+        private alertCtrl: AlertController,
+        private toastCtrl: ToastController
+    ) {
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonToast();
     }
 
     /**

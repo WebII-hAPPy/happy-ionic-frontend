@@ -1,14 +1,22 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, ToastController } from "ionic-angular";
+import {
+    AlertController,
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
 import { MainPage } from "../";
 import { IAccountInfo } from "../../models/accountinfo";
 import { User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_422Error,
     global_500Error,
     login_loginErrorString
 } from "../../providers/utils/strings";
 import { PasswordResetPage } from "../password-reset/password-reset";
+import { PasswordResetEmailPage } from "../password-reset-email/password-reset-email";
 
 @IonicPage()
 @Component({
@@ -21,12 +29,26 @@ export class LoginPage {
         password: ""
     };
 
+    exitCounter: number;
+    exitCount: number;
+
     constructor(
         public navCtrl: NavController,
         public user: User,
         public toastCtrl: ToastController,
-        private utils: Utils
-    ) {}
+        private utils: Utils,
+        private platform: Platform,
+        private alertCtrl: AlertController
+    ) {
+        this.exitCount = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
+    }
 
     /**
      * Login trough the user service. Else show error.
@@ -57,6 +79,6 @@ export class LoginPage {
     }
 
     navigateToPasswordReset(): void {
-        this.navCtrl.push("PasswordResetEmailPage");
+        this.navCtrl.push(PasswordResetEmailPage);
     }
 }

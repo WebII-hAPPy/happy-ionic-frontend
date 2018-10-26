@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController } from "ionic-angular";
+import { IonicPage, NavController, AlertController, Platform, ToastController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Api, Utils } from "../../providers";
 import {
@@ -9,6 +9,7 @@ import {
     passwordReset_passwordErrorString,
     passwordReset_success
 } from "../../providers/utils/strings";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
 @IonicPage()
 @Component({
@@ -17,12 +18,25 @@ import {
 })
 export class PasswordResetEmailPage {
     private email: string = "";
+    exitCounter: number;
 
     constructor(
         private api: Api,
         private navCtrl: NavController,
-        private utils: Utils
-    ) {}
+        private utils: Utils,
+        private alertCtrl: AlertController,
+        private platform: Platform,
+        private toastCtrl: ToastController
+    ) {
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.alertCtrl,
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
+    }
 
     /**
      * Request password reset from server und navigates back

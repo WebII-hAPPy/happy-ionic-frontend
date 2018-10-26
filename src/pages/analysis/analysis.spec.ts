@@ -58,15 +58,15 @@ describe("AnalysisPage", () => {
 
     it("Should build a sorted array of exactly 8 emotion values in following order: sadness, anger, disgust, fear, contempt, neutral, surprise, happiness", () => {
         const emotions: IEmotion = {
-            anger: 0.1,
-            contempt: 0.2,
-            disgust: 0.3,
-            fear: 0.4,
-            happiness: 0.5,
-            neutral: 0.6,
-            sadness: 0.7,
-            smile: 0.8,
-            surprise: 0.9
+            anger: 10,
+            contempt: 20,
+            disgust: 30,
+            fear: 40,
+            happiness: 50,
+            neutral: 60,
+            sadness: 70,
+            smile: 80,
+            surprise: 90
         };
 
         const emotionData: number[] = component.sortedEmotionsArray(emotions);
