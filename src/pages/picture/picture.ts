@@ -64,11 +64,11 @@ export class PicturePage {
     }
 
     cardImage: string = "./assets/img/women_being_analyse_compressed.png";
-    base64Image: String;
     lastImage: string = null;
     loading: Loading;
 
     exitCounter: number;
+    imageName: string;
 
     /**
      * Removes the current cardImage and changes it to the default one.
@@ -76,7 +76,24 @@ export class PicturePage {
     public deleteCurrentImage(): void {
         const defaultCardImage =
             "./assets/img/women_being_analyse_compressed.png";
-        this.changeCardImage(defaultCardImage);
+
+        let path: string;
+
+        if (this.platform.is("ios") || this.platform.is("ipad")) {
+            path = cordova.file.dataDirectory;
+        } else {
+            path = cordova.file.externalDataDirectory;
+        }
+        
+        console.log("Path: " + path);
+        console.log("FileName: " + this.imageName);
+
+        this.file.removeFile(path, this.imageName).then(val => {
+            this.imageName = "";
+            this.changeCardImage(defaultCardImage);
+        }, err => {
+            console.log(err);
+        });
     }
 
     /**
@@ -143,10 +160,12 @@ export class PicturePage {
                                 imagePath.lastIndexOf("?")
                             );
                             
+                            this.imageName = this.createFileName();
+
                             this.copyFileToLocalDir(
                                 correctPath,
                                 currentName,
-                                this.createFileName()
+                                this.imageName
                             );
                         });
                 } else {
@@ -157,11 +176,13 @@ export class PicturePage {
                         0,
                         imagePath.lastIndexOf("/") + 1
                     );
+
+                    this.imageName = this.createFileName();
                     
                     this.copyFileToLocalDir(
                         correctPath,
                         currentName,
-                        this.createFileName()
+                        this.imageName
                     );
                 }
             },
