@@ -72,7 +72,6 @@ export class PicturePage {
 
     /**
      * Removes the current cardImage and changes it to the default one.
-     * TODO: Delete local file? Endpoint file?
      */
     public deleteCurrentImage(): void {
         const defaultCardImage =
@@ -121,7 +120,7 @@ export class PicturePage {
             saveToPhotoAlbum: true,
             correctOrientation: true,
             destinationType: this.camera.DestinationType.FILE_URI,
-            cameraDirection: 0
+            cameraDirection: 1
         };
 
         this.camera.getPicture(options).then(
@@ -131,6 +130,7 @@ export class PicturePage {
                     this.platform.is("android") &&
                     sourceType === this.camera.PictureSourceType.PHOTOLIBRARY
                 ) {
+                    
                     this.filePath
                         .resolveNativePath(imagePath)
                         .then(filePath => {
@@ -142,7 +142,7 @@ export class PicturePage {
                                 imagePath.lastIndexOf("/") + 1,
                                 imagePath.lastIndexOf("?")
                             );
-
+                            
                             this.copyFileToLocalDir(
                                 correctPath,
                                 currentName,
@@ -157,7 +157,7 @@ export class PicturePage {
                         0,
                         imagePath.lastIndexOf("/") + 1
                     );
-
+                    
                     this.copyFileToLocalDir(
                         correctPath,
                         currentName,
@@ -182,11 +182,19 @@ export class PicturePage {
         currentName: string,
         newFileName: string
     ): void {
+        let directory: string;
+
+        if (this.platform.is("ios") || this.platform.is("ipad")) {
+            directory = cordova.file.dataDirectory;
+        } else {
+            directory = cordova.file.externalDataDirectory;
+        }
+
         this.file
             .moveFile(
                 namePath,
                 currentName,
-                cordova.file.externalDataDirectory,
+                directory,
                 newFileName
             )
             .then(
@@ -243,7 +251,6 @@ export class PicturePage {
                             });
                     },
                     err => {
-                        console.error(err);
                         this.loading.dismissAll();
                         if (err.http_status === 401) {
                             this.utils.presentToast(global_401Error);
@@ -277,11 +284,10 @@ export class PicturePage {
     private pathForImage(img: string): string {
         if (img === null) {
             return "";
+        } else if (this.platform.is("ios") || this.platform.is("ipad")) {
+            return (cordova.file.dataDirectory + img).replace(/^file:\/\//, "");
         } else {
-            return (cordova.file.externalDataDirectory + img).replace(
-                /^file:\/\//,
-                ""
-            );
+            return (cordova.file.externalDataDirectory + img).replace(/^file:\/\//, "");
         }
     }
 

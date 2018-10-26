@@ -1,2 +1,2 @@
 // avoid error when testing
-declare var require: any;
+// declare var require: any;
