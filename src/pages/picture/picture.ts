@@ -83,7 +83,6 @@ export class PicturePage {
 
     /**
      * Removes the current cardImage and changes it to the default one.
-     * TODO: Delete local file? Endpoint file?
      */
     public deleteCurrentImage(): void {
         const defaultCardImage =
@@ -132,7 +131,7 @@ export class PicturePage {
             saveToPhotoAlbum: true,
             correctOrientation: true,
             destinationType: this.camera.DestinationType.FILE_URI,
-            cameraDirection: 0
+            cameraDirection: 1
         };
 
         this.camera.getPicture(options).then(
@@ -142,6 +141,7 @@ export class PicturePage {
                     this.platform.is("android") &&
                     sourceType === this.camera.PictureSourceType.PHOTOLIBRARY
                 ) {
+                    
                     this.filePath
                         .resolveNativePath(imagePath)
                         .then(filePath => {
@@ -153,7 +153,7 @@ export class PicturePage {
                                 imagePath.lastIndexOf("/") + 1,
                                 imagePath.lastIndexOf("?")
                             );
-
+                            
                             this.copyFileToLocalDir(
                                 correctPath,
                                 currentName,
@@ -168,7 +168,7 @@ export class PicturePage {
                         0,
                         imagePath.lastIndexOf("/") + 1
                     );
-
+                    
                     this.copyFileToLocalDir(
                         correctPath,
                         currentName,
@@ -196,10 +196,14 @@ export class PicturePage {
         let directory: string;
 
         if (this.platform.is("ios") || this.platform.is("ipad")) {
-            directory = cordova.file.dataDirectory.replace(/^file:\/\//, "");
+            directory = cordova.file.dataDirectory;
         } else {
             directory = cordova.file.externalDataDirectory;
         }
+
+        console.log("Copy");
+        console.log("old path: " + namePath);
+        console.log("new path: " + directory);
 
         this.file
             .moveFile(
