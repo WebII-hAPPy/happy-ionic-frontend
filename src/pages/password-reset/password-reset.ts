@@ -1,15 +1,21 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController } from "ionic-angular";
-import { CustomFormValidator } from "../../providers/utils/formValidation";
-import { User, Utils } from "../../providers";
-import { MainPage } from "..";
 import {
-    global_500Error,
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
+import { Observable } from "rxjs/Observable";
+import { MainPage } from "..";
+import { User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
+import { CustomFormValidator } from "../../providers/utils/formValidation";
+import {
     global_422Error,
+    global_500Error,
     passwordReset_passwordErrorString
 } from "../../providers/utils/strings";
-import { Observable } from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -18,13 +24,24 @@ import { Observable } from "rxjs/Observable";
 })
 export class PasswordResetPage {
     form: FormGroup;
+    exitCounter: number;
 
     constructor(
         public navCtrl: NavController,
         private user: User,
         private utils: Utils,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private platform: Platform,
+        private toastCtrl: ToastController
     ) {
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
+
         this.form = this.fb.group(
             {
                 password: ["", [Validators.required]],

@@ -5,17 +5,21 @@ import {
     IonicPage,
     NavController,
     NavParams,
-    Platform
+    Platform,
+    ToastController
 } from "ionic-angular";
+import { Observable } from "rxjs/Observable";
+import { share } from "rxjs/operators";
 import { MainPage } from "..";
 import { Api, User, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_401Error,
     global_500Error,
     passwordReset_failure,
     passwordReset_invalidEmail,
     passwordReset_noEmail,
-    passwordReset_success,
+    passwordReset_suc,
     settings_accountDeleted,
     settings_accountDeletedError
 } from "../../providers/utils/strings";
@@ -29,6 +33,7 @@ import { WelcomePage } from "../welcome/welcome";
 })
 export class SettingsPage {
     model = { name: "" };
+    exitCounter: number;
 
     constructor(
         public navCtrl: NavController,
@@ -39,28 +44,15 @@ export class SettingsPage {
         private utils: Utils,
         private api: Api,
         private platform: Platform,
-        private alertCtrl: AlertController
+        private toastCtrl: ToastController
     ) {
-        this.platform.registerBackButtonAction(() => {
-            const leaveAlert = this.alertCtrl.create({
-                title: "Exit app",
-                message: "Do you really want to exit?",
-                buttons: [
-                    {
-                        text: 'Exit',
-                        handler: () => {
-                            platform.exitApp();
-                        }
-                    }, {
-                        text: 'Cancel',
-                        handler: () => {
-                            leaveAlert.dismiss();
-                        }
-                    }
-                ]
-            });
-            leaveAlert.present();
-        }, 1);
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonToast();
     }
 
     /**
@@ -86,9 +78,11 @@ export class SettingsPage {
                         if (err.status === 401) {
                             this.storage.clear();
 
-                            this.utils.navigateToNewRoot("WelcomePage").then(() => {
-                                this.utils.presentToast(global_401Error)
-                            });
+                            this.utils
+                                .navigateToNewRoot("WelcomePage")
+                                .then(() => {
+                                    this.utils.presentToast(global_401Error);
+                                });
                         } else if (err.status === 500 || err.status === 502) {
                             this.utils.presentToast(global_500Error);
                         } else {
@@ -174,34 +168,73 @@ export class SettingsPage {
         this.navCtrl.push(AboutPage);
     }
 
-    changePassword(): void {
-        const userEmail: string = this.user.getUser().email;
-        this.storage.get("jwt_token").then(val => {
-            this.api.post("resetPassword", { email: userEmail }).subscribe(
-                resp => {
-                    this.storage.clear();
-
-                    this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                        this.utils.presentToast(passwordReset_success);
-                    });
+    showChangePasswordAlert(): void {
+        let alert = this.alertController.create({
+            title: "New Password",
+            message: "Please confirm your new password.",
+            enableBackdropDismiss: false,
+            inputs: [
+                {
+                    name: "password",
+                    type: "password"
                 },
-                err => {
-                    if (err.status === 401) {
-                        this.storage.clear();
-                        this.utils.navigateToNewRoot(WelcomePage).then(() => {
-                            this.utils.presentToast(global_401Error);
-                        });
-                    } else if (err.status === 500 || err.status === 502) {
-                        this.utils.presentToast(global_500Error);
-                    } else if (err.status === 403) {
-                        this.utils.presentToast(passwordReset_invalidEmail);
-                    } else if (err.status === 422) {
-                        this.utils.presentToast(passwordReset_noEmail);
-                    } else {
-                        this.utils.presentToast(passwordReset_failure);
+                {
+                    name: "confirmPassword",
+                    type: "password"
+                }
+            ],
+            buttons: [
+                {
+                    text: "Change Password",
+                    handler: data => {
+                        if (data.password === data.confirmPassword) {
+                            this.changePassword(data);
+                        } else {
+                            alert.setMessage(
+                                `<b class="schrott" style="color: red;">Password must match</b>`
+                            );
+                            return false;
+                        }
                     }
                 }
-            );
+            ]
         });
+        alert.present();
+    }
+
+    async changePassword(data: {
+        password: string;
+        confirmPassword: string;
+    }): Promise<void> {
+        const jwt_token: string = await this.storage.get("jwt_token");
+        const seq: Observable<ArrayBuffer> = this.api
+            .put(
+                "api/updatePassword",
+                { password: data.password },
+                { headers: { authorization: jwt_token } }
+            )
+            .pipe(share());
+
+        seq.subscribe(
+            resp => {
+                this.utils.presentToast(passwordReset_suc);
+            },
+            err => {
+                if (err.status === 401) {
+                    this.storage.clear();
+                    this.utils.navigateToNewRoot(WelcomePage).then(() => {
+                        this.utils.presentToast(global_401Error);
+                    });
+                } else if (err.status === 500 || err.status === 502) {
+                    this.utils.presentToast(global_500Error);
+                } else if (err.status === 403) {
+                    this.utils.presentToast(passwordReset_invalidEmail);
+                } else if (err.status === 422) {
+                    this.utils.presentToast(passwordReset_noEmail);
+                } else {
+                    this.utils.presentToast(passwordReset_failure);
+                }
+            }
+        );
     }
 }

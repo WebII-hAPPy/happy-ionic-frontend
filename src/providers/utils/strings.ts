@@ -10,6 +10,7 @@ export const login_loginErrorString: string =
 export const picture_uploadSuccess: string =
     "Image succesfully uploaded. Analysis complete!";
 export const picture_fileStoredError: string = "Error while storing file.";
+export const picture_fileNotAllowed: string = "Only images are allowed";
 export const picture_fileSelectError: string = "Error while selecting image.";
 export const picture_fileTooBigError: string = "Error: Your file is too big.";
 export const picture_fileUploadError: string = "Error while uploading file.";
@@ -30,6 +31,7 @@ export const settings_accountDeleted: string =
 export const settings_accountDeletedError: string =
     "Could not delete your account.";
 
+export const passwordReset_suc: string = "Success";
 export const passwordReset_success: string =
     "Hi! The hAPPy team send you a password reset mail. Please check your inbox.";
 export const passwordReset_failure: string = "Could not change password.";

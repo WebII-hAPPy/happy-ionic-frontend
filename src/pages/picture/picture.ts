@@ -12,14 +12,15 @@ import {
     NavController,
     NavParams,
     Platform,
-    ToastController,
-    AlertController
+    ToastController
 } from "ionic-angular";
 import { Api, Face, Utils } from "../../providers";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_401Error,
     global_500Error,
     global_apiUrl,
+    picture_fileNotAllowed,
     picture_fileSelectError,
     picture_fileStoredError,
     picture_fileTooBigError,
@@ -44,7 +45,6 @@ export class PicturePage {
         private transfer: Transfer,
         private file: File,
         private filePath: FilePath,
-        private alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
         public toastCtrl: ToastController,
         public platform: Platform,
@@ -54,32 +54,21 @@ export class PicturePage {
         private api: Api,
         private utils: Utils
     ) {
-        this.platform.registerBackButtonAction(() => {
-            const leaveAlert = this.alertCtrl.create({
-                title: "Exit app",
-                message: "Do you really want to exit?",
-                buttons: [
-                    {
-                        text: 'Exit',
-                        handler: () => {
-                            platform.exitApp();
-                        }
-                    }, {
-                        text: 'Cancel',
-                        handler: () => {
-                            leaveAlert.dismiss();
-                        }
-                    }
-                ]
-            });
-            leaveAlert.present();
-        }, 1);
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonPop();
     }
 
     cardImage: string = "./assets/img/women_being_analyse_compressed.png";
     base64Image: String;
     lastImage: string = null;
     loading: Loading;
+
+    exitCounter: number;
 
     /**
      * Removes the current cardImage and changes it to the default one.
@@ -270,10 +259,12 @@ export class PicturePage {
                             this.utils.presentToast(picture_userNotFoundError);
                             this.storage.clear();
                             this.utils.navigateToNewRoot("WelcomePage");
+                        } else if (err.http_status === 406) {
+                            this.utils.presentToast(picture_noFaceFoundError);
                         } else if (err.http_status === 413) {
                             this.utils.presentToast(picture_fileTooBigError);
-                        } else if (err.http_status === 416) {
-                            this.utils.presentToast(picture_noFaceFoundError);
+                        } else if (err.http.status === 415) {
+                            this.utils.presentToast(picture_fileNotAllowed);
                         } else if (err.http_status === 500) {
                             this.utils.presentToast(global_500Error);
                         } else if (err.http_status === 502) {
