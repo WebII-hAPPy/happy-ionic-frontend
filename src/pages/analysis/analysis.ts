@@ -42,7 +42,7 @@ export class AnalysisPage {
             this.navCtrl,
             this.toastCtrl
         );
-        overwrite.overwriteBackButtonToast();
+        overwrite.overwriteBackButtonPop();
     }
 
     /**
