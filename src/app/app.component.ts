@@ -21,6 +21,12 @@ export class MyApp {
     private user: User) {
 
     platform.ready().then(() => {
+      if (platform.is('ios') || platform.is('ipad')) {
+        this.statusBar.styleDefault();
+      } else {
+        this.statusBar.styleLightContent();
+      }
+
       this.storage.get('jwt_token').then((value) => {
         if (value != null) {
           this.api.get('api/verifyToken', null, { headers: { authorization: value } }).subscribe((res: any) => {
@@ -29,20 +35,10 @@ export class MyApp {
           }, (err) => {
             this.rootPage = FirstRunPage;
           }, () => {
-            if (platform.is('ios') || platform.is('ipad')) {
-              this.statusBar.styleDefault();
-            } else {
-              this.statusBar.styleLightContent();
-            }
             this.splashScreen.hide();
           });
         } else {
           this.rootPage = FirstRunPage;
-          if (platform.is('ios') || platform.is('ipad')) {
-            this.statusBar.styleDefault();
-          } else {
-            this.statusBar.styleLightContent();
-          }
           this.splashScreen.hide();
         }
       });

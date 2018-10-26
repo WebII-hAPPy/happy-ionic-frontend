@@ -201,10 +201,6 @@ export class PicturePage {
             directory = cordova.file.externalDataDirectory;
         }
 
-        console.log("Copy");
-        console.log("old path: " + namePath);
-        console.log("new path: " + directory);
-
         this.file
             .moveFile(
                 namePath,
@@ -260,14 +256,12 @@ export class PicturePage {
                                 headers: { authorization: jwt_token }
                             })
                             .subscribe(analysisData => {
-                                console.log(analysisData);
                                 this.utils.presentToast(picture_uploadSuccess);
                                 this.face.parseAnalysis(analysisData);
                                 this.navCtrl.push("AnalysisPage");
                             });
                     },
                     err => {
-                        console.log(err);
                         this.loading.dismissAll();
                         if (err.http_status === 401) {
                             this.utils.presentToast(global_401Error);
