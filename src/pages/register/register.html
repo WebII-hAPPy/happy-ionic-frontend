@@ -30,8 +30,8 @@
                 <ion-input id="confirmPassword" type="password" [formGroup]="form" formControlName="confirmPassword" name="password"></ion-input>
             </ion-item>
 
-            <div padding>
-                <button [disabled]="!form.valid" ion-button color="primary" block>Register</button>
+            <div id="buttons" padding>
+                <button [disabled]="!form.valid" class="register" block>Register</button>
             </div>
 
         </ion-list>
