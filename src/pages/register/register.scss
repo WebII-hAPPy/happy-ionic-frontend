@@ -1,3 +1,36 @@
-page-signup {
+page-register {
+    $prim: #fafafa;
+    $sec: #0985e3;
+    $fontcolor: #2b2b2b;
 
+    ion-content {
+        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+        color: $fontcolor;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #buttons > button {
+        font-weight: 600;
+        margin: 12px auto;
+        box-shadow: 0 0 1rem rgba(0, 0, 255, 0.1);
+        border-radius: 999px;
+        background-color: white;
+        border: 0;
+        padding: 15px 15px;
+        max-width: 80%;
+        color: $fontcolor;
+        width: 100%;
+        font-size: 18px;
+
+        &.register {
+            margin: 30px auto 15px;
+            background-color: $sec;
+            box-shadow: 0 0.5rem 1rem rgba(9, 133, 227, 0.25);
+            color: $prim;
+        }
+    }
 }

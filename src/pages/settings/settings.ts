@@ -72,6 +72,10 @@ export class SettingsPage {
                 {
                     text: "Confirm",
                     handler: data => {
+                        if (data.name === "" || data.name === undefined) {
+                            this.utils.presentToast("Please enter a name.");
+                            return false;
+                        }
                         this.changeName(data.name);
                         this.user.setUserName(data.name);
                     }

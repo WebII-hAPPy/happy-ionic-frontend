@@ -1,40 +1,77 @@
 page-welcome {
-  .splash-bg {
-    position: relative;
-    background: url('../assets/img/login_background_banner.png') no-repeat transparent center center;
-    background-size: cover;
-    height: 45%;
-    z-index: 1;
-    background-repeat: repeat-x;
-  }
+    $prim: #fafafa;
+    $sec: #0985e3;
+    $fontcolor: #2b2b2b;
 
-  .splash-info {
-    position: relative;
-    z-index: 2;
-    margin-top: -64px;
-    text-align: center;
-  }
-  .splash-logo {
-    margin: 20px auto;
-    background: url('../assets/img/appicon_cloudcam.svg') no-repeat transparent;
-    background-size: 100%;
-    width: 128px;
-    height: 128px;
-  }
-  .splash-intro {
-    font-size: 18px;
-    font-weight: bold;
-    max-width: 80%;
-    margin: -15px auto;
-  }
-  button.login {
-    margin-top: 25px;
-    background-color: white;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-    color: #333;
-
-    &.activated {
-      background-color: rgb(220, 220, 220);
+    * {
+        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+        color: $fontcolor;
     }
-  }
+
+    .splash-bg {
+        position: relative;
+        background: url("../assets/img/login_background_banner.png") no-repeat
+            transparent center center;
+        background-size: cover;
+        height: 45%;
+        z-index: 1;
+        background-repeat: repeat-x;
+    }
+
+    .splash-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -64px;
+        text-align: center;
+    }
+
+    .splash-logo {
+        margin: 20px auto;
+        background: url("../assets/img/appicon_cloudcam.svg") no-repeat
+            transparent;
+        background-size: 100%;
+        width: 128px;
+        height: 100px;
+    }
+
+    .splash-intro {
+        font-size: 25px;
+        max-width: 80%;
+        margin: -15px auto 15px;
+    }
+
+    .splash-intro_fat {
+        font-weight: bold;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button {
+        font-weight: 600;
+        margin: 0 auto;
+        box-shadow: 0 0 1rem rgba(0, 0, 255, 0.1);
+        border-radius: 999px;
+        background-color: white;
+        border: 0;
+        padding: 15px 15px;
+        max-width: 80%;
+        color: $fontcolor;
+        width: 100%;
+        font-size: 18px;
+
+        &.register {
+            margin: 0 auto 15px;
+            background-color: $sec;
+            box-shadow: 0 0.5rem 1rem rgba(9, 133, 227, 0.25);
+            color: $prim;
+        }
+
+        &.about {
+            margin: 30px auto 0;
+            box-shadow: none;
+        }
+    }
 }
