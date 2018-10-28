@@ -11,7 +11,7 @@ import { Api } from "../api/api";
 export class User {
     _user: IUser;
 
-    constructor(public api: Api, private storage: Storage) {}
+    constructor(public api: Api, private storage: Storage) { }
 
     /**
      * Send a POST request to the login endpoint with the data
@@ -28,9 +28,6 @@ export class User {
                 if (res.data.user) {
                     this._loggedIn(res);
                 }
-            },
-            err => {
-                console.error("ERROR", err);
             }
         );
 
@@ -52,9 +49,6 @@ export class User {
                 if (res.status === "201") {
                     this._loggedIn(res);
                 }
-            },
-            err => {
-                console.error("ERROR ", err);
             }
         );
 
@@ -82,9 +76,6 @@ export class User {
                 if (res.status === "200") {
                     this._loggedIn(res);
                 }
-            },
-            err => {
-                console.error("ERROR ", err);
             }
         );
         return seq;

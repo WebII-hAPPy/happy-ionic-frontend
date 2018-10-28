@@ -63,7 +63,6 @@ export class PasswordResetPage {
                 this.utils.navigateToNewRoot(MainPage);
             },
             err => {
-                console.error("ERROR: ", err);
 
                 if (err.status === 500) {
                     this.utils.presentToast(global_500Error);

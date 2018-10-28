@@ -82,7 +82,6 @@ export class StatsPage {
                     err => {
                         this.noDataFlag = true;
                         this.setView(true, true, true, false, false);
-                        console.error(err);
                     },
                     () => {
                         if (this.noDataFlag === false) {
@@ -120,9 +119,6 @@ export class StatsPage {
                         this.clearLineChartData();
                         this.chart.destroy();
                         this.navCtrl.parent.select(0);
-                    },
-                    err => {
-                        console.error(err);
                     }
                 );
         });

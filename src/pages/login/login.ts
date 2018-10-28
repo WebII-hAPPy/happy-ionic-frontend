@@ -60,7 +60,6 @@ export class LoginPage {
                 }
             },
             err => {
-                console.error("ERR: ", err);
 
                 if (err.status === 500) {
                     this.utils.presentToast(global_500Error);
