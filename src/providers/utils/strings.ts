@@ -2,10 +2,13 @@ export const global_500Error: string =
     "We have an error on our site. Please contact the developer via the information provided in the about page.";
 export const global_401Error: string = "You are not logged in...";
 export const global_422Error: string = "Email/Password invalid.";
+export const global_404Error: string = "User not found.";
 export const global_apiUrl: string = "https://backend.happy-service.ml/api/";
 
 export const login_loginErrorString: string =
     "Unable to sign in. Please check your account information and try again.";
+export const login_passwort_email_Invalid =
+    "Email/Password seems to be invalid. Please try again.";
 
 export const picture_uploadSuccess: string =
     "Image succesfully uploaded. Analysis complete!";

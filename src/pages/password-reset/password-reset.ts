@@ -14,7 +14,9 @@ import { CustomFormValidator } from "../../providers/utils/formValidation";
 import {
     global_422Error,
     global_500Error,
-    passwordReset_passwordErrorString
+    passwordReset_passwordErrorString,
+    global_401Error,
+    global_404Error
 } from "../../providers/utils/strings";
 
 @IonicPage()
@@ -70,6 +72,10 @@ export class PasswordResetPage {
                     this.utils.presentToast(global_500Error);
                 } else if (err.status === 422) {
                     this.utils.presentToast(global_422Error);
+                } else if (err.status === 401) {
+                    this.utils.presentToast(global_401Error);
+                } else if (err.status === 404) {
+                    this.utils.presentToast(global_404Error);
                 } else {
                     this.utils.presentToast(passwordReset_passwordErrorString);
                 }
