@@ -51,6 +51,7 @@ export class LoginPage {
      * Login trough the user service. Else show error.
      */
     doLogin(): void {
+
         this.user.login(this.account).subscribe(
             (resp: any) => {
                 if (resp.data.user.passwordReset) {
@@ -58,6 +59,7 @@ export class LoginPage {
                 } else {
                     this.utils.navigateToNewRoot(MainPage);
                 }
+
             },
             err => {
 

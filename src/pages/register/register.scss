@@ -3,6 +3,10 @@ page-register {
     $sec: #0985e3;
     $fontcolor: #2b2b2b;
 
+    .error {
+        color: red;
+    }
+
     ion-content {
         font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
         color: $fontcolor;
@@ -16,7 +20,7 @@ page-register {
     #buttons > button {
         font-weight: 600;
         margin: 12px auto;
-        box-shadow: 0 0 1rem rgba(0, 0, 255, 0.1);
+        box-shadow: 0 0 1.5rem rgba(0, 0, 255, 0.1);
         border-radius: 999px;
         background-color: white;
         border: 0;

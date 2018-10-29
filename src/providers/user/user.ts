@@ -11,7 +11,7 @@ import { Api } from "../api/api";
 export class User {
     _user: IUser;
 
-    constructor(public api: Api, private storage: Storage) { }
+    constructor(public api: Api, private storage: Storage) {}
 
     /**
      * Send a POST request to the login endpoint with the data
@@ -23,13 +23,12 @@ export class User {
             .post("login", accountInfo)
             .pipe(share());
 
-        seq.subscribe(
-            (res: any) => {
-                if (res.data.user) {
-                    this._loggedIn(res);
-                }
+        seq.subscribe((res: any) => {
+            if (res.data.user) {
+                this._loggedIn(res);
             }
-        );
+        }, (err) => {
+        });
 
         return seq;
     }
@@ -44,13 +43,11 @@ export class User {
             .post("register", accountInfo)
             .pipe(share());
 
-        seq.subscribe(
-            (res: any) => {
-                if (res.status === "201") {
-                    this._loggedIn(res);
-                }
+        seq.subscribe((res: any) => {
+            if (res.status === "201") {
+                this._loggedIn(res);
             }
-        );
+        });
 
         return seq;
     }
@@ -71,13 +68,11 @@ export class User {
             })
             .pipe(share());
 
-        seq.subscribe(
-            (res: any) => {
-                if (res.status === "200") {
-                    this._loggedIn(res);
-                }
+        seq.subscribe((res: any) => {
+            if (res.status === "200") {
+                this._loggedIn(res);
             }
-        );
+        });
         return seq;
     }
 

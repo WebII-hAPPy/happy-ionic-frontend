@@ -226,13 +226,18 @@ export class SettingsPage {
                 {
                     text: "Change Password",
                     handler: data => {
-                        if (data.password === data.confirmPassword) {
-                            this.changePassword(data);
-                        } else {
+                        if (data.password.length < 8) {
                             alert.setMessage(
-                                `<b class="red" style="color: red;">Password must match</b>`
+                                `<b class="red" style="color: red;">Password be at least 8 characters long!</b>`
                             );
                             return false;
+                        } else if (data.password !== data.confirmPassword) {
+                            alert.setMessage(
+                                `<b class="red" style="color: red;">Password must match!</b>`
+                            );
+                            return false;
+                        } else {
+                            this.changePassword(data);
                         }
                     }
                 }

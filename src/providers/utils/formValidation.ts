@@ -1,20 +1,28 @@
-import { AbstractControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { FormGroup, ValidatorFn, AbstractControl } from "@angular/forms";
 
 /**
  * Checks if the password from form are identical
  */
 export class CustomFormValidator {
+    constructor() {}
+
     static validatePasswords(form: FormGroup): any {
         const password = form.controls.password.value;
         const confirmPassword = form.controls.confirmPassword.value;
 
-        if (confirmPassword.length <= 0) {
-            return null;
+        if (password.length < 8) {
+            return {
+                passwordToShort: {
+                    value: form.controls.password.value
+                }
+            };
         }
 
         if (confirmPassword !== password) {
             return {
-                doesMatchPassword: true
+                passwordDoNotMatch: {
+                    value: form.controls.password.value
+                }
             };
         }
 
@@ -23,12 +31,22 @@ export class CustomFormValidator {
 
     /**
      * Checks if input matches email regex
+     */
+    static validateEmail(form?: FormGroup): any {
+        const valid = /^.+@.+$/.test(form.controls.email.value);
+        return valid
+            ? null
+            : { emailInvalid: { value: form.controls.email.value } };
+    }
+
+    /**
+     * Checks if input matches email regex
      * @param nameRe regex for email
      */
-    static validateEmail(nameRe: RegExp): ValidatorFn {
+    static email(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
-            const valid = nameRe.test(control.value);
-            return valid ? null : { valid: { value: control.value } };
+            const invalid = /^.+@.+$/.test(control.value);
+            return invalid ? null : { emailInvalid: { value: control.value } };
         };
     }
 }

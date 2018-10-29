@@ -21,13 +21,13 @@
             </ion-item>
 
             <div id="buttons" padding>
-                <button id="btn" class="login" ion-button block>Login</button>
+                <button id="btn" class="login" block>Login</button>
             </div>
 
         </ion-list>
     </form>
 
-    <div class="login__password-reset">
-        <small (click)="navigateToPasswordReset()">Forgot Password</small>
+    <div id="buttons">
+        <button class="reset" (click)="navigateToPasswordReset()">Forgot Password</button>
     </div>
 </ion-content>
