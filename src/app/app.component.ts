@@ -36,6 +36,23 @@ export class MyApp {
           }, (err) => {
             this.storage.get('firstAppRun').then((resp) => {
               if (resp === null) {
+                if (platform.is('ios')) {
+                  let alert = this.alertController.create({
+                    title: "Data Protection",
+                    message: "By clickling Confirm you agree that we are allowed to process your data. For more details take a look at our about page.",
+                    buttons: [
+                      {
+                        text: "Confirm",
+                        handler: () => {
+                          this.storage.set('firstAppRun', "False");
+                        }
+                      }
+                    ],
+                    enableBackdropDismiss: false
+                  });
+                  alert.present();
+                }
+              } else {
                 let alert = this.alertController.create({
                   title: "Data Protection",
                   message: "By clickling Confirm you agree that we are allowed to process your data. For more details take a look at our about page.",
@@ -64,25 +81,46 @@ export class MyApp {
         } else {
           this.storage.get('firstAppRun').then((resp) => {
             if (resp === null) {
-              let alert = this.alertController.create({
-                title: "Data Protection",
-                message: "By clickling Confirm you agree that we are allowed to process your data. For more details take a look at our about page.",
-                buttons: [
-                  {
-                    text: "Confirm",
-                    handler: () => {
-                      this.storage.set('firstAppRun', "False");
-                    }
-                  }, {
-                    text: "Cancel",
-                    handler: () => {
-                      platform.exitApp();
-                    }
+              this.storage.get('firstAppRun').then((resp) => {
+                if (resp === null) {
+                  if (platform.is('ios')) {
+                    let alert = this.alertController.create({
+                      title: "Data Protection",
+                      message: "By clickling Confirm you agree that we are allowed to process your data. For more details take a look at our about page.",
+                      buttons: [
+                        {
+                          text: "Confirm",
+                          handler: () => {
+                            this.storage.set('firstAppRun', "False");
+                          }
+                        }
+                      ],
+                      enableBackdropDismiss: false
+                    });
+                    alert.present();
                   }
-                ],
-                enableBackdropDismiss: false
+                } else {
+                  let alert = this.alertController.create({
+                    title: "Data Protection",
+                    message: "By clickling Confirm you agree that we are allowed to process your data. For more details take a look at our about page.",
+                    buttons: [
+                      {
+                        text: "Confirm",
+                        handler: () => {
+                          this.storage.set('firstAppRun', "False");
+                        }
+                      }, {
+                        text: "Cancel",
+                        handler: () => {
+                          platform.exitApp();
+                        }
+                      }
+                    ],
+                    enableBackdropDismiss: false
+                  });
+                  alert.present();
+                }
               });
-              alert.present();
             }
           });
           this.rootPage = FirstRunPage;
