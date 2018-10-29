@@ -6,8 +6,9 @@ This is a project done for the class 'Web-Engineering II' at the DHBW Stuttgart.
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Pages](#pages)
-3. [Providers](#providers)
+2. [Architecture](#architecture)
+3. [Pages](#pages)
+4. [Providers](#providers)
 
 ## <a name="getting-started"></a>Getting Started
 
@@ -25,12 +26,12 @@ For device testing enter
 ionic cordova run android/ios
 ```
 
-## Architecture
+## <a name="architecture"></a>Architecture
 
 The architecture of this app follows the standard ionic architecture arche-type.
 It differentiates between pages (the views of the app) and provideres (services which work with data).
 
-## Pages
+## <a name="pages"></a>Pages
 
 This project is divided into multiple pages.
 
@@ -83,7 +84,7 @@ It lets you switch betweent the Pages.
 The Welcome-Page is the entry point to the app from the users perspective.
 The Welcome-Page lets you choose between the SignUp- and Login-Page.
 
-## Providers
+## <a name="providers"></a>Providers
 
 The data-services of this app.
 
