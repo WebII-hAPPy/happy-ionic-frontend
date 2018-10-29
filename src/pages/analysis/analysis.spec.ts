@@ -17,8 +17,8 @@ import { AnalysisPage } from "../analysis/analysis";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("AnalysisPage", () => {
-    let component: AnalysisPage;
-    let fixture: ComponentFixture<AnalysisPage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

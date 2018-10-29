@@ -19,8 +19,8 @@ import { PicturePage } from "../picture/picture";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("PicturePage", () => {
-    let component: PicturePage;
-    let fixture: ComponentFixture<PicturePage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

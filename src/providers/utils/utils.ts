@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToastController, App } from 'ionic-angular';
-import { Page } from 'ionic-angular/umd/navigation/nav-util';
 import { TabsPage } from 'pages/tabs/tabs';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class Utils {
      * Sets a new app root page. 
      * @param page The new root page
      */
-    public navigateToNewRoot(page: Page | TabsPage | string) {
+    public navigateToNewRoot(page: any | TabsPage | string) {
         return this.app.getRootNavs()[0].setRoot(page, null, { animate: true, direction: 'forward' });
     }
 }

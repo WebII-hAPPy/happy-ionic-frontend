@@ -14,8 +14,8 @@ import { Api } from "../../providers";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("WelcomePage", () => {
-    let component: WelcomePage;
-    let fixture: ComponentFixture<WelcomePage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

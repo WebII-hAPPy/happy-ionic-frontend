@@ -16,8 +16,8 @@ import { SettingsPage } from "./settings";
 import { UserMock } from "../../../test-config/mock-ionic";
 
 describe("SettingsPage", () => {
-    let component: SettingsPage;
-    let fixture: ComponentFixture<SettingsPage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
     let deleteButton: DebugElement;
 
     beforeEach(async(() => {

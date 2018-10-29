@@ -9,8 +9,8 @@ import { Api, User, Utils } from "../../providers";
 import { PasswordResetEmailPage } from "./password-reset-email";
 
 describe("PasswordResetEmailPage", () => {
-    let component: PasswordResetEmailPage;
-    let fixture: ComponentFixture<PasswordResetEmailPage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

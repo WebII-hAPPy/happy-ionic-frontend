@@ -27,8 +27,8 @@ import { AboutPage } from "../about/about";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("AboutPage", () => {
-    let component: AboutPage;
-    let fixture: ComponentFixture<AboutPage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

@@ -15,8 +15,8 @@ import { StatsPage } from "../stats/stats";
 import { WelcomePage } from "../welcome/welcome";
 
 describe("StatsPage", () => {
-    let component: StatsPage;
-    let fixture: ComponentFixture<StatsPage>;
+    let component: any;
+    let fixture: ComponentFixture<any>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
