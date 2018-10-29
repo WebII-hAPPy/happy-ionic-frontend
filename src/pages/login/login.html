@@ -1,29 +1,33 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
-  <form (submit)="doLogin()">
-    <ion-list>
+<ion-content padding>
+    <form (submit)="doLogin()">
+        <ion-list>
 
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
+            <ion-item padding-right padding-left>
+                <ion-label fixed>Email</ion-label>
+                <ion-input id="email" type="email" [(ngModel)]="account.email" name="email"></ion-input>
+            </ion-item>
+            <ion-item padding-right padding-left>
+                <ion-label fixed>Password</ion-label>
+                <ion-input id="password" type="password" [(ngModel)]="account.password" name="password"></ion-input>
+            </ion-item>
 
-      <div padding>
-        <button ion-button color="primary" block>Login</button>
-      </div>
+            <div id="buttons" padding>
+                <button id="btn" class="login" block>Login</button>
+            </div>
 
-    </ion-list>
-  </form>
+        </ion-list>
+    </form>
+
+    <div id="buttons">
+        <button class="reset" (click)="navigateToPasswordReset()">Forgot Password</button>
+    </div>
 </ion-content>

@@ -1,14 +1,14 @@
 <ion-content scroll="false">
-  <div class="splash-bg"></div>
-  <div class="splash-info">
-    <div class="splash-logo"></div>
-    <div class="splash-intro">
-      Welcome to hAPPy!<br>
-      Please log in or create an acoount to get started:
+    <div class="splash-bg"></div>
+    <div class="splash-info">
+        <div class="splash-logo"></div>
+        <div class="splash-intro">
+            Welcome to H<span class="splash-intro_fat"><strong>APP</strong></span>Y!<br>
+        </div>
     </div>
-  </div>
-  <div padding>
-    <button ion-button block (click)="signup()">Signup</button>
-    <button ion-button block (click)="login()" class="login">Login</button>
-  </div>
+    <div id="buttons" padding>
+        <button block class="register" (click)="register()">Register</button>
+        <button block (click)="login()" class="login">Login</button>
+        <button block class="about" (click)="about()">About</button>
+    </div>
 </ion-content>

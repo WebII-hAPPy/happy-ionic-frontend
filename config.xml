@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ml.hAPPy.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>hAPPy</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <description>hAPPy provides a service which analyses yur pictures for fun while keeping your data as secure as possible.</description>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -18,7 +17,10 @@
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="orientation" value="portrait" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -41,6 +43,12 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Please allow the app to access your photos.</string>
+        </config-file>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Please allow the app to use your camera.</string>
+        </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -79,8 +87,14 @@
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-device" spec="2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <plugin name="cordova-plugin-filepath" spec="^1.4.2" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <engine name="android" spec="7.0.0" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>

@@ -1,45 +1,52 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>{{ pageTitle }}</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>Settings</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <div padding>
+        <ion-list>
 
-  <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list *ngIf="page == 'main'">
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION1' | translate }}</ion-label>
-        <ion-toggle formControlName="option1"></ion-toggle>
-      </ion-item>
+            <form (submit)="showChangeNameAlert()">
+                <!-- <ion-item padding-left padding-right>
+                    <ion-label>Name</ion-label>
+                    <ion-input [(ngModel)]="model.name" name="new-name"></ion-input>
+                </ion-item> -->
+                <div id="container">
 
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION2' | translate }}</ion-label>
-        <ion-input formControlName="option2"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION3' | translate }}</ion-label>
-        <ion-select formControlName="option3">
-          <ion-option value="1" checked="true">1</ion-option>
-          <ion-option value="2">2</ion-option>
-          <ion-option value="3">3</ion-option>
-        </ion-select>
-      </ion-item>
+                    <div id="name">
+                        {{model.name}}
+                    </div>
 
-      <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
-        {{ 'SETTINGS_PROFILE_BUTTON' | translate }}
-      </button>
-    </ion-list>
+                    <div>
+                        <button id="changeName">
+                            <ion-icon name="create"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
 
-    <ion-list *ngIf="page == 'profile'">
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION4' | translate }}</ion-label>
-        <ion-input formControlName="option4"></ion-input>
-      </ion-item>
-    </ion-list>
-  </form>
 
+            <div id="buttons" padding>
+                <button (click)="logout()">
+                    <ion-icon name="key"></ion-icon>Logout
+                </button>
+                <button (click)="showChangePasswordAlert()">
+                    <ion-icon name="unlock"></ion-icon>
+                    Change Password
+                </button>
+                <button (click)="about()">
+                    <ion-icon name="bulb"></ion-icon>About
+                </button>
+                <button id="del" (click)="showDeleteAccountAlert()">
+                    <ion-icon name="close-circle"></ion-icon>
+                    Delete account
+                </button>
+            </div>
+
+        </ion-list>
+
+    </div>
 </ion-content>

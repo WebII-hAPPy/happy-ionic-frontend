@@ -1,0 +1,54 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Analysis</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="user != null && face != null">
+        <ion-card>
+            <ion-card-header>
+                Hi {{user.name}}!
+            </ion-card-header>
+            <ion-card-content>
+                <p padding>
+                    The robot thought hard and determined that you are a <b>{{face.age}}</b> year old <b>{{face.gender}}</b>.
+                    Suprised yet?!
+                </p>
+                <p *ngIf="face.emotion.smile > 0.5">
+                    Keep on smiling!
+                </p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                Emotions
+            </ion-card-header>
+            <ion-card-content>
+                <canvas width="300" height="300" #doughnutCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                Glasses
+            </ion-card-header>
+            <ion-card-content>
+                <p *ngIf="glasses === 'ReadingGlasses'">
+                    Looks like you are wearing glasses today!
+                </p>
+                <p *ngIf="glasses === 'NoGlasses'">
+                    You don't seem to be one of those nerdy glasses wearer...
+                </p>
+                <p *ngIf="glasses === 'Sunglasses'">
+                    You rock those sunglasses!
+                </p>
+                <p *ngIf="glasses === 'SwimmingGoggles'">
+                    Up for a swim?
+                </p>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

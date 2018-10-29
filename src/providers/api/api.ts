@@ -1,24 +1,27 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-/**
- * Api is a generic REST Api handler. Set your API url first.
- */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
 
-  constructor(public http: HttpClient) {
-  }
+  url: string = 'https://backend.happy-service.ml/';
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
+  constructor(public http: HttpClient) { }
+
+  /**
+   * Standard get request
+   * @param endpoint Name of the endpoint
+   * @param params Request paramters
+   * @param reqOpts Request options
+   */
+  get(endpoint: string, params?: any, reqOpts?: any): Observable<ArrayBuffer> {
     if (!reqOpts) {
       reqOpts = {
         params: new HttpParams()
       };
     }
 
-    // Support easy query params for GET requests
     if (params) {
       reqOpts.params = new HttpParams();
       for (let k in params) {
@@ -26,22 +29,45 @@ export class Api {
       }
     }
 
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    return this.http.get(this.url + endpoint, reqOpts);
   }
 
-  post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+  /**
+   * Standard post request
+   * @param endpoint Name of the endpoint
+   * @param body Body of the request
+   * @param reqOpts Request options
+   */
+  post(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
+    return this.http.post(this.url + endpoint, body, reqOpts);
   }
 
-  put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+  /**
+   * Standard put request
+   * @param endpoint Name of the endpoint
+   * @param body Body of the request
+   * @param reqOpts Request options
+   */
+  put(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
+    return this.http.put(this.url + endpoint, body, reqOpts);
   }
 
-  delete(endpoint: string, reqOpts?: any) {
-    return this.http.delete(this.url + '/' + endpoint, reqOpts);
+  /**
+   * Standard delete request
+   * @param endpoint Name of the endpoint
+   * @param reqOpts Request options
+   */
+  delete(endpoint: string, reqOpts?: any): Observable<ArrayBuffer> {
+    return this.http.delete(this.url + endpoint, reqOpts);
   }
 
-  patch(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
+  /**
+   * Standard patch request
+   * @param endpoint Name of the endpoint
+   * @param body Body of the request
+   * @param reqOpts Request options
+   */
+  patch(endpoint: string, body: any, reqOpts?: any): Observable<ArrayBuffer> {
+    return this.http.patch(this.url + endpoint, body, reqOpts);
   }
 }

@@ -1,84 +1,117 @@
-import 'rxjs/add/operator/toPromise';
+import { Injectable } from "@angular/core";
+import { Storage } from "@ionic/storage";
+import "rxjs/add/operator/toPromise";
+import { Observable } from "rxjs/Observable";
+import { share } from "rxjs/operators";
+import { IAccountInfo } from "../../models/accountinfo";
+import { IUser } from "../../models/user";
+import { Api } from "../api/api";
 
-import { Injectable } from '@angular/core';
-
-import { Api } from '../api/api';
-
-/**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }Ø
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
 @Injectable()
 export class User {
-  _user: any;
+    _user: IUser;
 
-  constructor(public api: Api) { }
+    constructor(public api: Api, private storage: Storage) {}
 
-  /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
-   */
-  login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    /**
+     * Send a POST request to the login endpoint with the data
+     * the user entered on the form.
+     * @param accountInfo Object with IAccountInfo to be loged in.
+     */
+    login(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
+        let seq: Observable<ArrayBuffer> = this.api
+            .post("login", accountInfo)
+            .pipe(share());
 
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      } else {
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
+        seq.subscribe((res: any) => {
+            if (res.data.user) {
+                this._loggedIn(res);
+            }
+        }, (err) => {
+        });
 
-    return seq;
-  }
+        return seq;
+    }
 
-  /**
-   * Send a POST request to our signup endpoint with the data
-   * the user entered on the form.
-   */
-  signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
+    /**
+     * Send a POST request to the registration endpoint with the data
+     * the user entered on the form.
+     * @param accountInfo Object with IAccountInfo to be registered.
+     */
+    register(accountInfo: IAccountInfo): Observable<ArrayBuffer> {
+        let seq: Observable<ArrayBuffer> = this.api
+            .post("register", accountInfo)
+            .pipe(share());
 
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
+        seq.subscribe((res: any) => {
+            if (res.status === "201") {
+                this._loggedIn(res);
+            }
+        });
 
-    return seq;
-  }
+        return seq;
+    }
 
-  /**
-   * Log the user out, which forgets the session
-   */
-  logout() {
-    this._user = null;
-  }
+    /**
+     * Send a PUT request to the update password endpoint with the new
+     * password
+     * @param password new password
+     */
+    async resetPassword(password: string): Promise<Observable<ArrayBuffer>> {
+        const jwt_token = await this.storage.get("jwt_token");
+        const data = {
+            password: password
+        };
+        const seq: Observable<ArrayBuffer> = this.api
+            .put("api/updatePassword", data, {
+                headers: { authorization: jwt_token }
+            })
+            .pipe(share());
 
-  /**
-   * Process a login/signup response to store user data
-   */
-  _loggedIn(resp) {
-    this._user = resp.user;
-  }
+        seq.subscribe((res: any) => {
+            if (res.status === "200") {
+                this._loggedIn(res);
+            }
+        });
+        return seq;
+    }
+
+    /**
+     * Destroys the user object and clears the database.
+     */
+    logout(): void {
+        this._user = null;
+        this.storage.clear();
+    }
+
+    /**
+     * Stores the values of the response to the local user object and stores the jwt token.
+     */
+    _loggedIn(resp): void {
+        this._user = resp.data.user;
+        this.storage.set("jwt_token", resp.data.token);
+    }
+
+    /**
+     * Returns the cached user object.
+     */
+    getUser(): IUser {
+        return this._user;
+    }
+
+    /**
+     * Caches the user.
+     * @param data Sets
+     */
+    setUser(data): void {
+        this._user = data;
+    }
+
+    /**
+     * synchronizes name change with model
+     * @param name new name
+     */
+    setUserName(name: string): void {
+        this._user.name = name;
+    }
 }

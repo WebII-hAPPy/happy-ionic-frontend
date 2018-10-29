@@ -1,0 +1,66 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Stats</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+    <ion-card id="introductionCard" hidden="true">
+        <ion-card-content>
+            <ion-card-title>
+                Your recent results!
+            </ion-card-title>
+            <p>
+                You can find you recent results here.<br>
+                Just take a look and see what you think.<br>
+                If you want to clear your data from our server you can find a button at the bottom of the page.
+            </p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card id="noDataIntroductionCard" hidden="true">
+        <ion-card-content>
+            <ion-card-title>
+                Statistics page.
+            </ion-card-title>
+            <p>
+                You will find you recent results here.<br>
+                This will give you more insight in how your pictures have changed over time and is a fun way to
+                remember your most extreme ones...
+            </p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card id="graphCard" hidden="true">
+        <ion-card-content>
+            <ion-card-title>
+                Graph
+            </ion-card-title>
+            <div class="row">
+                <div class="chart_container">
+                    <canvas baseChart width="400" height="400" id="chartCanvas"></canvas>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card id="noGraphCard" hidden="true">
+        <ion-card-content>
+            <ion-card-title>
+                No data
+            </ion-card-title>
+            <p>There seems to be not enough data yet.<br>
+                Please take a few more pictures and comeback later!</p>
+        </ion-card-content>
+    </ion-card>
+
+    <div class="buttons" padding id="deleteHistoryButton" hidden="true">
+        <button block class="delete" (click)="deleteHistory()">Delete History</button>
+    </div>
+
+</ion-content>

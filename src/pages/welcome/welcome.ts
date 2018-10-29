@@ -1,26 +1,60 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+    IonicPage,
+    NavController,
+    Platform,
+    ToastController
+} from "ionic-angular";
+import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 
-/**
- * The Welcome Page is a splash page that quickly describes the app,
- * and then directs the user to create an account or log in.
- * If you'd like to immediately put the user onto a login/signup page,
- * we recommend not using the Welcome page.
-*/
 @IonicPage()
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html'
+    selector: "page-welcome",
+    templateUrl: "welcome.html"
 })
 export class WelcomePage {
+    exitCounter: number;
 
-  constructor(public navCtrl: NavController) { }
+    constructor(
+        public navCtrl: NavController,
+        private platform: Platform,
+        private toastCtrl: ToastController
+    ) {
+        this.exitCounter = 0;
+        const overwrite: BackButtonOverwrite = new BackButtonOverwrite(
+            this.platform,
+            this.navCtrl,
+            this.toastCtrl
+        );
+        overwrite.overwriteBackButtonToast();
+    }
 
-  login() {
-    this.navCtrl.push('LoginPage');
-  }
+    /**
+     * Navigates the view to the login page.
+     */
+    login(): void {
+        this.navCtrl.push("LoginPage");
+    }
 
-  signup() {
-    this.navCtrl.push('SignupPage');
-  }
+    /**
+     * Navigates the view to the signup page.
+     */
+    register(): void {
+        this.navCtrl.push("RegisterPage");
+    }
+
+    /**
+     * Navigates the view to the about page.
+     */
+    about(): void {
+        this.navCtrl.push("AboutPage");
+    }
+
+    public registerChildNav(nav: any) {
+        // do nothing
+    }
+
+    public unregisterChildNav(nav: any) {
+        // do nothing
+    }
 }

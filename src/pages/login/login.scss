@@ -1,2 +1,55 @@
 page-login {
+    $prim: #fafafa;
+    $sec: #0985e3;
+    $fontcolor: #2b2b2b;
+
+    ion-content {
+        font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+        color: $fontcolor;
+    }
+
+    .list-ios {
+        margin: 0;
+    }
+
+    .list-ios > .item-block:first-child {
+        border-top: 0;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #buttons > button {
+        font-weight: 600;
+        margin: 0 auto;
+        border-radius: 999px;
+        background-color: white;
+        border: 0;
+        padding: 15px 15px;
+        max-width: 80%;
+        color: $fontcolor;
+        width: 100%;
+        font-size: 18px;
+
+        &.login {
+            margin: 30px auto 0;
+            background-color: $sec;
+            box-shadow: 0 0.5rem 1rem rgba(9, 133, 227, 0.25);
+            color: $prim;
+        }
+
+        &.reset {
+            margin: 20px auto 0;
+            box-shadow: none;
+            background: transparent;
+            font-size: 15px;
+            padding: 0;
+        }
+    }
+
+    .login__password-reset {
+        text-align: center;
+    }
 }
