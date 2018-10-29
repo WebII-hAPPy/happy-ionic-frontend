@@ -12,7 +12,8 @@ import { BackButtonOverwrite } from "../../providers/backButton/backButton";
 import {
     global_422Error,
     global_500Error,
-    login_loginErrorString
+    login_loginErrorString,
+    login_passwort_email_Invalid
 } from "../../providers/utils/strings";
 import { PasswordResetEmailPage } from "../password-reset-email/password-reset-email";
 import { PasswordResetPage } from "../password-reset/password-reset";
@@ -69,6 +70,8 @@ export class LoginPage {
                     this.utils.presentToast(global_500Error);
                 } else if (err.status === 422) {
                     this.utils.presentToast(global_422Error);
+                } else if (err.status === 400) {
+                    this.utils.presentToast(login_passwort_email_Invalid);
                 } else {
                     this.utils.presentToast(login_loginErrorString);
                 }
