@@ -5,10 +5,12 @@ This is a project done for the class 'Web-Engineering II' at the DHBW Stuttgart.
 
 ## Table of Contents
 
+
 1. [Getting Started](#getting-started)
 2. [Architecture](#architecture)
 3. [Pages](#pages)
 4. [Providers](#providers)
+5. [Example Screenshots](#examle-screenshots) 
 
 ## <a name="getting-started"></a>Getting Started
 
@@ -123,3 +125,13 @@ All strings are stored and exported here to keep all the others files more tidy.
 #### Utils
 
 This file provides services for navigating and at the same time setting a new root and also one for making toasts easier to display.
+
+## <a name="examle-screenshots"></a>Screenshots
+
+The app looks somewhat like this:
+
+<img src="./readme-res/welcome.png" alt="Welcome" width="300"/>
+
+<img src="./readme-res/mainpage.png" alt="Mainpage" width="300"/>
+
+<img src="./readme-res/stats.png" alt="stats" width="300"/>
