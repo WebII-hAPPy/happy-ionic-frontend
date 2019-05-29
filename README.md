@@ -130,8 +130,8 @@ This file provides services for navigating and at the same time setting a new ro
 
 The app looks somewhat like this:
 
-<img src="./readme-res/welcome.png" alt="Welcome" width="300"/>
+<img src="./readme-res/welcome.PNG" alt="Welcome" width="300"/>
 
-<img src="./readme-res/mainpage.png" alt="Mainpage" width="300"/>
+<img src="./readme-res/mainpage.PNG" alt="Mainpage" width="300"/>
 
-<img src="./readme-res/stats.png" alt="stats" width="300"/>
+<img src="./readme-res/stats.PNG" alt="stats" width="300"/>
